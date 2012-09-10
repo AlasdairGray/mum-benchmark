@@ -1,0 +1,42 @@
+
+           
+                PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+                PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+                PREFIX fish: <http://fishdelish.cs.man.ac.uk/rdf/vocab/resource/>
+                SELECT ?common ?code ?refno
+                ?author  ?demerspelag ?anacat
+                ?family ?order ?class ?entered
+                ?pic ?picid ?description ?refauthor ?refyear
+                ?collaborator  ?comments
+                WHERE {
+                ?x fish:species_Genus "Barbus" .
+                ?x fish:species_SpecCode ?code.
+                ?x fish:species_Species "jacksoni" .
+		        ?x fish:species_Comments ?comments .
+                OPTIONAL {?x fish:species_Author ?author}.
+                OPTIONAL {?x fish:species_FBname ?common}.
+                OPTIONAL {?x fish:species_SpeciesRefNo ?refno}.
+                OPTIONAL {?ref fish:refrens_RefNo ?refno}.
+                OPTIONAL {?ref fish:refrens_Author ?refauthor}.
+                OPTIONAL {?ref fish:refrens_Year ?refyear}.
+                OPTIONAL {?x fish:species_Comments ?biology.}
+                OPTIONAL {
+                ?x fish:species_FamCode ?famcode.
+                ?famcode fish:families_Family ?family.
+                ?famcode fish:families_Order ?order.
+                ?famcode fish:families_Class ?class.
+                }
+                OPTIONAL {?morph fish:morphdat_Speccode ?x.
+                ?morph fish:morphdat_AddChars ?description.}
+                OPTIONAL {?x fish:species_DemersPelag ?demerspelag.}
+                OPTIONAL {?x fish:species_AnaCat ?anacat.}
+                OPTIONAL {?x fish:species_PicPreferredName ?pic.
+                ?pic_node fish:picturesmain_SpecCode ?x.
+                ?pic_node fish:picturesmain_PicName ?pic.
+                ?pic_node fish:picturesmain_autoctr ?picid.
+                ?pic_node fish:picturesmain_Entered ?entered.
+                ?pic_node fish:picturesmain_AuthName ?collaborator.
+                }
+                }
+            
+        

@@ -1,0 +1,143 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<bsbm lang="sparql" start="2012.09.08.212542" end="2012.09.08.212548">
+  <querymix>
+     <warmups>2</warmups>
+     <seed>808080</seed>
+     <querymixruns>2</querymixruns>
+     <minquerymixruntime>1.7302</minquerymixruntime>
+     <maxquerymixruntime>2.0243</maxquerymixruntime>
+     <totalruntime>3.755</totalruntime>
+     <qmph>1917.70</qmph>
+     <cqet>1.87725</cqet>
+     <cqetg>1.87149</cqetg>
+  </querymix>
+  <queries>
+    <query nr="1">
+      <querystring><![CDATA[
+
+             
+               PREFIX fd: <http://fishdelish.cs.man.ac.uk/rdf/vocab/resource/>
+               SELECT ?type ?species ?genus ?country ?language
+               WHERE {
+               ?nameID fd:comnames_ComName "Silky shark" .
+               ?nameID fd:comnames_NameType ?type .
+               ?nameID fd:comnames_SpecCode ?code .
+               ?nameID fd:comnames_C_Code ?ccode .
+               ?code fd:species_Species ?species .
+               ?code fd:species_Genus ?genus .
+               ?ccode fd:countref_PAESE ?country .
+		        }
+           
+        
+
+       ]]>
+      </querystring>
+      <executecount>4</executecount>
+      <aqet>0.058619</aqet>
+      <aqetg>0.056452</aqetg>
+      <qps>17.06</qps>
+      <minqet>0.03863100</minqet>
+      <maxqet>0.07733800</maxqet>
+      <avgresults>11.00</avgresults>
+      <minresults>11</minresults>
+      <maxresults>11</maxresults>
+      <timeoutcount>0</timeoutcount>
+    </query>
+    <query nr="2">
+      <querystring><![CDATA[
+
+           
+                PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+                PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+                PREFIX fish: <http://fishdelish.cs.man.ac.uk/rdf/vocab/resource/>
+                SELECT ?common ?code ?refno
+                ?author  ?demerspelag ?anacat
+                ?family ?order ?class ?entered
+                ?pic ?picid ?description ?refauthor ?refyear
+                ?collaborator  ?comments
+                WHERE {
+                ?x fish:species_Genus "Barbus" .
+                ?x fish:species_SpecCode ?code.
+                ?x fish:species_Species "jacksoni" .
+		        ?x fish:species_Comments ?comments .
+                OPTIONAL {?x fish:species_Author ?author}.
+                OPTIONAL {?x fish:species_FBname ?common}.
+                OPTIONAL {?x fish:species_SpeciesRefNo ?refno}.
+                OPTIONAL {?ref fish:refrens_RefNo ?refno}.
+                OPTIONAL {?ref fish:refrens_Author ?refauthor}.
+                OPTIONAL {?ref fish:refrens_Year ?refyear}.
+                OPTIONAL {?x fish:species_Comments ?biology.}
+                OPTIONAL {
+                ?x fish:species_FamCode ?famcode.
+                ?famcode fish:families_Family ?family.
+                ?famcode fish:families_Order ?order.
+                ?famcode fish:families_Class ?class.
+                }
+                OPTIONAL {?morph fish:morphdat_Speccode ?x.
+                ?morph fish:morphdat_AddChars ?description.}
+                OPTIONAL {?x fish:species_DemersPelag ?demerspelag.}
+                OPTIONAL {?x fish:species_AnaCat ?anacat.}
+                OPTIONAL {?x fish:species_PicPreferredName ?pic.
+                ?pic_node fish:picturesmain_SpecCode ?x.
+                ?pic_node fish:picturesmain_PicName ?pic.
+                ?pic_node fish:picturesmain_autoctr ?picid.
+                ?pic_node fish:picturesmain_Entered ?entered.
+                ?pic_node fish:picturesmain_AuthName ?collaborator.
+                }
+                }
+            
+        
+
+       ]]>
+      </querystring>
+      <executecount>2</executecount>
+      <aqet>1.566163</aqet>
+      <aqetg>1.561157</aqetg>
+      <qps>0.64</qps>
+      <minqet>1.44104500</minqet>
+      <maxqet>1.69128100</maxqet>
+      <avgresults>0.00</avgresults>
+      <minresults>0</minresults>
+      <maxresults>0</maxresults>
+      <timeoutcount>0</timeoutcount>
+    </query>
+    <query nr="3">
+      <querystring><![CDATA[
+
+            
+                                    PREFIX fd: <http://fishdelish.cs.man.ac.uk/rdf/vocab/resource/>
+                                    SELECT  ?freshwater ?marine ?brackish ?occurrence ?factbook
+                                    WHERE {
+                                    ?c fd:country_SpecCode ?x.
+                                    ?c fd:country_Freshwater ?freshwater .
+                                    ?c fd:country_Brackish ?brackish .
+                                    ?c fd:country_Saltwater ?marine .
+                                    ?c fd:country_Status ?occurrence .
+                                    ?c fd:country_C_Code ?cf .
+                                    ?x fd:species_Genus "Pseudaesopia" .
+                                    ?x fd:species_Species "japonica" .
+                                    ?x fd:species_FamCode ?f .
+                                    ?f fd:families_Family  ?family .
+                                    ?f fd:families_Order ?order .
+                                    ?cf fd:countref_PAESE "Greenland" .
+                                    ?cf fd:countref_Factbook ?factbook .
+                                    }
+                        
+
+        
+
+       ]]>
+      </querystring>
+      <executecount>4</executecount>
+      <aqet>0.096926</aqet>
+      <aqetg>0.096603</aqetg>
+      <qps>10.32</qps>
+      <minqet>0.09034400</minqet>
+      <maxqet>0.11013300</maxqet>
+      <avgresults>0.00</avgresults>
+      <minresults>0</minresults>
+      <maxresults>0</maxresults>
+      <timeoutcount>0</timeoutcount>
+    </query>
+  </queries>
+</bsbm>

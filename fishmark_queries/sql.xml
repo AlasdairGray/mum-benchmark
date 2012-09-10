@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<queries>
+
+    <query id="commonname">
+        <paramquery>
+            SELECT comnames.Language, species.Species, comnames.NameType, species.Genus
+            FROM comnames, species, countref
+            WHERE comnames.SpecCode=species.SpecCode AND comnames.C_Code=countref.C_Code AND
+            comnames.ComName="%ComName%"
+        </paramquery>
+        <parameter>
+            <paramname>ComName</paramname>
+            <paramvaluesquery>
+                SELECT comnames.ComName FROM comnames WHERE comnames.Language='English'
+            </paramvaluesquery>
+        </parameter>
+    </query>
+
+    <query id="speciespage">
+        <paramquery>
+            SELECT species.SpecCode, species.Author, species.FBname, refrens.Author,
+            refrens.Year, species.Comments, families.Family, families.FamilyOrder,
+            families.Class, morphdat.AddChars, species.DemersPelag, species.SpeciesRefNo,
+            species.AnaCat, species.PicPreferredName, picturesmain.autoctr, picturesmain.PicName, picturesmain.Entered,
+            picturesmain.AuthName
+            FROM species, refrens, morphdat, families, picturesmain
+            WHERE species.SpeciesRefNo=refrens.RefNo AND species.SpecCode=morphdat.SpecCode AND
+            species.FamCode=families.FamCode AND
+            species.SpecCode =picturesmain.SpecCode AND (species.Genus="%Genus%" AND species.Species="%Species%")
+        </paramquery>
+        <parameter>
+            <paramname>Genus</paramname>
+            <paramname>Species</paramname>
+            <paramvaluesquery>
+                SELECT species.Genus, species.Species FROM species
+            </paramvaluesquery>
+        </parameter>
+    </query>
+
+
+    <query id="countryspeciesinformation">
+        <paramquery>
+            SELECT country.Status, country.Freshwater, country.Saltwater, country.Brackish, countref.Factbook
+            FROM country, countref, species
+            WHERE country.C_Code=countref.C_Code AND country.SpecCode=species.SpecCode AND species.Genus="%Genus%" AND
+            species.Species="%Species%" AND countref.PAESE="%country%"
+        </paramquery>
+        <parameter>
+            <paramname>country</paramname>
+            <paramvaluesquery>
+                SELECT countref.PAESE AS country FROM countref
+            </paramvaluesquery>
+        </parameter>
+        <parameter>
+            <paramname>Genus</paramname>
+            <paramname>Species</paramname>
+            <paramvaluesquery>
+                SELECT species.Genus AS genus, species.Species AS species FROM species
+            </paramvaluesquery>
+        </parameter>
+    </query>
+
+</queries>
