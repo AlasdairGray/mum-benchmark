@@ -1,0 +1,6 @@
+
+            SELECT comnames.Language, species.Species, comnames.NameType, species.Genus
+            FROM comnames, species, countref
+            WHERE comnames.SpecCode=species.SpecCode AND comnames.C_Code=countref.C_Code AND
+            comnames.ComName="Large-bodied silver-biddy"
+        
