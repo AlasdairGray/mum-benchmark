@@ -1,0 +1,65 @@
+<?xml version="1.0"?>
+<project name="mum-benchmark" default="jar" basedir=".">
+
+    <!-- Enviroment -->
+    <property environment="env"/>
+
+    <!-- Global Properties -->
+
+    <property name="build" value="build"/>
+    <property name="project.name" value="mum-benchmark"/>
+    <property name="project.version" value="1.0"/>
+
+    <property name="src" location="src"/>
+    <property name="lib" location="lib"/>
+    <property name="runner" value="RunBenchmark"/>
+
+
+    <path id="project.class.path">
+        <fileset dir="lib">
+            <include name="*.jar"/>
+        </fileset>
+    </path>
+
+    <target name="compile" description="Compile source files" depends="clean">
+        <mkdir dir="${build}"/>
+        <javac srcdir="${src}" destdir="${build}" debug="yes" deprecation="yes">
+            <classpath refid="project.class.path"/>
+        </javac>
+
+        <copy todir="${build}">
+            <fileset dir="${src}">
+                <exclude name="**/*.java"/>
+            </fileset>
+        </copy>
+
+    </target>
+
+
+    <target name="jar" depends="compile">
+
+        <pathconvert dirsep="/" pathsep=" " property="Class-Path">
+            <map from="${lib}/" to="./lib/"/>
+            <map from="${lib}\" to="./lib/"/>
+            <path>
+                <fileset dir="lib">
+                    <include name="*.jar"/>
+                </fileset>
+            </path>
+        </pathconvert>
+
+        <jar jarfile="${project.name}.jar" basedir="${build}">
+            <manifest>
+                <attribute name="Class-Path" value="${Class-Path}"/>
+                <attribute name="Main-Class" value="${runner}"/>
+            </manifest>
+        </jar>
+
+    </target>
+
+
+    <target name="clean" description="Cleaning up build files...">
+        <delete dir="${build}"/>
+    </target>
+
+</project>
