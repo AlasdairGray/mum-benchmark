@@ -6,13 +6,13 @@ import java.io.OutputStream;
 import java.io.UnsupportedEncodingException;
 import java.net.*;
 
-public class FishNetQuery {
+public class NetQuery {
     HttpURLConnection conn;
     Long start;
     Long end;
     String queryString;
 
-    protected FishNetQuery(String serviceURL, String query, byte queryType, String defaultGraph, int timeout) {
+    protected NetQuery(String serviceURL, String query, byte queryType, String defaultGraph, int timeout) {
         String urlString = null;
         try {
             queryString = query;
