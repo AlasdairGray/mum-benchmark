@@ -43,7 +43,7 @@ public class ObdaConnection implements ServerConnection {
     private QuestOWL reasoner;
 
     //initialize the data factory:
-    OBDADataFactory obdaDataFactory = OBDADataFactoryImpl.getInstance();
+    protected OBDADataFactory obdaDataFactory = OBDADataFactoryImpl.getInstance();
 
     private static Logger logger = Logger.getLogger(ObdaConnection.class);
 
