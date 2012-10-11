@@ -4,7 +4,6 @@ import org.apache.log4j.Level;
 import org.apache.log4j.Logger;
 import org.jdom.*;
 import org.jdom.input.SAXBuilder;
-import org.jdom.output.XMLOutputter;
 import org.xml.sax.Attributes;
 import org.xml.sax.helpers.DefaultHandler;
 
@@ -62,11 +61,11 @@ public class SparqlConnection implements ServerConnection {
     private void executeQuery(String queryString, byte queryType, int queryNr, QueryMix queryMix) {
         double timeInSeconds;
 
-        FishNetQuery qe;
+        NetQuery qe;
         if (queryType == Query.UPDATE_TYPE)
-            qe = new FishNetQuery(updateServiceURL, queryString, queryType, defaultGraph, timeout);
+            qe = new NetQuery(updateServiceURL, queryString, queryType, defaultGraph, timeout);
         else
-            qe = new FishNetQuery(serviceURL, queryString, queryType, defaultGraph, timeout);
+            qe = new NetQuery(serviceURL, queryString, queryType, defaultGraph, timeout);
         int queryMixRun = queryMix.getRun() + 1;
 
         InputStream is = qe.exec();
@@ -358,8 +357,8 @@ public class SparqlConnection implements ServerConnection {
     }
 
     public Document executeSimpleQuery(String queryString) {
-        FishNetQuery qe;
-        qe = new FishNetQuery(serviceURL, queryString, Query.SELECT_TYPE, defaultGraph, timeout);
+        NetQuery qe;
+        qe = new NetQuery(serviceURL, queryString, Query.SELECT_TYPE, defaultGraph, timeout);
         InputStream is = qe.exec();
         Document doc = getXMLDocument(is);
         return doc;

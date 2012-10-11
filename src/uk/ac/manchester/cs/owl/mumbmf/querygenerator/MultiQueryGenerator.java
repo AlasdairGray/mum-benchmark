@@ -158,9 +158,7 @@ public class MultiQueryGenerator {
 
 //                    the query to obtain the parameters
                     String paramQueryString = paramQueryNodes.item(0).getTextContent();
-
                     addRandomParamValuesToParamMap(paramMap, paramNames, paramQueryString);
-
                     allParamValueMaps.add(paramMap);
                 }
 
