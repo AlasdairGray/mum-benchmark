@@ -24,6 +24,9 @@ import java.util.Map;
  * The University of Manchester
  */
 
+/*
+ * TODO: I've just copied this class in from the old project, i.e. it needs fixing to work with the new project
+ */
 
 public class MultiQueryGenerator {
 
