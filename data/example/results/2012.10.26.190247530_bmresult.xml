@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<bsbm lang="sql" start="2012.10.26.190247530" end="2012.10.26.190247610">
+  <querymix>
+     <warmups>2</warmups>
+     <seed>808080</seed>
+     <querymixruns>2</querymixruns>
+     <minquerymixruntime>0.0046</minquerymixruntime>
+     <maxquerymixruntime>0.0046</maxquerymixruntime>
+     <totalruntime>0.009</totalruntime>
+     <qmph>776531.49</qmph>
+     <cqet>0.00464</cqet>
+     <cqetg>0.00464</cqetg>
+  </querymix>
+  <queries>
+    <query nr="1">
+      <querystring><![CDATA[
+
+            SELECT comnames.Language, species.Species, comnames.NameType, species.Genus
+            FROM comnames, species, countref
+            WHERE comnames.SpecCode=species.SpecCode AND comnames.C_Code=countref.C_Code AND
+            comnames.ComName="Whitestar cardinalfish"
+        
+
+       ]]>
+      </querystring>
+      <executecount>2</executecount>
+      <aqet>0.001197</aqet>
+      <aqetg>0.001196</aqetg>
+      <qps>835.77</qps>
+      <minqet>0.00119400</minqet>
+      <maxqet>0.00119900</maxqet>
+      <avgresults>3.00</avgresults>
+      <minresults>3</minresults>
+      <maxresults>3</maxresults>
+      <timeoutcount>0</timeoutcount>
+    </query>
+    <query nr="2">
+      <querystring><![CDATA[
+
+            SELECT species.SpecCode, species.Author, species.FBname, refrens.Author,
+            refrens.Year, species.Comments, families.Family, families.FamilyOrder,
+            families.Class, morphdat.AddChars, species.DemersPelag, species.SpeciesRefNo,
+            species.AnaCat, species.PicPreferredName, picturesmain.autoctr, picturesmain.PicName, picturesmain.Entered,
+            picturesmain.AuthName
+            FROM species, refrens, morphdat, families, picturesmain
+            WHERE species.SpeciesRefNo=refrens.RefNo AND species.SpecCode=morphdat.SpecCode AND
+            species.FamCode=families.FamCode AND
+            species.SpecCode =picturesmain.SpecCode AND (species.Genus="Sternarchorhynchus" AND species.Species="retzeri")
+        
+
+       ]]>
+      </querystring>
+      <executecount>2</executecount>
+      <aqet>0.001802</aqet>
+      <aqetg>0.001800</aqetg>
+      <qps>554.79</qps>
+      <minqet>0.00171500</minqet>
+      <maxqet>0.00189000</maxqet>
+      <avgresults>0.00</avgresults>
+      <minresults>0</minresults>
+      <maxresults>0</maxresults>
+      <timeoutcount>0</timeoutcount>
+    </query>
+    <query nr="3">
+      <querystring><![CDATA[
+
+            SELECT country.Status, country.Freshwater, country.Saltwater, country.Brackish, countref.Factbook
+            FROM country, countref, species
+            WHERE country.C_Code=countref.C_Code AND country.SpecCode=species.SpecCode AND species.Genus="Pseudocoris" AND
+            species.Species="bleekeri" AND countref.PAESE="Bahrain"
+        
+
+       ]]>
+      </querystring>
+      <executecount>2</executecount>
+      <aqet>0.001637</aqet>
+      <aqetg>0.001634</aqetg>
+      <qps>610.87</qps>
+      <minqet>0.00154300</minqet>
+      <maxqet>0.00173100</maxqet>
+      <avgresults>0.00</avgresults>
+      <minresults>0</minresults>
+      <maxresults>0</maxresults>
+      <timeoutcount>0</timeoutcount>
+    </query>
+  </queries>
+</bsbm>

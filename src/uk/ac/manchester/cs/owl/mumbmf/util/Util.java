@@ -48,7 +48,7 @@ public class Util {
          * @return current timestamp in filename-friendly format
          */
         Calendar cal = Calendar.getInstance();
-        SimpleDateFormat sdf = new SimpleDateFormat("yyyy.MM.dd.HHmmss");
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy.MM.dd.HHmmssSS");
         return sdf.format(cal.getTime());
 
     }

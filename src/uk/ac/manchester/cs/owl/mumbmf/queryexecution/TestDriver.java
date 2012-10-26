@@ -30,6 +30,8 @@ public class TestDriver {
     protected int nrRuns = TestDriverDefaultValues.nrRuns;
     protected long seed = TestDriverDefaultValues.seed;// For the random number generators
 
+    protected String resultOutputDir = TestDriverDefaultValues.resultOutputDir;
+
 
     protected String sparqlEndpoint = null;
     protected String sparqlUpdateEndpoint = null;
@@ -113,8 +115,7 @@ public class TestDriver {
             while ((line = reader.readLine()) != null) {
                 String[] querymixInfo = line.split("=");
                 if (querymixInfo.length != 2) {
-                    System.err.println("Invalid entry in use case file "
-                            + usecaseFile + ":\n");
+                    System.err.println("Invalid entry in use case file " + usecaseFile + ":\n");
                     System.err.println(line);
                     System.exit(-1);
                 }
@@ -313,7 +314,7 @@ public class TestDriver {
      * @return
      */
     private Integer[] getQueryMixInfo(File file) {
-        System.out.println("Reading query mix file: " + file);
+        System.out.println("Reading query mix file: " + file.getAbsolutePath());
         ArrayList<Integer> qm = new ArrayList<Integer>();
 
         try {
@@ -450,9 +451,9 @@ public class TestDriver {
 
         try {
             bmEnd = Util.getTimeStamp();
-            File resultOut = new File("results");
+            File resultOut = new File(resultOutputDir);
             resultOut.mkdirs();
-            String timeStampedResultFile = "results/" + bmStart + "_" + xmlResultFileExtension;
+            String timeStampedResultFile = resultOutputDir + "/" + bmStart + "_" + xmlResultFileExtension;
             FileWriter resultWriter = new FileWriter(timeStampedResultFile);
             resultWriter.append(printXMLResults(true));
             resultWriter.flush();
@@ -929,7 +930,7 @@ public class TestDriver {
                 } else if (args[i].equals("-w")) {
                     warmups = Integer.parseInt(args[i++ + 1]);
                 } else if (args[i].equals("-o")) {
-                    xmlResultFileExtension = args[i++ + 1];
+                    resultOutputDir = args[i++ + 1];
                 } else if (args[i].equals("-dg")) {
                     defaultGraph = args[i++ + 1];
                 } else if (args[i].equals("-sql")) {

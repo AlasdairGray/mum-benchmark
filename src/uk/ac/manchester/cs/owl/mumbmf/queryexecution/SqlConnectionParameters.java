@@ -14,7 +14,7 @@ public class SqlConnectionParameters {
     public String dbServer;
     public String dbLogin;
     public String dbPassword;
-    public String dbDriver;
+    public String dbDriver = "com.mysql.jdbc.Driver";
 
     public SqlConnectionParameters() {
 

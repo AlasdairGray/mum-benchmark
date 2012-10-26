@@ -1,1 +1,1 @@
-querymix=testqueries/sparql/
+querymix=data/example/queries/sparql/

@@ -361,9 +361,13 @@ public class SparqlConnection implements ServerConnection {
         qe = new NetQuery(serviceURL, queryString, Query.SELECT_TYPE, defaultGraph, timeout);
         InputStream is = qe.exec();
         Document doc = getXMLDocument(is);
+        try {
+            is.close();
+            qe.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
         return doc;
-
-//        return is;
 
     }
 }
