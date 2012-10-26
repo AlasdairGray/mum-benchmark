@@ -114,6 +114,5 @@ public class NetQuery {
 
     protected void close() {
         conn.disconnect();
-        conn = null;
     }
 }

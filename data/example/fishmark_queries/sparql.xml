@@ -34,38 +34,45 @@
                         SELECT ?code
                         WHERE {
                         ?collaborator fd:collaborators_Personnel ?code .
-                        }
+                        } LIMIT 5
                     ]]>
             </paramvaluesquery>
         </parameter>
     </query>
 
- <query id="commonname">
+
+    <query id="collaboratorpage">
         <paramquery>
-             <![CDATA[
-               PREFIX fd: <http://fishdelish.cs.man.ac.uk/rdf/vocab/resource/>
-               SELECT ?type ?species ?genus ?country
-               WHERE {
-               ?nameID fd:comnames_ComName "%comname%" .
-               ?nameID fd:comnames_NameType ?type .
-               ?nameID fd:comnames_SpecCode ?code .
-               ?nameID fd:comnames_C_Code ?ccode .
-               ?code fd:species_Species ?species .
-               ?code fd:species_Genus ?genus .
-               ?ccode fd:countref_PAESE ?country .
-		        }
-           ]]>
+            <![CDATA[
+                PREFIX fd: <http://fishdelish.cs.man.ac.uk/rdf/vocab/resource/>
+                SELECT ?prename ?surname  ?email ?photo ?webpage ?fax ?institute ?street ?city ?country ?comments ?keywords ?year
+                WHERE {
+                     ?x fd:collaborators_Personnel "%code%" .
+                     OPTIONAL {?x fd:collaborators_Prename ?prename }.
+                     OPTIONAL {?x fd:collaborators_Surname ?surname }.
+                     OPTIONAL {?x fd:collaborators_E-mail ?email }.
+                     OPTIONAL {?x fd:collaborators_StaffPhoto ?photo }.
+                     OPTIONAL {?x fd:collaborators_WebPage ?webpage }.
+                     OPTIONAL {?x fd:collaborators_FAX ?fax }.
+                     OPTIONAL {?x fd:collaborators_Institute ?institute }.
+                     OPTIONAL {?x fd:collaborators_Street ?street }.
+                     OPTIONAL {?x fd:collaborators_City ?city }.
+                     OPTIONAL {?x fd:collaborators_Country ?country }.
+                     OPTIONAL {?x fd:collaborators_Comments ?comments }.
+                     OPTIONAL {?x fd:collaborators_Keywords ?keywords }.
+                     OPTIONAL {?x fd:collaborators_Year ?year }.
+                }
+            ]]>
         </paramquery>
         <parameter>
-            <paramname>comname</paramname>
+            <paramname>code</paramname>
             <paramvaluesquery>
                     <![CDATA[
                         PREFIX fd: <http://fishdelish.cs.man.ac.uk/rdf/vocab/resource/>
-                        SELECT ?comname
+                        SELECT ?code
                         WHERE {
-                        ?nameID fd:comnames_ComName ?comname .
-                        ?nameID fd:comnames_Language "English" .
-                        }
+                        ?collaborator fd:collaborators_Personnel ?code .
+                        } LIMIT 5
                     ]]>
             </paramvaluesquery>
         </parameter>
