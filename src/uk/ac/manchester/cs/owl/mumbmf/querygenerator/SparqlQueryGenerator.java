@@ -52,6 +52,8 @@ public class SparqlQueryGenerator extends QueryGenerator {
             e.printStackTrace();
         }
 
+
+        System.out.println(queryResult.toString());
         Node record = getRandomRecord(queryResult);
 
         for (int i = 0; i < paramNames.getLength(); i++) {
@@ -98,9 +100,22 @@ public class SparqlQueryGenerator extends QueryGenerator {
                 if (n.getNodeName().equals("binding")) {
                     Attr att = (Attr) n.getAttributes().getNamedItem("name");
 
+//                    if (att.getValue().equals(paramName)) {
+//                        return n.getFirstChild().getTextContent();
+//                    }
                     if (att.getValue().equals(paramName)) {
+                        for (int j = 0; j < n.getChildNodes().getLength(); j++) {
+                            Node node = n.getChildNodes().item(j);
+//                              printNode(node, 0);
+                            if (!node.getTextContent().trim().equals("")) {
+//                                      System.out.println("Value: " + node.getTextContent());
+                                return node.getTextContent();
+                            }
+                        }
                         return n.getFirstChild().getTextContent();
                     }
+
+
                 }
             }
         } catch (Exception e) {

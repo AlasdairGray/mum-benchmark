@@ -47,7 +47,7 @@ public class NetQuery {
     }
 
     private void configureConnection(String query, byte queryType, int timeout, String defaultGraph)
-            throws ProtocolException, IOException {
+            throws IOException {
         if (queryType == Query.UPDATE_TYPE)
             conn.setRequestMethod("POST");
         else

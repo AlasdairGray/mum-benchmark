@@ -19,7 +19,9 @@ public class TestDriverDefaultValues {
     public static String defaultGraph = null;
 
     // file extension for the result files
-    public static String resultFileExtension = "benchmark_result.xml";
+    public static String resultFileExtension = "bmresult.xml";
+
+    public static String resultOutputDir = "results";
 
     // default timeout
     public static int timeoutInMs = 0;
@@ -30,7 +32,7 @@ public class TestDriverDefaultValues {
     // default fetch size
     public static int fetchSize = 100;
 
-// TODO: are these needed?
+    // TODO: are these needed?
     public static File usecaseFile = new File("");
     public static boolean qualification = false;
     public static String qualificationFile = "run.qual";

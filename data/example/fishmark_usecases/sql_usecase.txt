@@ -1,1 +1,1 @@
-querymix=testqueries/sql/
+querymix=data/example/queries/sql/
