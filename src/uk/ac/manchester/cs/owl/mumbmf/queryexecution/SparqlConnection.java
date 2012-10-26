@@ -298,10 +298,7 @@ public class SparqlConnection implements ServerConnection {
         Document doc = null;
         try {
             doc = builder.build(is);
-        } catch (JDOMException e) {
-            e.printStackTrace();
-            System.exit(-1);
-        } catch (IOException e) {
+        } catch (Exception e) {
             e.printStackTrace();
             System.exit(-1);
         }
@@ -362,8 +359,8 @@ public class SparqlConnection implements ServerConnection {
         InputStream is = qe.exec();
         Document doc = getXMLDocument(is);
         try {
-            is.close();
             qe.close();
+            is.close();
         } catch (IOException e) {
             e.printStackTrace();
         }

@@ -107,7 +107,7 @@ public class RunBenchmark {
 
             for (int j = 0; j < querySets; j++) {
                 runQueryGeneration(genargs);
-                runBenchmark(bmargs);
+//                runBenchmark(bmargs);
             }
 
 
