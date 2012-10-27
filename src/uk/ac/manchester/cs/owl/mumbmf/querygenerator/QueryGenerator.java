@@ -26,6 +26,7 @@ public abstract class QueryGenerator {
     protected String currentQueryName = "";
     protected int queryCount = 1;
     protected String outputDir = "";
+    protected String queryType = "";
 
 
     /**
@@ -129,7 +130,7 @@ public abstract class QueryGenerator {
      * @param paramMap           the map containing parameters + values
      * @return a query string
      */
-    protected String substituteQueryParameters(String parameterisedQuery, Map<String, String> paramMap) {
+    public static String substituteQueryParameters(String parameterisedQuery, Map<String, String> paramMap) {
         StringBuilder sb = new StringBuilder(parameterisedQuery);
         String completeQuery = sb.toString();
         for (Map.Entry<String, String> entry : paramMap.entrySet()) {

@@ -36,10 +36,14 @@ public class Util {
             }
             in.close();
             out.close();
-        } catch (FileNotFoundException ex) {
-            System.out.println(ex.getMessage() + " in the specified directory.");
+        } catch (FileNotFoundException e) {
+            System.err.println(e.getMessage());
+            System.err.println("source: " + sourceFile.getAbsolutePath());
+            System.err.println("target: " + targetFile.getAbsolutePath());
         } catch (IOException e) {
-            System.out.println(e.getMessage());
+            System.err.println(e.getMessage());
+            System.err.println("source: " + sourceFile.getAbsolutePath());
+            System.err.println("target: " + targetFile.getAbsolutePath());
         }
     }
 

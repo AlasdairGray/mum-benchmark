@@ -1,16 +1,16 @@
 package uk.ac.manchester.cs.owl.mumbmf;
 
-import uk.ac.manchester.cs.owl.mumbmf.queryexecution.SqlConnection;
+import uk.ac.manchester.cs.owl.mumbmf.queryexecution.ObdaConnectionParameters;
+import uk.ac.manchester.cs.owl.mumbmf.queryexecution.SparqlConnectionParameters;
 import uk.ac.manchester.cs.owl.mumbmf.queryexecution.SqlConnectionParameters;
 import uk.ac.manchester.cs.owl.mumbmf.queryexecution.TestDriver;
 import uk.ac.manchester.cs.owl.mumbmf.querygenerator.*;
 
 import java.io.BufferedReader;
-import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * Created by
@@ -20,43 +20,87 @@ import java.util.List;
  * The University of Manchester
  */
 
-//   PARAMETERS FOR THE TESTDIVER
-//
-// -runs <number of runs>
-//The number of query mix runs. Default: 50
-// -idir <directory>
-//The input parameter directory which was created by the Data Generator. Default: "td_data"
-//-ucf <path to use case file>
-//Specifies the use case, which in turn defines the combination of queries from one or more query mixes. Different use cases are found under the "usecase" directory.
-// -w <number of warm up runs>	 Number of runs executed before the actual test to warm up the store. Default: 10
-//-o <result XML file> 	 The output file containing the aggregated result overview. Default: "benchmark_result.xml"
-//-dg <default graph URI> 	 Specify a default graph for the queries. Default: null
-//-mt <number of clients>	 Benchmark with multiple concurrent clients.
-//-sql
-//Use JDBC connection to a RDBMS. Instead of a SPARQL-Endpoint, the test driver needs a JDBC URL as argument.
-//default: not set
-//-dbdriver <DB-Driver Class Name>
-//default: com.mysql.jdbc.Driver
-//-seed <Long value>	 Set the seed for the random number generator used for the parameter generation.
-//-t <Timeout in ms>	 If for a specific query the complete result is not read after the specified timeout, the client disconnects and reports a timeout to the Test Driver. This is also the maximum runtime a query can contribute to the metrics.
-//-q	Turn on qualification mode. For more information, see the qualification chapter of the use case.
-//-qf <qualification file name>	Change the qualification file name, also see the qualification chapter of the use case.
-//-rampup
-//Run test driver in ramp-up/warm-up mode. The test driver will execute randomized queries until it is stopped - ideally when the store reached steady state and is not improving any more.
-//-u <Service endpoint URI for SPARQL Update>
-//If you are running update queries in your tests this option defines where the SPARQL update service endpoint can be found.
-//-udataset <file name>
-//The file name of the update dataset.
-//-uqp <update query parameter>
-//The forms parameter name for the SPARQL Update query string.
-//Default: update
+public class RunBenchmarkUI {
 
-public class RunBenchmark {
 
+    public static void multiQueryGeneration(String[] params) {
+
+        String seedType = "";  // mandatory
+        String queryOutputDir = "";
+        String obdaTemplate = "";
+        String sparqlTemplate = "";
+        String sqlTemplate = "";
+        String qmFile = "";
+        String ignoreFile = "";
+
+        // one set of connection parameters is required
+        SqlConnectionParameters sqlConn = new SqlConnectionParameters();
+        SparqlConnectionParameters sparqlConn = new SparqlConnectionParameters();
+        ObdaConnectionParameters obdaConn = new ObdaConnectionParameters();
+
+        int i = 0;
+        while (i < params.length) {
+            if (params[i].equals("-seedtype")) {
+                seedType = params[i++ + 1];
+            } else if (params[i].equals("-output")) {
+                queryOutputDir = params[i++ + 1];
+            } else if (params[i].equals("-dbdriver")) {
+                sqlConn.dbDriver = params[i++ + 1];
+            } else if (params[i].equals("-dbserver")) {
+                sqlConn.dbServer = params[i++ + 1];
+            } else if (params[i].equals("-dblogin")) {
+                sqlConn.dbLogin = params[i++ + 1];
+            } else if (params[i].equals("-dbpw")) {
+                sqlConn.dbPassword = params[i++ + 1];
+            } else if (params[i].equals("-obdafile")) {
+                obdaConn.obdaFile = params[i++ + 1];
+            } else if (params[i].equals("-owlfile")) {
+                obdaConn.owlFile = params[i++ + 1];
+            } else if (params[i].equals("-sparqlendpoint")) {
+                sparqlConn.sparqlEndpoint = params[i++ + 1];
+            } else if (params[i].equals("-sql")) {
+                sqlTemplate = params[i++ + 1];
+            } else if (params[i].equals("-sparql")) {
+                sparqlTemplate = params[i++ + 1];
+            } else if (params[i].equals("-obda")) {
+                obdaTemplate = params[i++ + 1];
+            } else if (params[i].equals("-qmfile")) {
+                qmFile = params[i++ + 1];
+            } else if (params[i].equals("-igfile")) {
+                ignoreFile = params[i++ + 1];
+            }
+            i++;
+        }
+
+//        if no connection parameters are given, exit
+        if (sqlConn.dbServer.equals("") && sparqlConn.sparqlEndpoint.equals("") && obdaConn.obdaFile.equals("")) {
+            printUsage();
+            System.exit(1);
+        }
+
+//        add all template files to a map
+        Map<String, String> queryTemplates = new HashMap<String, String>();
+        queryTemplates.put("obda", obdaTemplate);
+        queryTemplates.put("sql", sqlTemplate);
+        queryTemplates.put("sparql", sparqlTemplate);
+
+        QueryGenerator qg = null;
+        if (seedType.equals("obda")) {
+            qg = new ObdaQueryGenerator(obdaConn.owlFile, obdaConn.obdaFile, queryOutputDir);
+        } else if (seedType.equals("sql")) {
+            qg = new SqlQueryGenerator(sqlConn, queryOutputDir);
+        } else if (seedType.equals("sparql")) {
+            qg = new SparqlQueryGenerator(sparqlConn.sparqlEndpoint, queryOutputDir);
+        }
+
+        MultiQueryGenerator gen = new MultiQueryGenerator(seedType, queryTemplates, qg, queryOutputDir);
+        gen.generateMultipleQueryTypes(qmFile, ignoreFile);
+
+    }
 
     public static void main(String[] args) throws Exception {
         if (args.length < 1) {
-            usage();
+            printUsage();
             System.exit(1);
         }
         String flag = args[0];
@@ -74,7 +118,7 @@ public class RunBenchmark {
             runGenerateBenchmarkLoop(params);
 
         } else {
-            usage();
+            printUsage();
             System.exit(1);
         }
 
@@ -201,7 +245,7 @@ public class RunBenchmark {
         return sb.toString().split("\\s+");
     }
 
-    private static void usage() {
+    private static void printUsage() {
         System.out.println("\nThe benchmark should be run with one of the following flags as the first command line argument:");
         System.out.println("\t-g to generate a set of queries");
         System.out.println("\t-b to run the benchmark");

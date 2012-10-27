@@ -30,7 +30,7 @@ public class ObdaQueryGenerator extends QueryGenerator {
     public ObdaQueryGenerator(String owlFile, String obdaFile, String outputDir) {
         this.owlFile = owlFile;
         this.obdaFile = obdaFile;
-        this.outputDir = outputDir;
+        this.outputDir = outputDir + "/obda/";
         new File(outputDir).mkdirs();
     }
 

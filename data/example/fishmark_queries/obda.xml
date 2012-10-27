@@ -1,0 +1,867 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<queries>
+
+    <query id="commonname">
+        <paramquery>
+            <![CDATA[
+				PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+				PREFIX : <http://www.semanticweb.org/ontologies/2012/4/fishdelish.owl#>
+				SELECT ?type ?country ?genus ?species
+				WHERE {  
+				$speciesID a :Species .
+				$speciesID :genus ?genus .
+				$speciesID :species ?species .
+				$speciesID :hasCommonName ?nameID .
+				$nameID a :CommonName .
+				$nameID :speciesCommonName "%comname%"^^xsd:string .
+				$nameID :nameLanguageType ?type .
+				$nameID :belongsToCountry ?countryID .
+				$countryID a :Country .
+				$countryID :countryName ?country .
+				}
+           ]]> 
+        </paramquery>
+        <parameter>
+            <paramname>comname</paramname>
+            <paramvaluesquery>
+                    <![CDATA[
+						PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+						PREFIX : <http://www.semanticweb.org/ontologies/2012/4/fishdelish.owl#>
+						SELECT ?comname 
+						WHERE {  
+						$nameID a :CommonName .
+						$nameID :nameLanguage "english"^^xsd:string .
+						$nameID :speciesCommonName ?comname .
+						}
+                    ]]>
+            </paramvaluesquery>
+        </parameter>
+    </query>
+
+    <query id="speciespage">
+        <paramquery>
+            <![CDATA[
+                PREFIX : <http://www.semanticweb.org/ontologies/2012/4/fishdelish.owl#>
+				PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+				select ?SpecCode  ?Author ?FBname ?SpeciesRef ?author ?year ?comments ?family ?order ?class ?PictureName ?Photographer ?picID ?Entered ?demersPelag 
+				?AnaCat
+				?description 
+				where {
+				$p a :Picture .
+				$p :pictureName ?PictureName .
+				$p :author ?Photographer .
+				$p :pictureID ?picID .
+				$p :entered ?Entered .
+				$p :isPictureOf ?id .
+				$id a :Species .
+				$id :speciesID ?SpecCode .
+				$id :species "%species%"^^xsd:string .
+				$id :genus "%genus%"^^xsd:string .
+				$id :author ?Author .
+				$id :FBname ?FBname .
+				$id :comments ?comments .
+				$id :speciesReferenceNo ?SpeciesRef .
+				$id :belongsToFamily ?f .
+				$id :hasSpeciesReference ?y .
+				$y a :Reference .
+				$y :author ?author .
+				$y :year ?year .	
+				$f a :Family .
+				$f :familyName  ?family .
+				$f :familyOrder ?order .
+				$f :class ?class .
+				$id :demersPelag ?demersPelag .
+				$id :anaCat ?AnaCat .
+				$id :hasMorphology ?m .
+				$id :pictureName ?picPreferredName .
+				$m a :Morphology .
+				$m :addChars ?description .
+				}
+            ]]>
+        </paramquery>
+        <parameter>
+			<paramname>genus</paramname>
+			<paramname>species</paramname>
+			<paramvaluesquery>
+                    <![CDATA[
+                        PREFIX : <http://www.semanticweb.org/ontologies/2012/4/fishdelish.owl#>
+						PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+						select ?species ?genus
+						where {
+						$id a :Species .
+						$id :species ?species .
+						$id :genus ?genus .
+						}
+                    ]]>
+            </paramvaluesquery>
+        </parameter>
+    </query>
+
+    <query id="genus">
+        <paramquery>
+            <![CDATA[
+                PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+				PREFIX : <http://www.semanticweb.org/ontologies/2012/4/fishdelish.owl#>
+				SELECT   ?species ?Author ?family
+				WHERE { 
+				$x a :Species .
+				$x :genus  "%genus%"^^xsd:string .
+				$x :species  ?species .
+				$x :author ?Author .
+				$x :belongsToFamily ?y .
+				$y a :Family .
+				$y :familyName  ?family .
+				} 
+            ]]>
+        </paramquery>
+        <parameter>
+            <paramname>genus</paramname>
+            <paramvaluesquery>
+                    <![CDATA[
+                        PREFIX : <http://www.semanticweb.org/ontologies/2012/4/fishdelish.owl#>
+						PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+						select ?genus
+						where {
+						$id a :Species .
+						$id :genus ?genus .
+						}
+                    ]]>
+            </paramvaluesquery>
+        </parameter>
+    </query>
+
+    <query id="species">
+        <paramquery>
+           <![CDATA[
+				PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+				PREFIX : <http://www.semanticweb.org/ontologies/2012/4/fishdelish.owl#>
+				SELECT   ?genus ?Author ?family 
+				WHERE { 
+				$x a :Species .
+				$x :genus  ?genus .
+				$x :species  "%species%"^^xsd:string .
+				$x :author ?Author .
+				$x :belongsToFamily ?f .
+				$f a :Family .
+				$f :familyName  ?family .
+				} 
+           ]]>    
+        </paramquery>
+        <parameter>
+            <paramname>species</paramname>
+            <paramvaluesquery>
+                    <![CDATA[ 
+                        PREFIX : <http://www.semanticweb.org/ontologies/2012/4/fishdelish.owl#>
+						PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+						select ?species 
+						where {
+						$id a :Species .
+						$id :species ?species .
+						}
+                    ]]>
+            </paramvaluesquery>
+        </parameter>
+    </query>
+
+    <query id="familyinformation">
+        <paramquery>
+            <![CDATA[
+				PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+				PREFIX : <http://www.semanticweb.org/ontologies/2012/4/fishdelish.owl#>
+				SELECT   ?Order ?Class ?Genera ?Species ?SpeciesNo ?Marine ?Freshwater ?Brackish ?Aquarium ?Remark ?Division ?ActivityLevel ?ReproductiveGuild
+				?author ?year 
+				WHERE { 
+				$x a :Family .
+				$x :familyName  "%family%"^^xsd:string .
+				$x :familyOrder ?Order .
+				$x :class ?Class .
+				$x :noOfGenera ?Genera .
+				$x :noOfSpecies ?Species .
+				$x :totalNoOfSpecies ?SpeciesNo .
+				$x :inSaltwater ?Marine .
+				$x :inFreshwater ?Freshwater .
+				$x :inBrackish ?Brackish .
+				$x :aquarium ?Aquarium .
+				$x :remark ?Remark .
+				$x :division ?Division . 
+				$x :activityLevel ?ActivityLevel .
+				$x :reproductiveGuild ?ReproductiveGuild .
+				$x :hasReference ?y .
+				$y a :Reference .
+				$y :author ?author .
+				$y :year ?year .
+				} 
+            ]]>
+        </paramquery>
+        <parameter>
+            <paramname>family</paramname>
+            <paramvaluesquery>
+                    <![CDATA[
+                        PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+						PREFIX : <http://www.semanticweb.org/ontologies/2012/4/fishdelish.owl#>
+						SELECT ?family
+						WHERE { 
+						$x a :Family .
+						$x :familyName  ?family .
+						} 
+                    ]]>
+            </paramvaluesquery>
+        </parameter>
+    </query>
+
+    <query id="familyallfish">
+        <paramquery>
+            <![CDATA[
+                PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+				PREFIX : <http://www.semanticweb.org/ontologies/2012/4/fishdelish.owl#>
+				SELECT ?Genus ?Species  ?author 
+				WHERE { 
+				$x a :Species .
+				$x :genus ?Genus .
+				$x :species ?Species .
+				$x :author ?author .
+				$x :belongsToFamily ?f .
+				$f a :Family .
+				$f :familyName "%family%"^^xsd:string .
+				} 
+            ]]>
+        </paramquery>
+        <parameter>
+            <paramname>family</paramname>
+            <paramvaluesquery>
+                    <![CDATA[
+                        PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+						PREFIX : <http://www.semanticweb.org/ontologies/2012/4/fishdelish.owl#>
+						SELECT ?family
+						WHERE { 
+						$x a :Family .
+						$x :familyName  ?family .
+						} 
+                    ]]>
+            </paramvaluesquery>
+        </parameter>
+    </query>
+
+    <query id="familynominalspecies">
+        <paramquery>
+            <![CDATA[ 
+                PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+				PREFIX : <http://www.semanticweb.org/ontologies/2012/4/fishdelish.owl#>
+				SELECT ?Genus ?Species ?Author 
+				WHERE { 
+				$x a :Species .
+				$x :genus ?Genus .
+				$x :species ?Species .
+				$x :author ?Author .
+				$x :belongsToFamily ?f .
+				$f :familyName  "%family%"^^xsd:string .
+				} 
+            ]]>
+        </paramquery>
+        <parameter>
+            <paramname>family</paramname>
+            <paramvaluesquery>
+                    <![CDATA[
+                        PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+						PREFIX : <http://www.semanticweb.org/ontologies/2012/4/fishdelish.owl#>
+						SELECT ?family
+						WHERE { 
+						$x a :Family .
+						$x :familyName  ?family .
+						} 
+                    ]]>
+            </paramvaluesquery>
+        </parameter>
+    </query>
+
+    <query id="familylistofpictures">
+        <paramquery>
+            <![CDATA[
+                PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+				PREFIX : <http://www.semanticweb.org/ontologies/2012/4/fishdelish.owl#>
+				SELECT  ?Genus ?Species ?PictureName ?Photographer 
+				WHERE { 
+				$y a :Picture .
+				$y :pictureName ?PictureName .
+				$y :author ?Photographer .
+				$y :isPictureOf ?x .
+				$x a :Species .
+				$x :genus ?Genus .
+				$x :species ?Species .
+				$x :belongsToFamily ?f .
+				$f a :Family .
+				$f :familyName  "%family%"^^xsd:string .
+				}
+            ]]>
+        </paramquery>
+        <parameter>
+            <paramname>family</paramname>
+            <paramvaluesquery>
+                    <![CDATA[
+                        PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+						PREFIX : <http://www.semanticweb.org/ontologies/2012/4/fishdelish.owl#>
+						SELECT ?family
+						WHERE { 
+						$x a :Family .
+						$x :familyName  ?family .
+						} 
+                    ]]>
+            </paramvaluesquery>
+        </parameter>
+    </query>
+
+    <query id="collaboratorpage">
+        <paramquery>
+            <![CDATA[
+                PREFIX : <http://www.semanticweb.org/ontologies/2012/4/fishdelish.owl#>
+				PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+				SELECT ?prename ?surname  ?email ?photo ?webpage ?fax ?institute ?street ?city ?country ?comments ?keywords ?year 
+				WHERE {
+				$x a :Collaborator .
+                $x :prename ?prename .
+                $x :surname ?surname .
+                $x :email ?email .
+                $x :staffPhoto ?photo .
+                $x :webpage ?webpage .
+                $x :fax ?fax .
+                $x :institute ?institute .
+                $x :street ?street .
+                $x :city ?city .
+                $x :countryName ?country .
+                $x :comments ?comments .
+                $x :keywords ?keywords .
+                $x :year ?year .
+				$x :collaboratorID "%code%"^^xsd:integer .
+				}
+            ]]>
+        </paramquery>
+        <parameter>
+            <paramname>code</paramname>
+            <paramvaluesquery>
+                    <![CDATA[
+                        PREFIX : <http://www.semanticweb.org/ontologies/2012/4/fishdelish.owl#>
+						PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+						SELECT ?code
+						WHERE {
+						$x a :Collaborator .
+						$x :collaboratorID ?code .
+						}
+                    ]]>
+            </paramvaluesquery>
+        </parameter>
+    </query>
+
+    <query id="picturepage">
+        <paramquery>
+            <![CDATA[
+                PREFIX : <http://www.semanticweb.org/ontologies/2012/4/fishdelish.owl#>
+				PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+				SELECT ?genus ?species ?photographer ?stage  
+                WHERE {
+				$id a :Picture .
+				$id :pictureName "%picture%"^^xsd:string .
+				$id :author ?photographer .
+				$id :lifeStage ?stage .
+				$id :isPictureOf ?x .
+				$x a :Species .
+				$x :genus ?genus .
+				$x :species ?species .
+                }
+            ]]>
+        </paramquery>
+        <parameter>
+            <paramname>picture</paramname>
+            <paramvaluesquery>
+                    <![CDATA[
+                        PREFIX : <http://www.semanticweb.org/ontologies/2012/4/fishdelish.owl#>
+						PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+						SELECT ?picture
+						WHERE {
+						$id a :Picture .
+						$id :pictureName ?picture .
+						}
+                    ]]>
+            </paramvaluesquery>
+        </parameter>
+    </query>
+
+
+    <query id="countryallfish">
+        <paramquery>
+            <![CDATA[
+				PREFIX : <http://www.semanticweb.org/ontologies/2012/4/fishdelish.owl#>
+				PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+				SELECT ?order ?family ?genus ?species ?occurrence 
+				WHERE { 
+				$x a :Species .
+				$x :genus ?genus .
+				$x :species ?species .
+				$x :isFoundInCountry ?c .
+				$x :belongsToFamily ?f .
+				$f a :Family .
+				$f :familyName  ?family .
+				$f :familyOrder ?order .
+                $countryID :countryName "%country%"^^xsd:string .
+                $countryID :refersToCountry ?c .
+                $c :status ?occurrence .         
+                } 
+            ]]>
+        </paramquery>
+        <parameter>
+            <paramname>country</paramname>
+            <paramvaluesquery>
+                    <![CDATA[
+                        PREFIX : <http://www.semanticweb.org/ontologies/2012/4/fishdelish.owl#>
+						select ?country
+						where{
+						$id a :CountryReference .
+						$id :countryName ?country .
+						}
+                    ]]>
+            </paramvaluesquery>
+        </parameter>
+    </query>
+
+    <query id="countryspeciesinformation">
+        <paramquery>
+            <![CDATA[
+                PREFIX : <http://www.semanticweb.org/ontologies/2012/4/fishdelish.owl#>
+				PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+                SELECT ?freshwater ?marine ?brackish ?occurrence ?Factbook 
+                WHERE { 
+                $x a :Species .
+				$x :genus "%genus%"^^xsd:string .
+				$x :species "%species%"^^xsd:string .
+				$x :isFoundInCountry ?id .
+				$countryID :countryName "%country%"^^xsd:string .
+				$countryID :factbook ?Factbook .
+                $countryID :refersToCountry ?id .
+                $id :status ?occurrence . 
+				$id :inFreshwater ?freshwater .
+				$id :inBrackish ?brackish .
+				$id :inSaltwater ?marine .
+                } 
+            ]]>
+        </paramquery>
+        <parameter>
+            <paramname>country</paramname>
+            <paramvaluesquery>
+                    <![CDATA[
+                        PREFIX : <http://www.semanticweb.org/ontologies/2012/4/fishdelish.owl#>
+						select ?country
+						where{
+						$id a :CountryReference .
+						$id :countryName ?country .
+						}
+                    ]]>
+            </paramvaluesquery>
+        </parameter>
+        <parameter>
+			<paramname>genus</paramname>
+			<paramname>species</paramname>
+            <paramvaluesquery>
+                    <![CDATA[
+                        PREFIX : <http://www.semanticweb.org/ontologies/2012/4/fishdelish.owl#>
+						PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+						select ?species ?genus
+						where {
+						$id a :Species .
+						$id :species ?species .
+						$id :genus ?genus .
+						}
+                    ]]>
+            </paramvaluesquery>
+        </parameter>        
+    </query>
+    
+    <query id="countryfreshwater">
+        <paramquery>
+            <![CDATA[
+                PREFIX : <http://www.semanticweb.org/ontologies/2012/4/fishdelish.owl#>
+				PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+                SELECT  ?order ?family ?genus ?species ?occurrence ?name 
+                WHERE {
+                $speciesID a :Species .
+				$speciesID :genus ?genus .
+				$speciesID :species ?species .
+				$speciesID :isFoundInCountry ?c .
+				$speciesID :hasCommonName ?nameID .
+				$speciesID :belongsToFamily ?f .
+				$f a :Family .
+				$f :familyName  ?family .
+				$f :familyOrder ?order .
+				$nameID a :CommonName .
+                $nameID :speciesCommonName ?name .
+                $countryID :countryName "%country%"^^xsd:string .
+                $countryID :refersToCountry ?c .
+                $c :status ?occurrence .    
+                $c :inFreshwater "1"^^xsd:int .
+                } 
+            ]]>
+        </paramquery>
+        <parameter>
+            <paramname>country</paramname>
+            <paramvaluesquery>
+                    <![CDATA[
+                        PREFIX : <http://www.semanticweb.org/ontologies/2012/4/fishdelish.owl#>
+						select ?country
+						where{
+						$id a :CountryReference .
+						$id :countryName ?country .
+						}
+                    ]]>
+            </paramvaluesquery>
+        </parameter>
+    </query>
+
+    
+    <query id="countryintroduced">
+        <paramquery>
+            <![CDATA[
+                PREFIX : <http://www.semanticweb.org/ontologies/2012/4/fishdelish.owl#>
+				PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+                SELECT  ?order ?family ?genus ?species ?name 
+                WHERE {
+                $speciesID a :Species .
+				$speciesID :genus ?genus .
+				$speciesID :species ?species .
+				$speciesID :isFoundInCountry ?c .
+				$speciesID :hasCommonName ?nameID .
+				$speciesID :belongsToFamily ?f .
+				$f a :Family .
+				$f :familyName  ?family .
+				$f :familyOrder ?order .
+				$nameID a :CommonName .
+                $nameID :speciesCommonName ?name .
+                $countryID :countryName "%country%"^^xsd:string .
+                $countryID :refersToCountry ?c .
+                $c :status "introduced"^^xsd:string .    
+                } 
+            ]]>
+        </paramquery>
+        <parameter>
+            <paramname>country</paramname>
+            <paramvaluesquery>
+                    <![CDATA[
+                        PREFIX : <http://www.semanticweb.org/ontologies/2012/4/fishdelish.owl#>
+						select ?country
+						where {
+						$id a :CountryReference .
+						$id :countryName ?country .
+						}
+                    ]]>
+            </paramvaluesquery>
+        </parameter>
+    </query>
+
+     <query id="countryendemic">
+        <paramquery>
+            <![CDATA[
+                PREFIX : <http://www.semanticweb.org/ontologies/2012/4/fishdelish.owl#>
+				PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+				SELECT  ?order ?family ?genus ?species ?name 
+                WHERE {
+                $speciesID a :Species .
+				$speciesID :genus ?genus .
+				$speciesID :species ?species .
+				$speciesID :isFoundInCountry ?c .
+				$speciesID :hasCommonName ?nameID .
+				$speciesID :belongsToFamily ?f .
+				$f a :Family .
+				$f :familyName  ?family .
+				$f :familyOrder ?order .
+				$nameID a :CommonName .
+                $nameID :speciesCommonName ?name .
+                $countryID :countryName "%country%"^^xsd:string .
+                $countryID :refersToCountry ?c .
+                $c :status "endemic"^^xsd:string .    
+                } 
+            ]]>
+        </paramquery>
+        <parameter>
+            <paramname>country</paramname>
+            <paramvaluesquery>
+                    <![CDATA[
+                        PREFIX : <http://www.semanticweb.org/ontologies/2012/4/fishdelish.owl#>
+						select ?country
+						where{
+						$id a :CountryReference .
+						$id :countryName ?country .
+						}
+                    ]]>
+            </paramvaluesquery>
+        </parameter>
+    </query>
+   
+    <query id="countryreefassociated">
+        <paramquery>
+            <![CDATA[
+                PREFIX : <http://www.semanticweb.org/ontologies/2012/4/fishdelish.owl#>
+				PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+				SELECT  ?order ?family ?genus ?species ?name ?occurrence ?dangerous 
+                WHERE {
+                $speciesID a :Species .
+				$speciesID :genus ?genus .
+				$speciesID :species ?species .
+				$speciesID :isDangerous ?dangerous .
+				$speciesID :demersPelag "reef-associated"^^xsd:string .
+				$speciesID :isFoundInCountry ?c .
+				$speciesID :hasCommonName ?nameID .
+				$speciesID :belongsToFamily ?f .
+				$f a :Family .
+				$f :familyName  ?family .
+				$f :familyOrder ?order .
+				$nameID a :CommonName .
+                $nameID :speciesCommonName ?name .
+                $countryID :countryName "%country%"^^xsd:string .
+                $countryID :refersToCountry ?c .
+                $c :status ?occurrence .              
+                } 
+            ]]>
+        </paramquery>
+        <parameter>
+            <paramname>country</paramname>
+            <paramvaluesquery>
+                    <![CDATA[
+                        PREFIX : <http://www.semanticweb.org/ontologies/2012/4/fishdelish.owl#>
+						select ?country
+						where{
+						$id a :CountryReference .
+						$id :countryName ?country .
+						}
+                    ]]>
+            </paramvaluesquery>
+        </parameter>
+    </query>
+
+
+    <query id="countrypelagic">
+        <paramquery>
+            <![CDATA[
+                PREFIX : <http://www.semanticweb.org/ontologies/2012/4/fishdelish.owl#>
+				PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+				SELECT  ?order ?family ?genus ?species ?name ?occurrence ?dangerous 
+                WHERE {
+                $speciesID a :Species .
+				$speciesID :genus ?genus .
+				$speciesID :species ?species .
+				$speciesID :isDangerous ?dangerous .
+				$speciesID :demersPelag "pelagic"^^xsd:string .
+				$speciesID :isFoundInCountry ?c .
+				$speciesID :hasCommonName ?nameID .
+				$speciesID :belongsToFamily ?f .
+				$f a :Family .
+				$f :familyName  ?family .
+				$f :familyOrder ?order .
+				$nameID a :CommonName .
+                $nameID :speciesCommonName ?name .
+                $countryID :countryName "%country%"^^xsd:string .
+                $countryID :refersToCountry ?c .
+                $c :status ?occurrence .              
+                } 
+            ]]>
+        </paramquery>
+        <parameter>
+            <paramname>country</paramname>
+            <paramvaluesquery>
+                    <![CDATA[
+                        PREFIX : <http://www.semanticweb.org/ontologies/2012/4/fishdelish.owl#>
+						select ?country
+						where{
+						$id a :CountryReference .
+						$id :countryName ?country .
+						}
+                    ]]>
+            </paramvaluesquery>
+        </parameter>
+    </query>
+
+    <query id="countrygamefish">
+        <paramquery>
+            <![CDATA[
+                PREFIX : <http://www.semanticweb.org/ontologies/2012/4/fishdelish.owl#>
+				PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+				SELECT  ?order ?family ?genus ?species ?name ?occurrence ?gameFish  ?gameFishRef 
+                WHERE {
+                $speciesID a :Species .
+				$speciesID :genus ?genus .
+				$speciesID :species ?species .
+				$speciesID :gameFish ?gameFish .
+				$speciesID :gameFishRef ?gameFishRef .
+				$speciesID :isFoundInCountry ?c .
+				$speciesID :hasCommonName ?nameID .
+				$speciesID :belongsToFamily ?f .
+				$f a :Family .
+				$f :familyName  ?family .
+				$f :familyOrder ?order .
+				$nameID a :CommonName .
+                $nameID :speciesCommonName ?name .
+                $countryID :countryName "%country%"^^xsd:string .
+                $countryID :refersToCountry ?c .
+                $c :status ?occurrence .  
+                $c :gameFish "1"^^xsd:integer .           
+                } 
+            ]]>
+        </paramquery>
+        <parameter>
+            <paramname>country</paramname>
+            <paramvaluesquery>
+                    <![CDATA[
+                        PREFIX : <http://www.semanticweb.org/ontologies/2012/4/fishdelish.owl#>
+						select ?country
+						where{
+						$id a :CountryReference .
+						$id :countryName ?country .
+						}
+                    ]]>
+            </paramvaluesquery>
+        </parameter>
+    </query>
+
+   
+    <query id="countrycommercial">
+        <paramquery>
+            <![CDATA[
+                PREFIX : <http://www.semanticweb.org/ontologies/2012/4/fishdelish.owl#>
+				PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+				SELECT ?order ?family ?genus ?species ?name ?occurrence  
+                WHERE {
+                $speciesID a :Species .
+				$speciesID :genus ?genus .
+				$speciesID :species ?species .
+				$speciesID :isFoundInCountry ?c .
+				$speciesID :hasCommonName ?nameID .
+				$speciesID :belongsToFamily ?f .
+				$f a :Family .
+				$f :familyName  ?family .
+				$f :familyOrder ?order .
+				$nameID a :CommonName .
+                $nameID :speciesCommonName ?name .
+                $countryID :countryName "%country%"^^xsd:string .
+                $countryID :refersToCountry ?c .
+                $c :status ?occurrence .    
+                $c :importance "minor commercial"^^xsd:string .          
+                } 
+            ]]>
+        </paramquery>
+        <parameter>
+            <paramname>country</paramname>
+            <paramvaluesquery>
+                    <![CDATA[
+                        PREFIX : <http://www.semanticweb.org/ontologies/2012/4/fishdelish.owl#>
+						select ?country
+						where{
+						$id a :CountryReference .
+						$id :countryName ?country .
+						}
+                    ]]>
+            </paramvaluesquery>
+        </parameter>
+    </query>
+
+    <query id="countryusedforaquaculture">
+        <paramquery>
+            <![CDATA[
+                PREFIX : <http://www.semanticweb.org/ontologies/2012/4/fishdelish.owl#>
+				PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+				SELECT  ?genus ?species ?occurrence ?speciesAquaculture 
+                WHERE {
+                $x a :Species .
+				$x :genus ?genus .
+				$x :species ?species .
+				$x :usedForAquaculture ?speciesAquaculture .
+				$x :isFoundInCountry ?c .
+                $countryID :countryName "%country%"^^xsd:string .
+                $countryID :refersToCountry ?c .
+                $c :status ?occurrence .   
+				$c :aquaculture "commercial"^^xsd:string .
+                } 
+            ]]>
+        </paramquery>
+        <parameter>
+            <paramname>country</paramname>
+            <paramvaluesquery>
+                    <![CDATA[
+                        PREFIX : <http://www.semanticweb.org/ontologies/2012/4/fishdelish.owl#>
+						select ?country
+						where{
+						$id a :CountryReference .
+						$id :countryName ?country .
+						}
+                    ]]>
+            </paramvaluesquery>
+        </parameter>
+    </query>
+
+
+    <query id="countrypotentialuseforaquaculture">
+        <paramquery>
+            <![CDATA[
+                PREFIX : <http://www.semanticweb.org/ontologies/2012/4/fishdelish.owl#>
+				PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+				SELECT  ?genus ?species ?occurrence ?countryAquaculture 
+                WHERE {
+                $x a :Species .
+				$x :genus ?genus .
+				$x :species ?species .
+				$x :usedForAquaculture "commercial"^^xsd:string .
+				$x :isFoundInCountry ?c .
+                $countryID :countryName "%country%"^^xsd:string .
+                $countryID :refersToCountry ?c .
+                $c :status ?occurrence .   
+				$c :aquaculture ?countryAquaculture  .
+                } 
+            ]]>
+        </paramquery>
+        <parameter>
+            <paramname>country</paramname>
+            <paramvaluesquery>
+                    <![CDATA[
+                        PREFIX : <http://www.semanticweb.org/ontologies/2012/4/fishdelish.owl#>
+						select ?country
+						where{
+						$id a :CountryReference .
+						$id :countryName ?country .
+						}
+                    ]]>
+            </paramvaluesquery>
+        </parameter>
+    </query>
+
+    <query id="countryuseforaquariumtrade">
+        <paramquery>
+            <![CDATA[
+                PREFIX : <http://www.semanticweb.org/ontologies/2012/4/fishdelish.owl#>
+				PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+				SELECT  ?genus ?species ?occurrence ?aquarium 
+                WHERE {
+                $x a :Species .
+				$x :genus ?genus .
+				$x :species ?species .
+				$x :aquarium ?aquarium .
+				$x :isFoundInCountry ?c .
+                $countryID :countryName "%country%"^^xsd:string .
+                $countryID :refersToCountry ?c .
+                $c :status ?occurrence .   
+				$c :liveExport "ornamental"^^xsd:string .
+                } 
+            ]]>
+        </paramquery>
+        <parameter>
+            <paramname>country</paramname>
+            <paramvaluesquery>
+                    <![CDATA[
+                        PREFIX : <http://www.semanticweb.org/ontologies/2012/4/fishdelish.owl#>
+						select ?country
+						where{
+						$id a :CountryReference .
+						$id :countryName ?country .
+						}
+                    ]]>
+            </paramvaluesquery>
+        </parameter>
+    </query>
+
+</queries>
+

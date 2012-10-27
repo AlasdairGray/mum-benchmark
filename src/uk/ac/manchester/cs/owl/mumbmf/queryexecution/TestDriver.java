@@ -58,6 +58,7 @@ public class TestDriver {
     protected String bmStart;
     protected String bmEnd;
 
+    protected String queryType;
 
     //    querymixes per measuring period
     protected int qmsPerPeriod = TestDriverDefaultValues.qmsPerPeriod;// Querymixes
@@ -82,10 +83,13 @@ public class TestDriver {
 
         if ((sparqlEndpoint != null || sqlConnParams.dbServer != null || obdaFile != null) && !multithreading) {
             if (doSQL) {
+                queryType = "sql";
                 server = new SqlConnection(sqlConnParams, timeout);
             } else if (doOBDA) {
+                queryType = "obda";
                 server = new ObdaConnection(owlFile, obdaFile, timeout);
             } else {
+                queryType = "sparql";
                 server = new SparqlConnection(sparqlEndpoint, sparqlUpdateEndpoint, defaultGraph, timeout);
             }
         } else if (multithreading) {
@@ -451,9 +455,9 @@ public class TestDriver {
 
         try {
             bmEnd = Util.getTimeStamp();
-            File resultOut = new File(resultOutputDir);
+            File resultOut = new File(resultOutputDir + "/" + queryType);
             resultOut.mkdirs();
-            String timeStampedResultFile = resultOutputDir + "/" + bmStart + "_" + xmlResultFileExtension;
+            String timeStampedResultFile = resultOut.getAbsolutePath() + "/" + bmStart + "_" + xmlResultFileExtension;
             FileWriter resultWriter = new FileWriter(timeStampedResultFile);
             resultWriter.append(printXMLResults(true));
             resultWriter.flush();

@@ -1,12 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <queries>
-
     <query id="commonname">
         <paramquery>
              <![CDATA[
                PREFIX fd: <http://fishdelish.cs.man.ac.uk/rdf/vocab/resource/>
-               SELECT ?type ?species ?genus ?country ?language
+               SELECT ?type ?species ?genus ?country
                WHERE {
                ?nameID fd:comnames_ComName "%comname%" .
                ?nameID fd:comnames_NameType ?type .
@@ -40,7 +39,7 @@
                 PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
                 PREFIX fish: <http://fishdelish.cs.man.ac.uk/rdf/vocab/resource/>
                 SELECT ?common ?code ?refno
-                ?author  ?demerspelag ?anacat
+                ?author ?demerspelag ?anacat
                 ?family ?order ?class ?entered
                 ?pic ?picid ?description ?refauthor ?refyear
                 ?collaborator  ?comments
@@ -92,6 +91,288 @@
         </parameter>
     </query>
 
+    <query id="genus">
+        <paramquery>
+             <![CDATA[
+                PREFIX fd: <http://fishdelish.cs.man.ac.uk/rdf/vocab/resource/>
+                SELECT ?species ?author ?family 
+                WHERE {
+                ?code fd:species_Species ?species .
+                ?code fd:species_Genus "%genus%" .
+                ?code fd:species_Author ?author .
+                ?code fd:species_FamCode ?fcode .
+                ?fcode fd:families_Family ?family .
+                }
+            ]]>
+        </paramquery>
+        <parameter>
+            <paramname>genus</paramname>
+            <paramvaluesquery>
+                  <![CDATA[
+                        PREFIX fd: <http://fishdelish.cs.man.ac.uk/rdf/vocab/resource/>
+                        SELECT ?genus
+                        WHERE {
+                        ?code fd:species_Genus ?genus .
+                        }
+                    ]]>
+            </paramvaluesquery>
+        </parameter>
+    </query>
+    
+    <query id="species">
+        <paramquery>
+           <![CDATA[
+               PREFIX fd: <http://fishdelish.cs.man.ac.uk/rdf/vocab/resource/> 
+                SELECT ?genus ?author ?family
+                WHERE {  
+                ?code fd:species_Species "%species%" .
+                ?code fd:species_Genus ?genus .
+                ?code fd:species_Author ?author .
+                ?code fd:species_FamCode ?fcode .
+                ?fcode fd:families_Family ?family .
+                }
+           ]]>    
+        </paramquery>
+        <parameter>
+            <paramname>species</paramname>
+            <paramvaluesquery>
+                    <![CDATA[ 
+                        PREFIX fd: <http://fishdelish.cs.man.ac.uk/rdf/vocab/resource/> 
+                        SELECT ?species 
+                        WHERE {  
+                        ?code fd:species_Species ?species .
+                        } 
+                    ]]>
+            </paramvaluesquery>
+        </parameter>
+    </query>
+
+
+    <query id="familyinformation">
+        <paramquery>
+            <![CDATA[
+                PREFIX fd: <http://fishdelish.cs.man.ac.uk/rdf/vocab/resource/>
+                SELECT ?order ?class ?noOfGenera ?noOfSpecies ?marine ?brackish ?freshwater 
+                ?aquarium ?remark  ?division ?activityLevel ?author ?year  ?repguild  ?SpeciesCount
+                WHERE {
+                 ?familiesID fd:families_Family "%family%" .
+                 ?familiesID fd:families_Order ?order .
+                 ?familiesID fd:families_Class ?class .   
+                 ?familiesID fd:families_SpeciesCount ?SpeciesCount .
+                 ?familiesID fd:families_Genera ?noOfGenera .
+                 ?familiesID fd:families_Species ?noOfSpecies .
+                 ?familiesID fd:families_Marine ?marine .
+                 ?familiesID fd:families_Brackish ?brackish .
+                 ?familiesID fd:families_Freshwater ?freshwater .
+                 ?familiesID fd:families_Aquarium ?aquarium .
+                 ?familiesID fd:families_Remark ?remark .
+                 ?familiesID fd:families_Remark ?remark .
+                 ?familiesID fd:families_Division ?division .
+                 ?familiesID fd:families_Activity ?activityLevel .
+                 ?familiesID fd:families_ReprGuild ?repguild .
+                 ?familiesID fd:families_FamiliesRefNo ?code .
+                 ?x fd:refrens_RefNo ?code .
+                 ?x fd:refrens_Author  ?author .
+                 ?x fd:refrens_Year ?year .
+                }
+            ]]>
+        </paramquery>
+        <parameter>
+            <paramname>family</paramname>
+            <paramvaluesquery>
+                     <![CDATA[
+                        PREFIX fd: <http://fishdelish.cs.man.ac.uk/rdf/vocab/resource/>
+                        SELECT ?family 
+                        WHERE {
+                        ?familiesID fd:families_Family ?family .
+                        }
+                    ]]>
+            </paramvaluesquery>
+        </parameter>
+    </query>
+    
+    <query id="familyallfish">
+        <paramquery>
+               <![CDATA[
+                PREFIX fd: <http://fishdelish.cs.man.ac.uk/rdf/vocab/resource/>
+                SELECT ?species ?genus ?author 
+                WHERE { ?SpeciesID fd:species_Author ?author ;
+                fd:species_Species ?species;
+                fd:species_Genus ?genus ;
+                fd:species_FamCode ?code .
+                ?code  fd:families_Family "%family%" .
+                }
+            ]]>
+        </paramquery>
+        <parameter>
+            <paramname>family</paramname>
+            <paramvaluesquery>
+                    <![CDATA[
+                        PREFIX fd: <http://fishdelish.cs.man.ac.uk/rdf/vocab/resource/>
+                        SELECT ?family 
+                        WHERE {
+                        ?familiesID fd:families_Family ?family .
+                        }
+                    ]]>
+            </paramvaluesquery>
+        </parameter>
+    </query>
+
+    <query id="familynominalspecies">
+        <paramquery>
+        <![CDATA[ 
+                PREFIX fd: <http://fishdelish.cs.man.ac.uk/rdf/vocab/resource/>
+                SELECT ?species ?author ?genus 
+                WHERE { ?SpeciesID fd:species_Author ?author ;
+                fd:species_Species ?species;
+                fd:species_Genus ?genus ;
+                fd:species_FamCode ?code .
+                ?code  fd:families_Family "%family%" . 
+                }
+            ]]>
+        </paramquery>
+        <parameter>
+            <paramname>family</paramname>
+            <paramvaluesquery>
+                     <![CDATA[
+                        PREFIX fd: <http://fishdelish.cs.man.ac.uk/rdf/vocab/resource/>
+                        SELECT ?family 
+                        WHERE {
+                        ?familiesID fd:families_Family ?family .
+                        }
+                    ]]>
+            </paramvaluesquery>
+        </parameter>
+    </query>
+
+    <query id="familylistofpictures">
+        <paramquery>
+            <![CDATA[
+                PREFIX fd: <http://fishdelish.cs.man.ac.uk/rdf/vocab/resource/>
+                SELECT ?genus ?species ?picture ?photographer
+                WHERE {?picID fd:picturesmain_SpecCode ?code ;
+                fd:picturesmain_PicName ?picture ; 
+                fd:picturesmain_AuthName ?photographer .
+                ?code fd:species_Species ?species;
+                fd:species_Genus ?genus ;
+                fd:species_FamCode ?fcode .
+                ?fcode fd:families_Family "%family%" .
+                }
+            ]]>
+        </paramquery>
+        <parameter>
+            <paramname>family</paramname>
+            <paramvaluesquery>
+                    <![CDATA[
+                        PREFIX fd: <http://fishdelish.cs.man.ac.uk/rdf/vocab/resource/>
+                        SELECT ?family 
+                        WHERE {
+                        ?familiesID fd:families_Family ?family .
+                        }
+                    ]]>
+            </paramvaluesquery>
+        </parameter>
+    </query>
+    
+    <query id="collaboratorpage">
+        <paramquery>
+            <![CDATA[
+                PREFIX fd: <http://fishdelish.cs.man.ac.uk/rdf/vocab/resource/>
+                SELECT ?prename ?surname  ?email ?photo ?webpage ?fax ?institute ?street ?city ?country ?comments ?keywords ?year
+                WHERE {
+                     ?x fd:collaborators_Personnel %code% .
+                     OPTIONAL {?x fd:collaborators_Prename ?prename }.
+                     OPTIONAL {?x fd:collaborators_Surname ?surname }.
+                     OPTIONAL {?x fd:collaborators_E-mail ?email }.
+                     OPTIONAL {?x fd:collaborators_StaffPhoto ?photo }.
+                     OPTIONAL {?x fd:collaborators_WebPage ?webpage }.
+                     OPTIONAL {?x fd:collaborators_FAX ?fax }.
+                     OPTIONAL {?x fd:collaborators_Institute ?institute }.
+                     OPTIONAL {?x fd:collaborators_Street ?street }.
+                     OPTIONAL {?x fd:collaborators_City ?city }.
+                     OPTIONAL {?x fd:collaborators_Country ?country }.
+                     OPTIONAL {?x fd:collaborators_Comments ?comments }.
+                     OPTIONAL {?x fd:collaborators_Keywords ?keywords }.
+                     OPTIONAL {?x fd:collaborators_Year ?year }.
+                }
+            ]]>
+        </paramquery>
+        <parameter>
+            <paramname>code</paramname>
+            <paramvaluesquery>
+                    <![CDATA[
+                        PREFIX fd: <http://fishdelish.cs.man.ac.uk/rdf/vocab/resource/>
+                        SELECT ?code 
+                        WHERE {
+                        ?collaborator fd:collaborators_Personnel ?code .
+                        }
+                    ]]>
+            </paramvaluesquery>
+        </parameter>
+    </query>
+    
+    <query id="picturepage">
+        <paramquery>
+            <![CDATA[ 
+                PREFIX fd: <http://fishdelish.cs.man.ac.uk/rdf/vocab/resource/>
+                SELECT ?genus ?species ?photographer ?stage  
+                WHERE {
+                        ?pcode fd:picturesmain_PicName "%picture%" .
+                        ?pcode fd:picturesmain_AuthName ?photographer .
+                        ?pcode fd:picturesmain_LifeStage ?stage .
+                        ?pcode fd:picturesmain_SpecCode ?scode .
+                        ?scode fd:species_Genus ?genus .
+                        ?scode fd:species_Species ?species .
+                }
+            ]]>
+        </paramquery>
+        <parameter>
+            <paramname>picture</paramname>
+            <paramvaluesquery>
+                    <![CDATA[
+                        PREFIX fd: <http://fishdelish.cs.man.ac.uk/rdf/vocab/resource/>
+                        SELECT ?picture 
+                        WHERE {
+                        ?pcode fd:picturesmain_PicName ?picture .
+                        }
+                    ]]>
+            </paramvaluesquery>
+        </parameter>
+    </query>        
+    
+    <query id="countryallfish">
+        <paramquery>
+            <![CDATA[
+                PREFIX fd: <http://fishdelish.cs.man.ac.uk/rdf/vocab/resource/>
+				SELECT ?order ?family ?genus ?species ?occurrence 
+				WHERE { 
+					?c fd:country_SpecCode ?x.
+					?c fd:country_Status ?occurrence .
+					?c fd:country_C_Code ?cf .
+					?x fd:species_Genus ?genus .
+					?x fd:species_Species ?species .
+					?x fd:species_FamCode ?f .
+					?f fd:families_Family  ?family .
+					?f fd:families_Order ?order .
+					?cf fd:countref_PAESE "%country%" .  
+				} 
+            ]]>
+        </paramquery>
+        <parameter>
+            <paramname>country</paramname>
+            <paramvaluesquery>
+                    <![CDATA[
+                         PREFIX fd: <http://fishdelish.cs.man.ac.uk/rdf/vocab/resource/>
+                         SELECT ?country
+                         WHERE { 
+                         ?countryID fd:countref_PAESE ?country .
+                         } 
+                    ]]>
+            </paramvaluesquery>
+        </parameter>
+    </query>
+    
+    
     <query id="countryspeciesinformation">
         <paramquery>
             <![CDATA[
@@ -138,6 +419,359 @@
                         ?code fd:species_Genus ?genus .
                         ?code fd:species_Species ?species .
                         }
+                    ]]>
+            </paramvaluesquery>
+        </parameter>
+    </query>
+    
+
+    <query id="countryfreshwater">
+        <paramquery>
+            <![CDATA[
+                PREFIX fd: <http://fishdelish.cs.man.ac.uk/rdf/vocab/resource/>
+                SELECT ?order ?family ?genus ?species ?occurrence ?name 
+                WHERE {
+					?nameID fd:comnames_ComName ?name .
+					?nameID fd:comnames_C_Code ?ccode . 
+					?nameID fd:comnames_SpecCode ?x.
+					?x fd:species_Genus ?genus .
+					?x fd:species_Species ?species .
+					?x fd:species_FamCode ?f .
+					?f fd:families_Family  ?family .
+					?f fd:families_Order ?order .
+					?c fd:country_SpecCode ?x.
+					?c fd:country_Status ?occurrence .
+					?c fd:country_Freshwater 1 .
+					?c fd:country_C_Code ?cf .
+					?cf fd:countref_PAESE "%country%".     
+                }  
+            ]]>
+        </paramquery>
+        <parameter>
+            <paramname>country</paramname>
+            <paramvaluesquery>
+                    <![CDATA[
+                        PREFIX fd: <http://fishdelish.cs.man.ac.uk/rdf/vocab/resource/>
+                        SELECT ?country
+                        WHERE { 
+                        ?countryID fd:countref_PAESE ?country .
+                        }
+                    ]]>
+            </paramvaluesquery>
+        </parameter>
+    </query>
+    
+
+    <query id="countryintroduced">
+        <paramquery>
+            <![CDATA[
+                PREFIX fd: <http://fishdelish.cs.man.ac.uk/rdf/vocab/resource/>
+                SELECT ?order ?family ?genus ?species ?name 
+                WHERE {
+					?nameID fd:comnames_ComName ?name .
+					?nameID fd:comnames_C_Code ?ccode . 
+					?nameID fd:comnames_SpecCode ?x.
+					?x fd:species_Genus ?genus .
+					?x fd:species_Species ?species .
+					?x fd:species_FamCode ?f .
+					?f fd:families_Family  ?family .
+					?f fd:families_Order ?order .
+					?c fd:country_SpecCode ?x.
+					?c fd:country_Status "introduced" .
+					?c fd:country_C_Code ?cf .
+					?cf fd:countref_PAESE "%country%" .   
+                }  
+            ]]>
+        </paramquery>
+        <parameter>
+            <paramname>country</paramname>
+            <paramvaluesquery>
+                    <![CDATA[
+                        PREFIX fd: <http://fishdelish.cs.man.ac.uk/rdf/vocab/resource/>
+                        SELECT ?country
+                        WHERE { 
+                        ?countryID fd:countref_PAESE ?country .
+                        } 
+                    ]]>
+            </paramvaluesquery>
+        </parameter>
+    </query>
+    
+    <query id="countryendemic">
+        <paramquery>
+            <![CDATA[
+                PREFIX fd: <http://fishdelish.cs.man.ac.uk/rdf/vocab/resource/>
+                SELECT ?order ?family ?genus ?species ?name 
+                WHERE {
+					?nameID fd:comnames_ComName ?name .
+					?nameID fd:comnames_C_Code ?ccode . 
+					?nameID fd:comnames_SpecCode ?x.
+					?x fd:species_Genus ?genus .
+					?x fd:species_Species ?species .
+					?x fd:species_FamCode ?f .
+					?f fd:families_Family  ?family .
+					?f fd:families_Order ?order .
+					?c fd:country_SpecCode ?x.
+					?c fd:country_Status "endemic" .
+					?c fd:country_C_Code ?cf .
+					?cf fd:countref_PAESE "%country%" .     
+                }  
+            ]]>
+        </paramquery>
+        <parameter>
+            <paramname>country</paramname>
+            <paramvaluesquery>
+                    <![CDATA[
+                        PREFIX fd: <http://fishdelish.cs.man.ac.uk/rdf/vocab/resource/>
+                        SELECT ?country
+                        WHERE { 
+                        ?countryID fd:countref_PAESE ?country .
+                        } 
+                    ]]>
+            </paramvaluesquery>
+        </parameter>
+    </query>
+
+    <query id="countryreefassociated">
+        <paramquery>
+            <![CDATA[
+                PREFIX fd: <http://fishdelish.cs.man.ac.uk/rdf/vocab/resource/>
+                SELECT ?order ?family ?genus ?species ?occurrence ?name ?dangerous 
+                WHERE {
+					?nameID fd:comnames_ComName ?name .
+					?nameID fd:comnames_C_Code ?ccode . 
+					?nameID fd:comnames_SpecCode ?x.
+					?x fd:species_Genus ?genus .
+					?x fd:species_Species ?species .
+					?x fd:species_Dangerous ?dangerous .
+					?x fd:species_DemersPelag "reef-associated" .
+					?x fd:species_FamCode ?f .
+					?f fd:families_Family  ?family .
+					?f  fd:families_Order ?order .
+					?c fd:country_SpecCode ?x.
+					?c fd:country_Status ?occurrence .
+					?c fd:country_C_Code ?cf .
+					?cf fd:countref_PAESE "%country%" .   
+                }  
+            ]]>
+        </paramquery>
+        <parameter>
+            <paramname>country</paramname>
+            <paramvaluesquery>
+                    <![CDATA[
+                        PREFIX fd: <http://fishdelish.cs.man.ac.uk/rdf/vocab/resource/>
+                        SELECT ?country
+                        WHERE { 
+                        ?countryID fd:countref_PAESE ?country .
+                        } 
+                    ]]>
+            </paramvaluesquery>
+        </parameter>
+    </query>
+
+    <query id="countrypelagic">
+        <paramquery>
+            <![CDATA[
+                PREFIX fd: <http://fishdelish.cs.man.ac.uk/rdf/vocab/resource/>
+                SELECT ?order ?family ?genus ?species ?occurrence ?name ?dangerous 
+                WHERE {
+					?nameID fd:comnames_ComName ?name .
+					?nameID fd:comnames_C_Code ?ccode . 
+					?nameID fd:comnames_SpecCode ?x.
+					?x fd:species_Genus ?genus .
+					?x fd:species_Species ?species .
+					?x fd:species_Dangerous ?dangerous .
+					?x fd:species_DemersPelag "pelagic" .
+					?x fd:species_FamCode ?f .
+					?f fd:families_Family  ?family .
+					?f  fd:families_Order ?order .
+					?c fd:country_SpecCode ?x.
+					?c fd:country_Status ?occurrence .
+					?c fd:country_C_Code ?cf .
+					?cf fd:countref_PAESE "%country%" .  
+                }  
+            ]]>
+        </paramquery>
+        <parameter>
+            <paramname>country</paramname>
+            <paramvaluesquery>
+                    <![CDATA[
+                        PREFIX fd: <http://fishdelish.cs.man.ac.uk/rdf/vocab/resource/>
+                        SELECT ?country
+                        WHERE { 
+                        ?countryID fd:countref_PAESE ?country .
+                        } 
+                    ]]>
+            </paramvaluesquery>
+        </parameter>
+    </query>
+    
+    <query id="countrygamefish">
+        <paramquery>
+            <![CDATA[ 
+                PREFIX fd: <http://fishdelish.cs.man.ac.uk/rdf/vocab/resource/>
+                SELECT ?order ?family ?genus ?species ?occurrence ?name ?gameref ?game 
+                WHERE {
+					?nameID fd:comnames_ComName ?name .
+					?nameID fd:comnames_C_Code ?ccode . 
+					?nameID fd:comnames_SpecCode ?x.
+					?x fd:species_Genus ?genus .
+					?x fd:species_Species ?species .
+					?x fd:species_GameFish ?game .
+                	?x fd:species_GameRef ?gameref .
+					?x fd:species_FamCode ?f .
+					?f fd:families_Family  ?family .
+					?f  fd:families_Order ?order .
+					?c fd:country_SpecCode ?x.
+					?c fd:country_Status ?occurrence .
+					?c fd:country_C_Code ?cf .
+					?c fd:country_Game 1 .
+					?cf fd:countref_PAESE "%country%" .  
+                }  
+            ]]>
+        </paramquery>
+        <parameter>
+            <paramname>country</paramname>
+            <paramvaluesquery>
+                    <![CDATA[
+                        PREFIX fd: <http://fishdelish.cs.man.ac.uk/rdf/vocab/resource/>
+                        SELECT ?country
+                        WHERE { 
+                        ?countryID fd:countref_PAESE ?country .
+                        } 
+                    ]]>
+            </paramvaluesquery>
+        </parameter>
+    </query>
+
+    <query id="countrycommercial">
+        <paramquery>
+            <![CDATA[
+                    PREFIX fd: <http://fishdelish.cs.man.ac.uk/rdf/vocab/resource/>
+					SELECT ?order ?family ?genus ?species ?occurrence ?name 
+					WHERE {
+					?nameID fd:comnames_ComName ?name .
+					?nameID fd:comnames_C_Code ?ccode . 
+					?nameID fd:comnames_SpecCode ?x.
+					?x fd:species_Genus ?genus .
+					?x fd:species_Species ?species .
+					?x fd:species_FamCode ?f .
+					?f fd:families_Family  ?family .
+					?f  fd:families_Order ?order .
+					?c fd:country_SpecCode ?x.
+					?c fd:country_Status ?occurrence .
+					?c fd:country_C_Code ?cf .
+					?c fd:country_Importance "minor commercial" .
+					?cf fd:countref_PAESE "%country%" .  
+					}  
+            ]]>
+        </paramquery>
+        <parameter>
+            <paramname>country</paramname>
+            <paramvaluesquery>
+                    <![CDATA[
+                        PREFIX fd: <http://fishdelish.cs.man.ac.uk/rdf/vocab/resource/>
+                        SELECT ?country
+                        WHERE { 
+                        ?countryID fd:countref_PAESE ?country .
+                        } 
+                    ]]>
+            </paramvaluesquery>
+        </parameter>
+    </query>
+
+    <query id="countryusedforaquaculture">
+        <paramquery>
+            <![CDATA[
+                PREFIX fd: <http://fishdelish.cs.man.ac.uk/rdf/vocab/resource/>
+                SELECT ?genus ?species ?occurrence ?speciesAquaculture 
+                WHERE {
+					?nameID fd:comnames_ComName ?name .
+					?nameID fd:comnames_C_Code ?ccode . 
+					?nameID fd:comnames_SpecCode ?x.
+					?x fd:species_Genus ?genus .
+					?x fd:species_Species ?species .
+					?x fd:species_UsedforAquaculture ?speciesAquaculture .
+					?c fd:country_SpecCode ?x.
+					?c fd:country_Status ?occurrence .
+					?c fd:country_C_Code ?cf .
+					?c fd:country_Aquaculture "commercial" .
+					?cf fd:countref_PAESE "%country%" .  
+                } 
+            ]]>
+        </paramquery>
+        <parameter>
+            <paramname>country</paramname>
+            <paramvaluesquery>
+                    <![CDATA[
+                        PREFIX fd: <http://fishdelish.cs.man.ac.uk/rdf/vocab/resource/>
+                        SELECT ?country
+                        WHERE { 
+                        ?countryID fd:countref_PAESE ?country .
+                        } 
+                    ]]>
+            </paramvaluesquery>
+        </parameter>
+    </query>
+
+    <query id="countrypotentialuseforaquaculture">
+        <paramquery>
+            <![CDATA[
+				PREFIX fd: <http://fishdelish.cs.man.ac.uk/rdf/vocab/resource/>
+                SELECT ?genus ?species ?occurrence ?countryAquaculture  
+                WHERE {
+					?x fd:species_Genus ?genus .
+					?x fd:species_Species ?species .
+					?x fd:species_UsedforAquaculture "commercial" .
+					?c fd:country_SpecCode ?x.
+					?c fd:country_Status ?occurrence .
+					?c fd:country_C_Code ?cf .
+					?c fd:country_Aquaculture ?countryAquaculture .
+					?cf fd:countref_PAESE "%country%" .  
+                }   
+            ]]>
+        </paramquery>
+        <parameter>
+            <paramname>country</paramname>
+            <paramvaluesquery>
+                    <![CDATA[
+                        PREFIX fd: <http://fishdelish.cs.man.ac.uk/rdf/vocab/resource/>
+                        SELECT ?country
+                        WHERE { 
+                        ?countryID fd:countref_PAESE ?country .
+                        } 
+                    ]]>
+            </paramvaluesquery>
+        </parameter>
+    </query>
+
+
+    <query id="countryuseforaquariumtrade">
+        <paramquery>
+            <![CDATA[
+			    PREFIX fd: <http://fishdelish.cs.man.ac.uk/rdf/vocab/resource/>
+                SELECT ?genus ?species ?occurrence ?aquarium 
+                WHERE {
+					?x fd:species_Genus ?genus .
+					?x fd:species_Species ?species .
+					?x fd:species_Aquarium ?aquarium .
+					?c fd:country_SpecCode ?x.
+					?c fd:country_Status ?occurrence .
+					?c fd:country_LiveExport "ornamental" .
+					?c fd:country_C_Code ?cf .
+					?cf fd:countref_PAESE "%country%" .  
+                }  
+            ]]>
+        </paramquery>
+        <parameter>
+            <paramname>country</paramname>
+            <paramvaluesquery>
+                    <![CDATA[
+                        PREFIX fd: <http://fishdelish.cs.man.ac.uk/rdf/vocab/resource/>
+                        SELECT ?country
+                        WHERE { 
+                        ?countryID fd:countref_PAESE ?country .
+                        } 
                     ]]>
             </paramvaluesquery>
         </parameter>

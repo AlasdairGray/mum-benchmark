@@ -31,7 +31,7 @@ public class SqlQueryGenerator extends QueryGenerator {
      */
     public SqlQueryGenerator(SqlConnectionParameters connectionParameters, String outputDir) {
         this.connectionParameters = connectionParameters;
-        this.outputDir = outputDir;
+        this.outputDir = outputDir + "/sql/";
         new File(outputDir).mkdirs();
     }
 

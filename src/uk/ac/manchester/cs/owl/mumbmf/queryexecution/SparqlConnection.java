@@ -17,32 +17,32 @@ import java.util.Iterator;
 import java.util.List;
 
 public class SparqlConnection implements ServerConnection {
-    private String serviceURL;
-    private String updateServiceURL;
+    private String sparqlEndpoint;
+    private String updateSparqlEndpoint;
     private String defaultGraph;
     private static Logger logger = Logger.getLogger(SparqlConnection.class);
     private int timeout;
 
     /**
-     * @param serviceURL   sparql endpoint
-     * @param defaultGraph the default graph
-     * @param timeout      query timeout
+     * @param sparqlEndpoint sparql endpoint
+     * @param defaultGraph   the default graph
+     * @param timeout        query timeout
      */
-    public SparqlConnection(String serviceURL, String defaultGraph, int timeout) {
-        this.serviceURL = serviceURL;
+    public SparqlConnection(String sparqlEndpoint, String defaultGraph, int timeout) {
+        this.sparqlEndpoint = sparqlEndpoint;
         this.defaultGraph = defaultGraph;
         this.timeout = timeout;
     }
 
     /**
-     * @param serviceURL       sparql endpoint
-     * @param updateServiceURL sparql UPDATE endpoint
-     * @param defaultGraph     default graph
-     * @param timeout          query timeout
+     * @param sparqlEndpoint       sparql endpoint
+     * @param updateSparqlEndpoint sparql UPDATE endpoint
+     * @param defaultGraph         default graph
+     * @param timeout              query timeout
      */
-    public SparqlConnection(String serviceURL, String updateServiceURL, String defaultGraph, int timeout) {
-        this.updateServiceURL = updateServiceURL;
-        this.serviceURL = serviceURL;
+    public SparqlConnection(String sparqlEndpoint, String updateSparqlEndpoint, String defaultGraph, int timeout) {
+        this.updateSparqlEndpoint = updateSparqlEndpoint;
+        this.sparqlEndpoint = sparqlEndpoint;
         this.defaultGraph = defaultGraph;
         this.timeout = timeout;
     }
@@ -61,11 +61,11 @@ public class SparqlConnection implements ServerConnection {
     private void executeQuery(String queryString, byte queryType, int queryNr, QueryMix queryMix) {
         double timeInSeconds;
 
-        NetQuery qe;
+        SparqlQuery qe;
         if (queryType == Query.UPDATE_TYPE)
-            qe = new NetQuery(updateServiceURL, queryString, queryType, defaultGraph, timeout);
+            qe = new SparqlQuery(updateSparqlEndpoint, queryString, queryType, defaultGraph, timeout);
         else
-            qe = new NetQuery(serviceURL, queryString, queryType, defaultGraph, timeout);
+            qe = new SparqlQuery(sparqlEndpoint, queryString, queryType, defaultGraph, timeout);
         int queryMixRun = queryMix.getRun() + 1;
 
         InputStream is = qe.exec();
@@ -103,59 +103,6 @@ public class SparqlConnection implements ServerConnection {
         qe.close();
     }
 
-//    public void executeQuery(CompiledQuery query, CompiledQueryMix queryMix) {
-//        double timeInSeconds;
-//
-//        String queryString = query.getQueryString();
-//        byte queryType = query.getQueryType();
-//        int queryNr = query.getNr();
-//
-//        FishNetQuery qe;
-//        if (query.getQueryType() == Query.UPDATE_TYPE)
-//            qe = new FishNetQuery(updateServiceURL, queryString, queryType, defaultGraph, timeout);
-//        else
-//            qe = new FishNetQuery(serviceURL, queryString, queryType, defaultGraph, timeout);
-//
-//        int queryMixRun = queryMix.getRun() + 1;
-//
-//        InputStream is = qe.exec();
-//
-//        if (is == null) {//then Timeout!
-//            double t = this.timeout / 1000.0;
-//            System.out.println("Query " + queryNr + ": " + t + " seconds timeout!");
-//            queryMix.reportTimeOut();//inc. timeout counter
-//            queryMix.setCurrent(0, t);
-//            qe.close();
-//            return;
-//        }
-//
-//        int resultCount = 0;
-//
-//        try {
-//            //Write XML result into result
-//            if (queryType == Query.SELECT_TYPE)
-//                resultCount = countResults(is);
-//            else
-//                resultCount = countBytes(is);
-//
-//            timeInSeconds = qe.getExecutionTimeInSeconds();
-//        } catch (SocketTimeoutException e) {
-//            double t = this.timeout / 1000.0;
-//            System.out.println("Query " + queryNr + ": " + t + " seconds timeout!");
-//            queryMix.reportTimeOut();//inc. timeout counter
-//            queryMix.setCurrent(0, t);
-//            qe.close();
-//            return;
-//        }
-//
-//        if (logger.isEnabledFor(Level.ALL) && queryMixRun > 0)
-//            logResultInfo(queryNr, queryMixRun, timeInSeconds,
-//                    queryString, queryType,
-//                    resultCount);
-//
-//        queryMix.setCurrent(resultCount, timeInSeconds);
-//        qe.close();
-//    }
 
 
     private int countBytes(InputStream is) {
@@ -291,6 +238,11 @@ public class SparqlConnection implements ServerConnection {
         logger.log(Level.ALL, sb.toString());
     }
 
+    /**
+     *
+     * @param is
+     * @return
+     */
     public Document getXMLDocument(InputStream is) {
         SAXBuilder builder = new SAXBuilder();
         builder.setValidation(false);
@@ -353,9 +305,13 @@ public class SparqlConnection implements ServerConnection {
         return queryResult;
     }
 
+    /**
+     *
+     * @param queryString
+     * @return
+     */
     public Document executeSimpleQuery(String queryString) {
-        NetQuery qe;
-        qe = new NetQuery(serviceURL, queryString, Query.SELECT_TYPE, defaultGraph, timeout);
+        SparqlQuery qe = new SparqlQuery(sparqlEndpoint, queryString, Query.SELECT_TYPE, defaultGraph, timeout);
         InputStream is = qe.exec();
         Document doc = getXMLDocument(is);
         try {

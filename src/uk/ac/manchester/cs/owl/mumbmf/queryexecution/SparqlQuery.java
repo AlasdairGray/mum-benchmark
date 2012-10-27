@@ -6,21 +6,21 @@ import java.io.OutputStream;
 import java.io.UnsupportedEncodingException;
 import java.net.*;
 
-public class NetQuery {
+public class SparqlQuery {
     HttpURLConnection conn;
     Long start;
     Long end;
     String queryString;
 
-    protected NetQuery(String serviceURL, String query, byte queryType, String defaultGraph, int timeout) {
+    public SparqlQuery(String sparqlEndpoint, String query, byte queryType, String defaultGraph, int timeout) {
         String urlString = null;
         try {
             queryString = query;
-            char delim = serviceURL.indexOf('?') == -1 ? '?' : '&';
+            char delim = sparqlEndpoint.indexOf('?') == -1 ? '?' : '&';
             if (queryType == Query.UPDATE_TYPE)
-                urlString = serviceURL;
+                urlString = sparqlEndpoint;
             else {
-                urlString = serviceURL + delim + "query=" + URLEncoder.encode(query, "UTF-8");
+                urlString = sparqlEndpoint + delim + "query=" + URLEncoder.encode(query, "UTF-8");
                 delim = '&';
                 if (defaultGraph != null)
                     urlString += delim + "default-graph-uri=" + defaultGraph;
@@ -36,7 +36,7 @@ public class NetQuery {
             System.exit(-1);
         } catch (MalformedURLException e) {
             System.err.println(e.toString() + " for URL: " + urlString);
-            System.err.println(serviceURL);
+            System.err.println(sparqlEndpoint);
             e.printStackTrace();
             System.exit(-1);
         } catch (IOException e) {
@@ -75,7 +75,7 @@ public class NetQuery {
         }
     }
 
-    protected InputStream exec() {
+    public InputStream exec() {
         try {
             conn.connect();
 
@@ -112,7 +112,7 @@ public class NetQuery {
         return interval.doubleValue() / 1000000000;
     }
 
-    protected void close() {
+    public void close() {
         conn.disconnect();
     }
 }
