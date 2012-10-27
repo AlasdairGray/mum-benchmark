@@ -11,15 +11,14 @@ package uk.ac.manchester.cs.owl.mumbmf.queryexecution;
 
 public class SqlConnectionParameters {
 
-    public String dbServer;
-    public String dbLogin;
-    public String dbPassword;
+    public String dbServer = "";
+    public String dbLogin = "";
+    public String dbPassword = "";
     public String dbDriver = "com.mysql.jdbc.Driver";
 
     public SqlConnectionParameters() {
 
     }
-
 
     public SqlConnectionParameters(String dbServer, String dbLogin, String dbPassword, String dbDriver) {
         this.dbServer = dbServer;

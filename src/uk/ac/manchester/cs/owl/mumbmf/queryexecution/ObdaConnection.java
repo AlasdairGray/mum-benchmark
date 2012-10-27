@@ -66,7 +66,6 @@ public class ObdaConnection implements ServerConnection {
 
         // Loading the OBDA data
         OBDAModel obdaModel = obdaDataFactory.getOBDAModel();
-
         ModelIOManager ioManager = new ModelIOManager(obdaModel);
 
         try {

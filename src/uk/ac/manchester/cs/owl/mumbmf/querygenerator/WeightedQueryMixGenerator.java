@@ -1,8 +1,5 @@
 package uk.ac.manchester.cs.owl.mumbmf.querygenerator;
 
-import uk.ac.manchester.cs.owl.mumbmf.querygenerator.MultiQueryGenerator;
-import uk.ac.manchester.cs.owl.mumbmf.querygenerator.QueryGenerator;
-
 import java.io.File;
 import java.util.List;
 import java.util.Map;
@@ -18,11 +15,11 @@ import java.util.Map;
 
 public class WeightedQueryMixGenerator extends MultiQueryGenerator {
 
-//    TODO: nothing happening here yet - implement!
-
-    public WeightedQueryMixGenerator(List<String> queryFiles, QueryGenerator queryGenerator, String outputDir) {
-        super(queryFiles, queryGenerator, outputDir);
+    public WeightedQueryMixGenerator(String seedType, Map<String, String> queryTemplates, QueryGenerator queryGenerator, String outputDir) {
+        super(seedType, queryTemplates, queryGenerator, outputDir);
     }
+
+//    TODO: nothing happening here yet - implement!
 
 
     public void generateQueryMix() {
@@ -33,18 +30,7 @@ public class WeightedQueryMixGenerator extends MultiQueryGenerator {
 
 //        this gives us a list of 1 map per query
 //        we need to instantiate each query the correct number of times
-        List<Map<String, String>> paramValuesMaps = generateParamValueMapsForAllQueries();
 
-         for (String s : queryFiles) {
-            currentQueryType = getQueryType(s);
-
-            List<String> queriesForQueryType = getQueries(new File(s));
-            for (int i = 0; i < queriesForQueryType.size(); i++) {
-                String query = queriesForQueryType.get(i);
-                Map<String, String> paramValuesForQuery = paramValuesMaps.get(i);
-                String completedQuery = generateCompleteQuery(query, paramValuesForQuery);
-            }
-        }
 
     }
 }
