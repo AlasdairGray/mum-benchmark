@@ -15,7 +15,6 @@ package uk.ac.manchester.cs.owl.mumbmf.queryexecution;
  * limitations under the License.
  */
 
-import org.apache.log4j.Level;
 import org.apache.log4j.Logger;
 import uk.ac.manchester.cs.owl.mumbmf.util.Util;
 
@@ -44,6 +43,7 @@ public class TestDriver {
     protected boolean[] ignoreQueries;// Queries to ignore
     protected boolean doSQL = false;
     protected boolean doOBDA = false;
+    protected String type = "";
     protected boolean multithreading = false;
     protected int nrThreads;
     protected int timeout = TestDriverDefaultValues.timeoutInMs;
@@ -82,20 +82,20 @@ public class TestDriver {
         System.out.println("done.");
 
         if ((sparqlEndpoint != null || sqlConnParams.dbServer != null || obdaFile != null) && !multithreading) {
-            if (doSQL) {
+            if (type.equals("sql")) {
                 queryType = "sql";
                 server = new SqlConnection(sqlConnParams, timeout);
-            } else if (doOBDA) {
+            } else if (type.equals("obda")) {
                 queryType = "obda";
                 server = new ObdaConnection(owlFile, obdaFile, timeout);
-            } else {
+            } else if (type.equals("sparql")) {
                 queryType = "sparql";
                 server = new SparqlConnection(sparqlEndpoint, sparqlUpdateEndpoint, defaultGraph, timeout);
             }
         } else if (multithreading) {
             // TODO: add multithreading feature
         } else {
-            UsageInfo.printUsageInfo();
+            UsageInfo.printUiUsage();
             System.exit(-1);
         }
 
@@ -107,9 +107,10 @@ public class TestDriver {
         this.usecaseFile = new File(f);
     }
 
-    /*
-      * Read which query mixes (directories) are used in the use case
-      */
+    /**
+     * Read which query mixes (directories) are used in the use case
+     * @return
+     */
     private List<String> getUseCaseQuerymixes() {
         List<String> files = new ArrayList<String>();
 
@@ -158,14 +159,12 @@ public class TestDriver {
         return maxNrs;
     }
 
-    private List<boolean[]> getIgnoredQueries(List<String> querymixDirs,
-                                              List<Integer> maxQueryNrs) {
+    private List<boolean[]> getIgnoredQueries(List<String> querymixDirs, List<Integer> maxQueryNrs) {
         List<boolean[]> ignoredQueries = new ArrayList<boolean[]>();
         Iterator<String> queryMixDirIterator = querymixDirs.iterator();
         Iterator<Integer> maxQueryNrIterator = maxQueryNrs.iterator();
         while (queryMixDirIterator.hasNext()) {
-            File ignoreFile = new File(queryMixDirIterator.next(),
-                    "ignoreQueries.txt");
+            File ignoreFile = new File(queryMixDirIterator.next(), "ignoreQueries.txt");
             int maxQueryNr = maxQueryNrIterator.next();
 
             boolean[] ignoreQueries = new boolean[maxQueryNr];
@@ -451,7 +450,7 @@ public class TestDriver {
                     + (System.currentTimeMillis() - startTime) + "ms");
             queryMix.finishRun();
         }
-        logger.log(Level.ALL, printResults(true));
+//        logger.log(Level.ALL, printResults(true));
 
         try {
             bmEnd = Util.getTimeStamp();
@@ -471,124 +470,11 @@ public class TestDriver {
     }
 
 
-//    /*
-//      * Ramp-up: Runs at least nrOfPeriods periods and checks after every period
-//      * if the last nrOfPeriods periods differ at most percentDifference from
-//      * each other. There is also a check if one of the examined periods is the
-//      * minimum overall period, then the percentage check will be ignored.
-//      */
-//    public void runRampup() {
-//        System.out.println("Starting Ramp-up. Writing measurement data to rampup.tsv");
-//        BufferedWriter measurementFile = null;
-//        try {
-//            measurementFile = new BufferedWriter(new FileWriter("rampup.tsv"));
-//        } catch (IOException e) {
-//            System.err.println("Could not create file rampup.tsv!");
-//            System.exit(-1);
-//        }
-//
-//        int periodNr = 0;
-//        LinkedList<Double> periods = new LinkedList<Double>();
-//        double totalRuntime = 0;
-//        boolean unsteady = true;// Set to false after reaching steady state
-//        double minimumPeriod = Double.MAX_VALUE;
-//        while (unsteady) {
-//
-//            periodNr++;
-//            double runtime = 0;
-//            // Running one period
-//            for (int nrRun = 1; nrRun <= qmsPerPeriod; nrRun++) {
-//                queryMix.setRun(nrRun);
-//                while (queryMix.hasNext()) {
-//                    Query next = (Query) queryMix.getNext();
-//                    // Don't execute Update queries in ramp-up
-//                    if (next.getQueryType() == Query.UPDATE_TYPE) {
-//                        queryMix.setCurrent(0, -1.0);
-//                        continue;
-//                    }
-//
-//                    if (ignoreQueries[next.getNr() - 1])
-//                        queryMix.setCurrent(0, -1.0);
-//                    else {
-//                        server.executeQuery(next, next.getQueryType());
-//                    }
-//                }
-//                runtime += queryMix.getQueryMixRuntime();
-//                System.out.println("Period "
-//                        + periodNr
-//                        + " Run: "
-//                        + nrRun
-//                        + ": "
-//                        + String.format(Locale.US, "%.3f", queryMix
-//                        .getQueryMixRuntime() * 1000) + "ms");
-//                queryMix.finishRun();
-//            }
-//
-//            // Write period/runtime pairs into rampup.tsv
-//            try {
-//                measurementFile.append(periodNr + "\t" + runtime + "\n");
-//                measurementFile.flush();
-//            } catch (IOException e) {
-//                e.printStackTrace();
-//                System.exit(-1);
-//            }
-//            totalRuntime += runtime;
-//
-//            if (periodNr <= nrOfPeriods) {
-//                periods.addLast(runtime);
-//            } else {
-//                periods.addLast(runtime);
-//                periods.removeFirst();
-//                if (periods.size() != nrOfPeriods)
-//                    throw new AssertionError();
-//
-//                // Calculate difference between the periods
-//                double min = Double.MAX_VALUE;
-//                double max = Double.MIN_VALUE;
-//                for (double pVal : periods) {
-//                    if (pVal < min)
-//                        min = pVal;
-//                    if (pVal > max)
-//                        max = pVal;
-//                    if (pVal <= minimumPeriod) {
-//                        minimumPeriod = pVal;
-//                        max = Double.MAX_VALUE;
-//                        break;// Special case: If this period is lower than the
-//                        // previous minimum period, go on.
-//                    }
-//                }
-//                if ((max - min) / min < percentDifference)
-//                    unsteady = false;
-//            }
-//
-//            double all5 = 0;
-//            for (double pVal : periods) {
-//                all5 += pVal;
-//            }
-//            System.out.println("Total execution time for period " + periodNr
-//                    + "/last "
-//                    + (periodNr < nrOfPeriods ? periodNr : nrOfPeriods)
-//                    + " periods: "
-//                    + String.format(Locale.US, "%.3f", runtime * 1000) + "ms/"
-//                    + String.format(Locale.US, "%.3f", all5 * 1000) + "ms\n");
-//        }
-//        try {
-//            measurementFile.close();
-//        } catch (IOException e) {
-//            e.printStackTrace();
-//        }
-//        System.out.println("Steady state reached after " + periodNr
-//                + " measurement periods/"
-//                + String.format(Locale.US, "%.3f", totalRuntime) + "s");
-//        server.close();
-//    }
-
-
-//    TODO: tidy this one
-
-    /*
-      * Get Result String
-      */
+    /**
+     * TODO: tidy
+     * Get Result String
+     * @param all
+     */
     public String printResults(boolean all) {
         StringBuffer sb = new StringBuffer(100);
         double singleMultiRatio = 0.0;
@@ -703,21 +589,21 @@ public class TestDriver {
     }
 
 
-//    TODO: rewrite to create an XML DOM rather than a string
-
-    /*
-    * Get XML Result String
-    */
+    /**
+     * TODO: rewrite to create an XML DOM rather than a string
+     * Get XML Result String
+     * @param all
+     * @return
+     */
     public String printXMLResults(boolean all) {
-        StringBuffer sb = new StringBuffer(100);
+        StringBuilder sb = new StringBuilder(100);
         double singleMultiRatio = 0.0;
         String queryLang = "sparql";
-        if (doSQL) {
+        if (type.equals("sql")) {
             queryLang = "sql";
-        } else if (doOBDA) {
+        } else if (type.equals("obda")) {
             queryLang = "obda";
         }
-
 
         sb.append("<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n");
         sb.append("<bsbm");
@@ -933,14 +819,12 @@ public class TestDriver {
                     nrRuns = Integer.parseInt(args[i++ + 1]);
                 } else if (args[i].equals("-w")) {
                     warmups = Integer.parseInt(args[i++ + 1]);
-                } else if (args[i].equals("-o")) {
+                } else if (args[i].equals("-results")) {
                     resultOutputDir = args[i++ + 1];
                 } else if (args[i].equals("-dg")) {
                     defaultGraph = args[i++ + 1];
-                } else if (args[i].equals("-sql")) {
-                    doSQL = true;
-                } else if (args[i].equals("-obda")) {
-                    doOBDA = true;
+                } else if (args[i].equals("-type")) {
+                    type = args[i++ + 1];
                 } else if (args[i].equals("-mt")) {
                     if (rampup) throw new Exception("Incompatible options: -mt and -rampup");
                     multithreading = true;
@@ -953,11 +837,11 @@ public class TestDriver {
                     sqlConnParams.dbDriver = args[i++ + 1];
                 } else if (args[i].equals("-qf")) {
                     qualificationFile = args[i++ + 1];
-                } else if (args[i].equals("-db")) {
+                } else if (args[i].equals("-dbserver")) {
                     sqlConnParams.dbServer = args[i++ + 1];
-                } else if (args[i].equals("-login")) {
+                } else if (args[i].equals("-dblogin")) {
                     sqlConnParams.dbLogin = args[i++ + 1];
-                } else if (args[i].equals("-pw")) {
+                } else if (args[i].equals("-dbpw")) {
                     sqlConnParams.dbPassword = args[i++ + 1];
                 } else if (args[i].equals("-obdafile")) {
                     obdaFile = args[i++ + 1];
@@ -979,12 +863,12 @@ public class TestDriver {
                     usecaseFile = new File(args[i++ + 1]);
                 } else if (args[i].equals("-uqp")) {
                     sparqlUpdateQueryParameter = args[i++ + 1];
-                } else if (!args[i].startsWith("-")) {
-                    sparqlEndpoint = args[i];
+                } else if (args[i].equals("-sparqlendpoint")) {
+                    sparqlEndpoint = args[i++ + 1];
                 } else {
                     if (!args[i].equals("-help"))
                         System.err.println("Unknown parameter: " + args[i]);
-                    UsageInfo.printUsageInfo();
+                    UsageInfo.printUiUsage();
                     System.exit(-1);
                 }
 
@@ -993,7 +877,7 @@ public class TestDriver {
             } catch (Exception e) {
                 System.err.println("Invalid arguments:\n");
                 e.printStackTrace();
-                UsageInfo.printUsageInfo();
+                UsageInfo.printUiUsage();
                 System.exit(-1);
             }
         }

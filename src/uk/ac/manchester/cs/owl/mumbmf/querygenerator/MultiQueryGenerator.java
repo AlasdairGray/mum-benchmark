@@ -63,13 +63,15 @@ public class MultiQueryGenerator {
 
         for (Map.Entry<String, String> entry : queryTemplates.entrySet()) {
             currentQueryType = entry.getKey();
-            makeOutputDirectory(qmFile, ignoreFile);
-            List<String> queryTemplates = getQueryTemplates(new File(entry.getValue()));
-            for (int i = 0; i < queryTemplates.size(); i++) {
-                String query = queryTemplates.get(i);
-                Map<String, String> paramValuesForQuery = paramValuesMaps.get(i);
-                String completedQuery = substituteQueryParameters(query, paramValuesForQuery);
-                saveQuery(completedQuery, i);
+            if (!entry.getValue().equals("")) {
+                makeOutputDirectory(qmFile, ignoreFile);
+                List<String> queryTemplates = getQueryTemplates(new File(entry.getValue()));
+                for (int i = 0; i < queryTemplates.size(); i++) {
+                    String query = queryTemplates.get(i);
+                    Map<String, String> paramValuesForQuery = paramValuesMaps.get(i);
+                    String completedQuery = substituteQueryParameters(query, paramValuesForQuery);
+                    saveQuery(completedQuery, i);
+                }
             }
 
         }
