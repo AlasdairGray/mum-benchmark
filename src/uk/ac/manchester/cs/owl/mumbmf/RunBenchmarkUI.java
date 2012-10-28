@@ -84,7 +84,7 @@ public class RunBenchmarkUI {
             String[] genargs = readLines(generateArgsFile);
 
             for (int j = 0; j < querySets; j++) {
-//                runMultiQueryGeneration(genargs);
+                runMultiQueryGeneration(genargs);
                 for (List<String> p : paramList) {
                     runBenchmark(p.toArray(new String[p.size()]));
                 }
