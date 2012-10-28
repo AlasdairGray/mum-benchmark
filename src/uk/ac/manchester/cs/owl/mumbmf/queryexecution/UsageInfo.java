@@ -138,7 +138,7 @@ public class UsageInfo {
         System.out.println("\t-q  Turn on qualification mode. For more information, see the qualification chapter of the use case.");
         System.out.println("\t-qf <qualification file name> Change the qualification file name, also see the qualification chapter of the use case.");
         System.out.println("\t-rampup  Run test driver in ramp-up/warm-up mode. The test driver will execute randomized queries until it is stopped - ideally when the store reached steady state and is not improving any more.");
-        System.out.println("\t-u <Service endpoint URI for SPARQL Update>   If you are running update queries in your tests this option defines where the SPARQL update service endpoint can be found.");
+        System.out.println("\t-u <Service endpoint URI for SPARQL Update>   If you are running update queries in your uk.ac.manchester.cs.owl.mumbmf.tests this option defines where the SPARQL update service endpoint can be found.");
         System.out.println("\t-udataset <file name>   The file name of the update dataset.");
         System.out.println("\t-uqp <update query parameter> (Default: update)  The forms parameter name for the SPARQL Update query string.\n");
 
