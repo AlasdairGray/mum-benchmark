@@ -1,0 +1,29 @@
+
+            
+				PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+				PREFIX : <http://www.semanticweb.org/ontologies/2012/4/fishdelish.owl#>
+				SELECT   ?Order ?Class ?Genera ?Species ?SpeciesNo ?Marine ?Freshwater ?Brackish ?Aquarium ?Remark ?Division ?ActivityLevel ?ReproductiveGuild
+				?author ?year 
+				WHERE { 
+				$x a :Family .
+				$x :familyName  "Synanceiidae"^^xsd:string .
+				$x :familyOrder ?Order .
+				$x :class ?Class .
+				$x :noOfGenera ?Genera .
+				$x :noOfSpecies ?Species .
+				$x :totalNoOfSpecies ?SpeciesNo .
+				$x :inSaltwater ?Marine .
+				$x :inFreshwater ?Freshwater .
+				$x :inBrackish ?Brackish .
+				$x :aquarium ?Aquarium .
+				$x :remark ?Remark .
+				$x :division ?Division . 
+				$x :activityLevel ?ActivityLevel .
+				$x :reproductiveGuild ?ReproductiveGuild .
+				$x :hasReference ?y .
+				$y a :Reference .
+				$y :author ?author .
+				$y :year ?year .
+				} 
+            
+        

@@ -1,0 +1,530 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<bsbm lang="sql" start="2012.10.28.112934570" end="2012.10.28.112944935">
+  <querymix>
+     <warmups>3</warmups>
+     <seed>808080</seed>
+     <querymixruns>5</querymixruns>
+     <minquerymixruntime>1.1721</minquerymixruntime>
+     <maxquerymixruntime>1.9079</maxquerymixruntime>
+     <totalruntime>6.676</totalruntime>
+     <qmph>2696.25</qmph>
+     <cqet>1.33519</cqet>
+     <cqetg>1.30945</cqetg>
+  </querymix>
+  <queries>
+    <query nr="1">
+      <querystring><![CDATA[
+
+            SELECT species.Species, comnames.NameType, species.Genus, countref.C_Code
+            FROM comnames, species, countref
+            WHERE comnames.SpecCode=species.SpecCode AND comnames.C_Code=countref.C_Code AND
+            comnames.ComName="Western rock blackfish"
+        
+
+       ]]>
+      </querystring>
+      <executecount>5</executecount>
+      <aqet>0.025222</aqet>
+      <aqetg>0.024973</aqetg>
+      <qps>39.65</qps>
+      <minqet>0.02216400</minqet>
+      <maxqet>0.03226000</maxqet>
+      <avgresults>1.00</avgresults>
+      <minresults>1</minresults>
+      <maxresults>1</maxresults>
+      <timeoutcount>0</timeoutcount>
+    </query>
+    <query nr="2">
+      <querystring><![CDATA[
+
+            SELECT species.SpecCode, species.Author, species.FBname, refrens.Author,
+            refrens.Year, species.Comments, families.Family, families.FamilyOrder,
+            families.Class, morphdat.AddChars, species.DemersPelag, species.SpeciesRefNo,
+            species.AnaCat, species.PicPreferredName, picturesmain.autoctr, picturesmain.PicName, picturesmain.Entered,
+            picturesmain.AuthName
+            FROM species, refrens, morphdat, families, picturesmain
+            WHERE species.SpeciesRefNo=refrens.RefNo AND species.SpecCode=morphdat.SpecCode AND
+            species.FamCode=families.FamCode AND
+            species.SpecCode =picturesmain.SpecCode AND (species.Genus="Eptatretus" AND species.Species="springeri")
+        
+
+       ]]>
+      </querystring>
+      <executecount>5</executecount>
+      <aqet>0.026340</aqet>
+      <aqetg>0.026060</aqetg>
+      <qps>37.96</qps>
+      <minqet>0.02358400</minqet>
+      <maxqet>0.03451100</maxqet>
+      <avgresults>0.00</avgresults>
+      <minresults>0</minresults>
+      <maxresults>0</maxresults>
+      <timeoutcount>0</timeoutcount>
+    </query>
+    <query nr="3">
+      <querystring><![CDATA[
+
+            SELECT  species.Species, species.Author, families.Family
+            FROM species, families
+            WHERE species.FamCode=families.FamCode AND species.Genus="Trichomycterus"
+        
+
+       ]]>
+      </querystring>
+      <executecount>5</executecount>
+      <aqet>0.029351</aqet>
+      <aqetg>0.029250</aqetg>
+      <qps>34.07</qps>
+      <minqet>0.02611200</minqet>
+      <maxqet>0.03187300</maxqet>
+      <avgresults>139.00</avgresults>
+      <minresults>139</minresults>
+      <maxresults>139</maxresults>
+      <timeoutcount>0</timeoutcount>
+    </query>
+    <query nr="4">
+      <querystring><![CDATA[
+
+            SELECT   species.Author, species.Genus, families.Family
+            FROM species, families
+            WHERE species.FamCode=families.FamCode AND species.Species="multidens"
+        
+
+       ]]>
+      </querystring>
+      <executecount>5</executecount>
+      <aqet>0.024586</aqet>
+      <aqetg>0.024485</aqetg>
+      <qps>40.67</qps>
+      <minqet>0.02256900</minqet>
+      <maxqet>0.02909100</maxqet>
+      <avgresults>8.00</avgresults>
+      <minresults>8</minresults>
+      <maxresults>8</maxresults>
+      <timeoutcount>0</timeoutcount>
+    </query>
+    <query nr="5">
+      <querystring><![CDATA[
+
+            SELECT  families.FamilyOrder, families.Class, families.Genera, families.Species, 
+			families.SpeciesCount,families.Marine, families.Brackish, families.Freshwater, 
+			families.Aquarium, families.Remark, families.Division, families.Activity, refrens.Author, refrens.Year, families.ReprGuild
+            FROM families, refrens
+            WHERE families.FamiliesRefNo=refrens.RefNo AND families.Family="Synanceiidae"
+        
+
+       ]]>
+      </querystring>
+      <executecount>5</executecount>
+      <aqet>0.028230</aqet>
+      <aqetg>0.027486</aqetg>
+      <qps>35.42</qps>
+      <minqet>0.02330200</minqet>
+      <maxqet>0.04240600</maxqet>
+      <avgresults>1.00</avgresults>
+      <minresults>1</minresults>
+      <maxresults>1</maxresults>
+      <timeoutcount>0</timeoutcount>
+    </query>
+    <query nr="6">
+      <querystring><![CDATA[
+
+            SELECT species.Author, species.Species, species.Genus
+            FROM species, families
+            WHERE species.FamCode=families.FamCode AND families.Family="Triacanthodidae"
+        
+
+       ]]>
+      </querystring>
+      <executecount>5</executecount>
+      <aqet>0.026730</aqet>
+      <aqetg>0.026460</aqetg>
+      <qps>37.41</qps>
+      <minqet>0.02338100</minqet>
+      <maxqet>0.03450500</maxqet>
+      <avgresults>23.00</avgresults>
+      <minresults>23</minresults>
+      <maxresults>23</maxresults>
+      <timeoutcount>0</timeoutcount>
+    </query>
+    <query nr="7">
+      <querystring><![CDATA[
+
+            SELECT species.Author, species.Species, species.Genus
+            FROM species, families
+            WHERE species.FamCode=families.FamCode AND families.Family="Diretmidae"
+        
+
+       ]]>
+      </querystring>
+      <executecount>5</executecount>
+      <aqet>0.025137</aqet>
+      <aqetg>0.025064</aqetg>
+      <qps>39.78</qps>
+      <minqet>0.02202400</minqet>
+      <maxqet>0.02693000</maxqet>
+      <avgresults>4.00</avgresults>
+      <minresults>4</minresults>
+      <maxresults>4</maxresults>
+      <timeoutcount>0</timeoutcount>
+    </query>
+    <query nr="8">
+      <querystring><![CDATA[
+
+            SELECT species.Genus, species.Species, picturesmain.PicName, picturesmain.AuthName
+            FROM fbapp.species, fbapp.picturesmain, fbapp.families
+            WHERE species.SpecCode = picturesmain.SpecCode AND (species.FamCode =families.FamCode AND families.Family="Aulorhynchidae")
+        
+
+       ]]>
+      </querystring>
+      <executecount>5</executecount>
+      <aqet>0.023617</aqet>
+      <aqetg>0.023604</aqetg>
+      <qps>42.34</qps>
+      <minqet>0.02222800</minqet>
+      <maxqet>0.02436400</maxqet>
+      <avgresults>6.00</avgresults>
+      <minresults>6</minresults>
+      <maxresults>6</maxresults>
+      <timeoutcount>0</timeoutcount>
+    </query>
+    <query nr="9">
+      <querystring><![CDATA[
+
+            SELECT collaborators.Prename, collaborators.Surname, collaborators.Email, collaborators.WebPage, collaborators.FAX, collaborators.Institute, collaborators.Street, collaborators.City, collaborators.Country, collaborators.Comments, collaborators.Keywords, collaborators.Year
+            FROM collaborators
+            WHERE collaborators.Personnel=138
+        
+
+       ]]>
+      </querystring>
+      <executecount>5</executecount>
+      <aqet>0.024055</aqet>
+      <aqetg>0.024047</aqetg>
+      <qps>41.57</qps>
+      <minqet>0.02343600</minqet>
+      <maxqet>0.02517600</maxqet>
+      <avgresults>1.00</avgresults>
+      <minresults>1</minresults>
+      <maxresults>1</maxresults>
+      <timeoutcount>0</timeoutcount>
+    </query>
+    <query nr="10">
+      <querystring><![CDATA[
+
+            SELECT species.Genus, species.Species, picturesmain.AuthName, picturesmain.LifeStage
+            FROM fbapp.species, fbapp.picturesmain
+            WHERE species.SpecCode = picturesmain.SpecCode AND picturesmain.PicName="Opsol_u1.jpg"
+        
+
+       ]]>
+      </querystring>
+      <executecount>5</executecount>
+      <aqet>0.023973</aqet>
+      <aqetg>0.023930</aqetg>
+      <qps>41.71</qps>
+      <minqet>0.02228600</minqet>
+      <maxqet>0.02602700</maxqet>
+      <avgresults>1.00</avgresults>
+      <minresults>1</minresults>
+      <maxresults>1</maxresults>
+      <timeoutcount>0</timeoutcount>
+    </query>
+    <query nr="11">
+      <querystring><![CDATA[
+
+            SELECT  families.FamilyOrder, families.Family, species.Genus, species.Species, country.Status
+            FROM fbapp.species, fbapp.country, fbapp.countref, fbapp.families
+            WHERE species.SpecCode = country.SpecCode AND  species.FamCode = families.FamCode 
+            AND country.C_Code=countref.C_Code AND countref.PAESE="Cape Verde"
+        
+
+       ]]>
+      </querystring>
+      <executecount>5</executecount>
+      <aqet>0.139921</aqet>
+      <aqetg>0.085884</aqetg>
+      <qps>7.15</qps>
+      <minqet>0.05261500</minqet>
+      <maxqet>0.47539000</maxqet>
+      <avgresults>662.00</avgresults>
+      <minresults>662</minresults>
+      <maxresults>662</maxresults>
+      <timeoutcount>0</timeoutcount>
+    </query>
+    <query nr="12">
+      <querystring><![CDATA[
+
+            SELECT country.Status, country.Freshwater, country.Saltwater, country.Brackish, countref.Factbook
+            FROM country, countref, species
+            WHERE country.C_Code=countref.C_Code AND country.SpecCode=species.SpecCode AND species.Genus="Etrumeus" AND
+            species.Species="micropus" AND countref.PAESE="Rodriguez"
+        
+
+       ]]>
+      </querystring>
+      <executecount>5</executecount>
+      <aqet>0.023959</aqet>
+      <aqetg>0.023931</aqetg>
+      <qps>41.74</qps>
+      <minqet>0.02212200</minqet>
+      <maxqet>0.02562300</maxqet>
+      <avgresults>0.00</avgresults>
+      <minresults>0</minresults>
+      <maxresults>0</maxresults>
+      <timeoutcount>0</timeoutcount>
+    </query>
+    <query nr="13">
+      <querystring><![CDATA[
+
+	      SELECT families.FamilyOrder , families.Family, species.Genus,species.Species,  country.Status, comnames.ComName
+             FROM families, species, comnames, countref, country
+             WHERE country.C_Code=countref.C_Code
+             AND species.FamCode=families.FamCode    
+             AND comnames.SpecCode=species.SpecCode 
+             AND country.SpecCode=species.SpecCode  
+             AND country.Freshwater=1 
+             AND countref.PAESE="US Misc Pac"
+        
+
+       ]]>
+      </querystring>
+      <executecount>5</executecount>
+      <aqet>0.025488</aqet>
+      <aqetg>0.025349</aqetg>
+      <qps>39.23</qps>
+      <minqet>0.02401400</minqet>
+      <maxqet>0.03107400</maxqet>
+      <avgresults>0.00</avgresults>
+      <minresults>0</minresults>
+      <maxresults>0</maxresults>
+      <timeoutcount>0</timeoutcount>
+    </query>
+    <query nr="14">
+      <querystring><![CDATA[
+
+              SELECT families.FamilyOrder , families.Family, species.Genus,species.Species, comnames.ComName
+              FROM fbapp.families, fbapp.species, fbapp.comnames, fbapp.countref, fbapp.country
+              WHERE country.C_Code=countref.C_Code
+              AND species.FamCode = families.FamCode 
+              AND species.SpecCode=country.SpecCode
+              AND species.SpecCode=comnames.SpecCode
+              AND countref.PAESE="Kenya"
+              AND country.Status="introduced"
+        
+
+       ]]>
+      </querystring>
+      <executecount>5</executecount>
+      <aqet>0.165126</aqet>
+      <aqetg>0.150258</aqetg>
+      <qps>6.06</qps>
+      <minqet>0.11072300</minqet>
+      <maxqet>0.32894300</maxqet>
+      <avgresults>1739.00</avgresults>
+      <minresults>1739</minresults>
+      <maxresults>1739</maxresults>
+      <timeoutcount>0</timeoutcount>
+    </query>
+    <query nr="15">
+      <querystring><![CDATA[
+
+             SELECT families.FamilyOrder , families.Family, species.Genus,species.Species, comnames.ComName
+             FROM fbapp.families, fbapp.species, fbapp.comnames, fbapp.countref, fbapp.country
+             WHERE country.C_Code=countref.C_Code 
+			 AND country.SpecCode=species.SpecCode 
+			 AND comnames.SpecCode=species.SpecCode
+			 AND species.FamCode = families.FamCode 
+			 AND countref.PAESE="Clipperton I."
+			 AND country.Status="endemic"
+        
+
+       ]]>
+      </querystring>
+      <executecount>5</executecount>
+      <aqet>0.025101</aqet>
+      <aqetg>0.025034</aqetg>
+      <qps>39.84</qps>
+      <minqet>0.02252100</minqet>
+      <maxqet>0.02729300</maxqet>
+      <avgresults>6.00</avgresults>
+      <minresults>6</minresults>
+      <maxresults>6</maxresults>
+      <timeoutcount>0</timeoutcount>
+    </query>
+    <query nr="16">
+      <querystring><![CDATA[
+
+             SELECT families.FamilyOrder , families.Family, species.Genus,species.Species,  country.Status, comnames.ComName, species.Dangerous
+             FROM fbapp.families, fbapp.species, fbapp.comnames, fbapp.countref, fbapp.country
+             WHERE countref.C_Code=country.C_Code 
+             AND country.SpecCode=species.SpecCode 
+             AND comnames.SpecCode=species.SpecCode
+             AND species.FamCode = families.FamCode 
+             AND countref.PAESE="Rodriguez"
+             AND species.DemersPelag="reef-associated"
+        
+
+       ]]>
+      </querystring>
+      <executecount>5</executecount>
+      <aqet>0.521727</aqet>
+      <aqetg>0.520658</aqetg>
+      <qps>1.92</qps>
+      <minqet>0.49375200</minqet>
+      <maxqet>0.58797400</maxqet>
+      <avgresults>6753.00</avgresults>
+      <minresults>6753</minresults>
+      <maxresults>6753</maxresults>
+      <timeoutcount>0</timeoutcount>
+    </query>
+    <query nr="17">
+      <querystring><![CDATA[
+
+            SELECT families.FamilyOrder , families.Family, species.Genus,species.Species,  country.Status, comnames.ComName, species.Dangerous
+            FROM fbapp.families, fbapp.species, fbapp.comnames, fbapp.countref, fbapp.country
+            WHERE countref.C_Code=country.C_Code
+            AND comnames.SpecCode=species.SpecCode 
+            AND country.SpecCode=species.SpecCode 
+            AND species.FamCode = families.FamCode 
+            AND countref.PAESE="St Helena"
+            AND species.DemersPelag="pelagic"
+        
+
+       ]]>
+      </querystring>
+      <executecount>5</executecount>
+      <aqet>0.051342</aqet>
+      <aqetg>0.051318</aqetg>
+      <qps>19.48</qps>
+      <minqet>0.04981800</minqet>
+      <maxqet>0.05421400</maxqet>
+      <avgresults>385.00</avgresults>
+      <minresults>385</minresults>
+      <maxresults>385</maxresults>
+      <timeoutcount>0</timeoutcount>
+    </query>
+    <query nr="18">
+      <querystring><![CDATA[
+
+            SELECT  families.Family, families.FamilyOrder, species.Genus,species.Species,  
+            country.Status, comnames.ComName, 
+            species.GameFish, species.GameRef
+            FROM fbapp.families, fbapp.species, fbapp.comnames, fbapp.countref, fbapp.country
+            WHERE country.C_Code=countref.C_Code
+			AND species.FamCode = families.FamCode AND countref.PAESE="Haiti"
+            AND country.SpecCode=species.SpecCode  AND comnames.SpecCode=species.SpecCode 
+            AND country.Game=1
+        
+
+       ]]>
+      </querystring>
+      <executecount>5</executecount>
+      <aqet>0.025085</aqet>
+      <aqetg>0.025049</aqetg>
+      <qps>39.86</qps>
+      <minqet>0.02360000</minqet>
+      <maxqet>0.02739900</maxqet>
+      <avgresults>0.00</avgresults>
+      <minresults>0</minresults>
+      <maxresults>0</maxresults>
+      <timeoutcount>0</timeoutcount>
+    </query>
+    <query nr="19">
+      <querystring><![CDATA[
+
+             SELECT families.FamilyOrder, families.Family, species.Genus, species.Species, country.Status, comnames.ComName
+             FROM fbapp.species, fbapp.country, fbapp.countref, fbapp.families, fbapp.comnames
+             WHERE country.C_Code=countref.C_Code
+			 AND species.SpecCode=comnames.SpecCode
+			 AND species.SpecCode=country.SpecCode
+			 AND species.FamCode = families.FamCode 
+			 AND countref.PAESE="Cocos Is"
+			 AND country.Importance="minor commercial"
+        
+
+       ]]>
+      </querystring>
+      <executecount>5</executecount>
+      <aqet>0.025932</aqet>
+      <aqetg>0.025916</aqetg>
+      <qps>38.56</qps>
+      <minqet>0.02494800</minqet>
+      <maxqet>0.02753900</maxqet>
+      <avgresults>47.00</avgresults>
+      <minresults>47</minresults>
+      <maxresults>47</maxresults>
+      <timeoutcount>0</timeoutcount>
+    </query>
+    <query nr="20">
+      <querystring><![CDATA[
+
+             SELECT  species.Genus, species.Species, country.Status, species.UsedforAquaculture
+             FROM fbapp.species, fbapp.country, fbapp.countref
+             WHERE country.C_Code=countref.C_Code
+             AND species.SpecCode = country.SpecCode 
+             AND countref.PAESE="Venezuela"
+             AND country.Aquaculture='commercial'    
+        
+
+       ]]>
+      </querystring>
+      <executecount>5</executecount>
+      <aqet>0.025269</aqet>
+      <aqetg>0.025232</aqetg>
+      <qps>39.57</qps>
+      <minqet>0.02347600</minqet>
+      <maxqet>0.02695000</maxqet>
+      <avgresults>5.00</avgresults>
+      <minresults>5</minresults>
+      <maxresults>5</maxresults>
+      <timeoutcount>0</timeoutcount>
+    </query>
+    <query nr="21">
+      <querystring><![CDATA[
+
+            SELECT  species.Genus, species.Species, country.Aquaculture, country.Status
+            FROM fbapp.species, fbapp.country, fbapp.countref
+            WHERE species.SpecCode = country.SpecCode 
+            AND country.C_Code=countref.C_Code AND countref.PAESE="Rodriguez"  AND species.UsedforAquaculture='commercial'
+        
+
+       ]]>
+      </querystring>
+      <executecount>5</executecount>
+      <aqet>0.025220</aqet>
+      <aqetg>0.025174</aqetg>
+      <qps>39.65</qps>
+      <minqet>0.02342400</minqet>
+      <maxqet>0.02761300</maxqet>
+      <avgresults>13.00</avgresults>
+      <minresults>13</minresults>
+      <maxresults>13</maxresults>
+      <timeoutcount>0</timeoutcount>
+    </query>
+    <query nr="22">
+      <querystring><![CDATA[
+
+            SELECT  species.Genus, species.Species, country.Status, species.Aquarium
+            FROM fbapp.species, fbapp.country, fbapp.countref
+            WHERE species.SpecCode = country.SpecCode 
+            AND country.C_Code=countref.C_Code AND countref.PAESE="Cuba"
+            AND country.LiveExport='ornamental'
+        
+
+       ]]>
+      </querystring>
+      <executecount>5</executecount>
+      <aqet>0.023777</aqet>
+      <aqetg>0.023762</aqetg>
+      <qps>42.06</qps>
+      <minqet>0.02243800</minqet>
+      <maxqet>0.02476300</maxqet>
+      <avgresults>0.00</avgresults>
+      <minresults>0</minresults>
+      <maxresults>0</maxresults>
+      <timeoutcount>0</timeoutcount>
+    </query>
+  </queries>
+</bsbm>

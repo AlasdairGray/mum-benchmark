@@ -1,0 +1,843 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<bsbm lang="obda" start="2012.10.28.112433916" end="2012.10.28.112552646">
+  <querymix>
+     <warmups>3</warmups>
+     <seed>808080</seed>
+     <querymixruns>5</querymixruns>
+     <minquerymixruntime>0.9342</minquerymixruntime>
+     <maxquerymixruntime>0.9988</maxquerymixruntime>
+     <totalruntime>4.863</totalruntime>
+     <qmph>3701.79</qmph>
+     <cqet>0.97250</cqet>
+     <cqetg>0.97213</cqetg>
+  </querymix>
+  <queries>
+    <query nr="1">
+      <querystring><![CDATA[
+
+            
+				PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+				PREFIX : <http://www.semanticweb.org/ontologies/2012/4/fishdelish.owl#>
+				SELECT ?type ?country ?genus ?species
+				WHERE {  
+				$speciesID a :Species .
+				$speciesID :genus ?genus .
+				$speciesID :species ?species .
+				$speciesID :hasCommonName ?nameID .
+				$nameID a :CommonName .
+				$nameID :speciesCommonName "Cuban cichlid"^^xsd:string .
+				$nameID :nameLanguageType ?type .
+				$nameID :belongsToCountry ?countryID .
+				$countryID a :Country .
+				$countryID :countryName ?country .
+				}
+            
+        
+
+       ]]>
+      </querystring>
+      <executecount>5</executecount>
+      <aqet>0.026333</aqet>
+      <aqetg>0.026096</aqetg>
+      <qps>37.98</qps>
+      <minqet>0.02363200</minqet>
+      <maxqet>0.03360300</maxqet>
+      <avgresults>1.00</avgresults>
+      <minresults>1</minresults>
+      <maxresults>1</maxresults>
+      <timeoutcount>0</timeoutcount>
+    </query>
+    <query nr="2">
+      <querystring><![CDATA[
+
+            
+                PREFIX : <http://www.semanticweb.org/ontologies/2012/4/fishdelish.owl#>
+				PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+				select ?SpecCode  ?Author ?FBname ?SpeciesRef ?author ?year ?comments ?family ?order ?class ?PictureName ?Photographer ?picID ?Entered ?demersPelag 
+				?AnaCat
+				?description 
+				where {
+				$p a :Picture .
+				$p :pictureName ?PictureName .
+				$p :author ?Photographer .
+				$p :pictureID ?picID .
+				$p :entered ?Entered .
+				$p :isPictureOf ?id .
+				$id a :Species .
+				$id :speciesID ?SpecCode .
+				$id :species "obbesi"^^xsd:string .
+				$id :genus "Porochilus"^^xsd:string .
+				$id :author ?Author .
+				$id :FBname ?FBname .
+				$id :comments ?comments .
+				$id :speciesReferenceNo ?SpeciesRef .
+				$id :belongsToFamily ?f .
+				$id :hasSpeciesReference ?y .
+				$y a :Reference .
+				$y :author ?author .
+				$y :year ?year .	
+				$f a :Family .
+				$f :familyName  ?family .
+				$f :familyOrder ?order .
+				$f :class ?class .
+				$id :demersPelag ?demersPelag .
+				$id :anaCat ?AnaCat .
+				$id :hasMorphology ?m .
+				$id :pictureName ?picPreferredName .
+				$m a :Morphology .
+				$m :addChars ?description .
+				}
+            
+        
+
+       ]]>
+      </querystring>
+      <executecount>5</executecount>
+      <aqet>0.029562</aqet>
+      <aqetg>0.029547</aqetg>
+      <qps>33.83</qps>
+      <minqet>0.02820300</minqet>
+      <maxqet>0.03076200</maxqet>
+      <avgresults>0.00</avgresults>
+      <minresults>0</minresults>
+      <maxresults>0</maxresults>
+      <timeoutcount>0</timeoutcount>
+    </query>
+    <query nr="3">
+      <querystring><![CDATA[
+
+            
+                PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+				PREFIX : <http://www.semanticweb.org/ontologies/2012/4/fishdelish.owl#>
+				SELECT   ?species ?Author ?family
+				WHERE { 
+				$x a :Species .
+				$x :genus  "Barbus"^^xsd:string .
+				$x :species  ?species .
+				$x :author ?Author .
+				$x :belongsToFamily ?y .
+				$y a :Family .
+				$y :familyName  ?family .
+				} 
+            
+        
+
+       ]]>
+      </querystring>
+      <executecount>5</executecount>
+      <aqet>0.041039</aqet>
+      <aqetg>0.040993</aqetg>
+      <qps>24.37</qps>
+      <minqet>0.03793000</minqet>
+      <maxqet>0.04288100</maxqet>
+      <avgresults>309.00</avgresults>
+      <minresults>309</minresults>
+      <maxresults>309</maxresults>
+      <timeoutcount>0</timeoutcount>
+    </query>
+    <query nr="4">
+      <querystring><![CDATA[
+
+           
+				PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+				PREFIX : <http://www.semanticweb.org/ontologies/2012/4/fishdelish.owl#>
+				SELECT   ?genus ?Author ?family 
+				WHERE { 
+				$x a :Species .
+				$x :genus  ?genus .
+				$x :species  "rudolphi"^^xsd:string .
+				$x :author ?Author .
+				$x :belongsToFamily ?f .
+				$f a :Family .
+				$f :familyName  ?family .
+				} 
+               
+        
+
+       ]]>
+      </querystring>
+      <executecount>5</executecount>
+      <aqet>0.027047</aqet>
+      <aqetg>0.026894</aqetg>
+      <qps>36.97</qps>
+      <minqet>0.02420500</minqet>
+      <maxqet>0.03221200</maxqet>
+      <avgresults>2.00</avgresults>
+      <minresults>2</minresults>
+      <maxresults>2</maxresults>
+      <timeoutcount>0</timeoutcount>
+    </query>
+    <query nr="5">
+      <querystring><![CDATA[
+
+            
+				PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+				PREFIX : <http://www.semanticweb.org/ontologies/2012/4/fishdelish.owl#>
+				SELECT   ?Order ?Class ?Genera ?Species ?SpeciesNo ?Marine ?Freshwater ?Brackish ?Aquarium ?Remark ?Division ?ActivityLevel ?ReproductiveGuild
+				?author ?year 
+				WHERE { 
+				$x a :Family .
+				$x :familyName  "Cyclopteridae"^^xsd:string .
+				$x :familyOrder ?Order .
+				$x :class ?Class .
+				$x :noOfGenera ?Genera .
+				$x :noOfSpecies ?Species .
+				$x :totalNoOfSpecies ?SpeciesNo .
+				$x :inSaltwater ?Marine .
+				$x :inFreshwater ?Freshwater .
+				$x :inBrackish ?Brackish .
+				$x :aquarium ?Aquarium .
+				$x :remark ?Remark .
+				$x :division ?Division . 
+				$x :activityLevel ?ActivityLevel .
+				$x :reproductiveGuild ?ReproductiveGuild .
+				$x :hasReference ?y .
+				$y a :Reference .
+				$y :author ?author .
+				$y :year ?year .
+				} 
+            
+        
+
+       ]]>
+      </querystring>
+      <executecount>5</executecount>
+      <aqet>0.030939</aqet>
+      <aqetg>0.030457</aqetg>
+      <qps>32.32</qps>
+      <minqet>0.02593300</minqet>
+      <maxqet>0.04193900</maxqet>
+      <avgresults>1.00</avgresults>
+      <minresults>1</minresults>
+      <maxresults>1</maxresults>
+      <timeoutcount>0</timeoutcount>
+    </query>
+    <query nr="6">
+      <querystring><![CDATA[
+
+            
+                PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+				PREFIX : <http://www.semanticweb.org/ontologies/2012/4/fishdelish.owl#>
+				SELECT ?Genus ?Species  ?author 
+				WHERE { 
+				$x a :Species .
+				$x :genus ?Genus .
+				$x :species ?Species .
+				$x :author ?author .
+				$x :belongsToFamily ?f .
+				$f a :Family .
+				$f :familyName "Centrogenyidae"^^xsd:string .
+				} 
+            
+        
+
+       ]]>
+      </querystring>
+      <executecount>5</executecount>
+      <aqet>0.027590</aqet>
+      <aqetg>0.027166</aqetg>
+      <qps>36.24</qps>
+      <minqet>0.02357900</minqet>
+      <maxqet>0.03754300</maxqet>
+      <avgresults>1.00</avgresults>
+      <minresults>1</minresults>
+      <maxresults>1</maxresults>
+      <timeoutcount>0</timeoutcount>
+    </query>
+    <query nr="7">
+      <querystring><![CDATA[
+
+             
+                PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+				PREFIX : <http://www.semanticweb.org/ontologies/2012/4/fishdelish.owl#>
+				SELECT ?Genus ?Species ?Author 
+				WHERE { 
+				$x a :Species .
+				$x :genus ?Genus .
+				$x :species ?Species .
+				$x :author ?Author .
+				$x :belongsToFamily ?f .
+				$f :familyName  "Tetragonuridae"^^xsd:string .
+				} 
+            
+        
+
+       ]]>
+      </querystring>
+      <executecount>5</executecount>
+      <aqet>0.029909</aqet>
+      <aqetg>0.029321</aqetg>
+      <qps>33.43</qps>
+      <minqet>0.02365500</minqet>
+      <maxqet>0.04009700</maxqet>
+      <avgresults>3.00</avgresults>
+      <minresults>3</minresults>
+      <maxresults>3</maxresults>
+      <timeoutcount>0</timeoutcount>
+    </query>
+    <query nr="8">
+      <querystring><![CDATA[
+
+            
+                PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+				PREFIX : <http://www.semanticweb.org/ontologies/2012/4/fishdelish.owl#>
+				SELECT  ?Genus ?Species ?PictureName ?Photographer 
+				WHERE { 
+				$y a :Picture .
+				$y :pictureName ?PictureName .
+				$y :author ?Photographer .
+				$y :isPictureOf ?x .
+				$x a :Species .
+				$x :genus ?Genus .
+				$x :species ?Species .
+				$x :belongsToFamily ?f .
+				$f a :Family .
+				$f :familyName  "Pangasiidae"^^xsd:string .
+				}
+            
+        
+
+       ]]>
+      </querystring>
+      <executecount>5</executecount>
+      <aqet>0.033860</aqet>
+      <aqetg>0.033736</aqetg>
+      <qps>29.53</qps>
+      <minqet>0.03147100</minqet>
+      <maxqet>0.03979600</maxqet>
+      <avgresults>68.00</avgresults>
+      <minresults>68</minresults>
+      <maxresults>68</maxresults>
+      <timeoutcount>0</timeoutcount>
+    </query>
+    <query nr="9">
+      <querystring><![CDATA[
+
+            
+                PREFIX : <http://www.semanticweb.org/ontologies/2012/4/fishdelish.owl#>
+				PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+				SELECT ?prename ?surname  ?email ?webpage ?fax ?institute ?street ?city ?country ?comments ?keywords ?year
+				WHERE {
+				$x a :Collaborator .
+                $x :prename ?prename .
+                $x :surname ?surname .
+                $x :email ?email .
+                $x :staffPhoto ?photo .
+                $x :webpage ?webpage .
+                $x :fax ?fax .
+                $x :institute ?institute .
+                $x :street ?street .
+                $x :city ?city .
+                $x :countryName ?country .
+                $x :comments ?comments .
+                $x :keywords ?keywords .
+                $x :year ?year .
+				$x :collaboratorID "290"^^xsd:integer .
+				}
+            
+        
+
+       ]]>
+      </querystring>
+      <executecount>5</executecount>
+      <aqet>0.027450</aqet>
+      <aqetg>0.027364</aqetg>
+      <qps>36.43</qps>
+      <minqet>0.02512900</minqet>
+      <maxqet>0.03114500</maxqet>
+      <avgresults>1.00</avgresults>
+      <minresults>1</minresults>
+      <maxresults>1</maxresults>
+      <timeoutcount>0</timeoutcount>
+    </query>
+    <query nr="10">
+      <querystring><![CDATA[
+
+            
+                PREFIX : <http://www.semanticweb.org/ontologies/2012/4/fishdelish.owl#>
+				PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+				SELECT ?genus ?species ?photographer ?stage  
+                WHERE {
+				$id a :Picture .
+				$id :pictureName "Lulem_u0.gif"^^xsd:string .
+				$id :author ?photographer .
+				$id :lifeStage ?stage .
+				$id :isPictureOf ?x .
+				$x a :Species .
+				$x :genus ?genus .
+				$x :species ?species .
+                }
+            
+        
+
+       ]]>
+      </querystring>
+      <executecount>5</executecount>
+      <aqet>0.024014</aqet>
+      <aqetg>0.024008</aqetg>
+      <qps>41.64</qps>
+      <minqet>0.02301500</minqet>
+      <maxqet>0.02442500</maxqet>
+      <avgresults>1.00</avgresults>
+      <minresults>1</minresults>
+      <maxresults>1</maxresults>
+      <timeoutcount>0</timeoutcount>
+    </query>
+    <query nr="11">
+      <querystring><![CDATA[
+
+            
+				PREFIX : <http://www.semanticweb.org/ontologies/2012/4/fishdelish.owl#>
+				PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+				SELECT ?order ?family ?genus ?species ?occurrence 
+				WHERE { 
+				$x a :Species .
+				$x :genus ?genus .
+				$x :species ?species .
+				$x :isFoundInCountry ?c .
+				$x :belongsToFamily ?f .
+				$f a :Family .
+				$f :familyName  ?family .
+				$f :familyOrder ?order .
+                $countryID :countryName "Papua N Guin"^^xsd:string .
+                $countryID :refersToCountry ?c .
+                $c :status ?occurrence .         
+                } 
+            
+        
+
+       ]]>
+      </querystring>
+      <executecount>5</executecount>
+      <aqet>0.191739</aqet>
+      <aqetg>0.191738</aqetg>
+      <qps>5.22</qps>
+      <minqet>0.19049200</minqet>
+      <maxqet>0.19296800</maxqet>
+      <avgresults>2742.00</avgresults>
+      <minresults>2742</minresults>
+      <maxresults>2742</maxresults>
+      <timeoutcount>0</timeoutcount>
+    </query>
+    <query nr="12">
+      <querystring><![CDATA[
+
+            
+                PREFIX : <http://www.semanticweb.org/ontologies/2012/4/fishdelish.owl#>
+				PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+                SELECT ?freshwater ?marine ?brackish ?occurrence ?Factbook 
+                WHERE { 
+                $x a :Species .
+				$x :genus "Stethojulis"^^xsd:string .
+				$x :species "terina"^^xsd:string .
+				$x :isFoundInCountry ?id .
+				$countryID :countryName "Guyana"^^xsd:string .
+				$countryID :factbook ?Factbook .
+                $countryID :refersToCountry ?id .
+                $id :status ?occurrence . 
+				$id :inFreshwater ?freshwater .
+				$id :inBrackish ?brackish .
+				$id :inSaltwater ?marine .
+                } 
+            
+        
+
+       ]]>
+      </querystring>
+      <executecount>5</executecount>
+      <aqet>0.026492</aqet>
+      <aqetg>0.026473</aqetg>
+      <qps>37.75</qps>
+      <minqet>0.02527700</minqet>
+      <maxqet>0.02813900</maxqet>
+      <avgresults>0.00</avgresults>
+      <minresults>0</minresults>
+      <maxresults>0</maxresults>
+      <timeoutcount>0</timeoutcount>
+    </query>
+    <query nr="13">
+      <querystring><![CDATA[
+
+            
+                PREFIX : <http://www.semanticweb.org/ontologies/2012/4/fishdelish.owl#>
+				PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+                SELECT  ?order ?family ?genus ?species ?occurrence ?name 
+                WHERE {
+                $speciesID a :Species .
+				$speciesID :genus ?genus .
+				$speciesID :species ?species .
+				$speciesID :isFoundInCountry ?c .
+				$speciesID :hasCommonName ?nameID .
+				$speciesID :belongsToFamily ?f .
+				$f a :Family .
+				$f :familyName  ?family .
+				$f :familyOrder ?order .
+				$nameID a :CommonName .
+                $nameID :speciesCommonName ?name .
+                $countryID :countryName "Easter I."^^xsd:string .
+                $countryID :refersToCountry ?c .
+                $c :status ?occurrence .    
+                $c :inFreshwater "1"^^xsd:int .
+                } 
+            
+        
+
+       ]]>
+      </querystring>
+      <executecount>5</executecount>
+      <aqet>0.025998</aqet>
+      <aqetg>0.025910</aqetg>
+      <qps>38.46</qps>
+      <minqet>0.02361700</minqet>
+      <maxqet>0.02951100</maxqet>
+      <avgresults>0.00</avgresults>
+      <minresults>0</minresults>
+      <maxresults>0</maxresults>
+      <timeoutcount>0</timeoutcount>
+    </query>
+    <query nr="14">
+      <querystring><![CDATA[
+
+            
+                PREFIX : <http://www.semanticweb.org/ontologies/2012/4/fishdelish.owl#>
+				PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+                SELECT  ?order ?family ?genus ?species ?name 
+                WHERE {
+                $speciesID a :Species .
+				$speciesID :genus ?genus .
+				$speciesID :species ?species .
+				$speciesID :isFoundInCountry ?c .
+				$speciesID :hasCommonName ?nameID .
+				$speciesID :belongsToFamily ?f .
+				$f a :Family .
+				$f :familyName  ?family .
+				$f :familyOrder ?order .
+				$nameID a :CommonName .
+                $nameID :speciesCommonName ?name .
+                $countryID :countryName "Hungary"^^xsd:string .
+                $countryID :refersToCountry ?c .
+                $c :status "introduced"^^xsd:string .    
+                } 
+            
+        
+
+       ]]>
+      </querystring>
+      <executecount>5</executecount>
+      <aqet>0.133697</aqet>
+      <aqetg>0.133614</aqetg>
+      <qps>7.48</qps>
+      <minqet>0.12767400</minqet>
+      <maxqet>0.14146800</maxqet>
+      <avgresults>1533.00</avgresults>
+      <minresults>1533</minresults>
+      <maxresults>1533</maxresults>
+      <timeoutcount>0</timeoutcount>
+    </query>
+    <query nr="15">
+      <querystring><![CDATA[
+
+            
+                PREFIX : <http://www.semanticweb.org/ontologies/2012/4/fishdelish.owl#>
+				PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+				SELECT  ?order ?family ?genus ?species ?name 
+                WHERE {
+                $speciesID a :Species .
+				$speciesID :genus ?genus .
+				$speciesID :species ?species .
+				$speciesID :isFoundInCountry ?c .
+				$speciesID :hasCommonName ?nameID .
+				$speciesID :belongsToFamily ?f .
+				$f a :Family .
+				$f :familyName  ?family .
+				$f :familyOrder ?order .
+				$nameID a :CommonName .
+                $nameID :speciesCommonName ?name .
+                $countryID :countryName "Micronesia"^^xsd:string .
+                $countryID :refersToCountry ?c .
+                $c :status "endemic"^^xsd:string .    
+                } 
+            
+        
+
+       ]]>
+      </querystring>
+      <executecount>5</executecount>
+      <aqet>0.028753</aqet>
+      <aqetg>0.028530</aqetg>
+      <qps>34.78</qps>
+      <minqet>0.02560900</minqet>
+      <maxqet>0.03614700</maxqet>
+      <avgresults>15.00</avgresults>
+      <minresults>15</minresults>
+      <maxresults>15</maxresults>
+      <timeoutcount>0</timeoutcount>
+    </query>
+    <query nr="16">
+      <querystring><![CDATA[
+
+            
+                PREFIX : <http://www.semanticweb.org/ontologies/2012/4/fishdelish.owl#>
+				PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+				SELECT  ?order ?family ?genus ?species ?name ?occurrence ?dangerous 
+                WHERE {
+                $speciesID a :Species .
+				$speciesID :genus ?genus .
+				$speciesID :species ?species .
+				$speciesID :isDangerous ?dangerous .
+				$speciesID :demersPelag "reef-associated"^^xsd:string .
+				$speciesID :isFoundInCountry ?c .
+				$speciesID :hasCommonName ?nameID .
+				$speciesID :belongsToFamily ?f .
+				$f a :Family .
+				$f :familyName  ?family .
+				$f :familyOrder ?order .
+				$nameID a :CommonName .
+                $nameID :speciesCommonName ?name .
+                $countryID :countryName "Denmark"^^xsd:string .
+                $countryID :refersToCountry ?c .
+                $c :status ?occurrence .              
+                } 
+            
+        
+
+       ]]>
+      </querystring>
+      <executecount>5</executecount>
+      <aqet>0.071220</aqet>
+      <aqetg>0.071183</aqetg>
+      <qps>14.04</qps>
+      <minqet>0.06845500</minqet>
+      <maxqet>0.07351700</maxqet>
+      <avgresults>554.00</avgresults>
+      <minresults>554</minresults>
+      <maxresults>554</maxresults>
+      <timeoutcount>0</timeoutcount>
+    </query>
+    <query nr="17">
+      <querystring><![CDATA[
+
+            
+                PREFIX : <http://www.semanticweb.org/ontologies/2012/4/fishdelish.owl#>
+				PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+				SELECT  ?order ?family ?genus ?species ?name ?occurrence ?dangerous 
+                WHERE {
+                $speciesID a :Species .
+				$speciesID :genus ?genus .
+				$speciesID :species ?species .
+				$speciesID :isDangerous ?dangerous .
+				$speciesID :demersPelag "pelagic"^^xsd:string .
+				$speciesID :isFoundInCountry ?c .
+				$speciesID :hasCommonName ?nameID .
+				$speciesID :belongsToFamily ?f .
+				$f a :Family .
+				$f :familyName  ?family .
+				$f :familyOrder ?order .
+				$nameID a :CommonName .
+                $nameID :speciesCommonName ?name .
+                $countryID :countryName "Tonga"^^xsd:string .
+                $countryID :refersToCountry ?c .
+                $c :status ?occurrence .              
+                } 
+            
+        
+
+       ]]>
+      </querystring>
+      <executecount>5</executecount>
+      <aqet>0.027923</aqet>
+      <aqetg>0.027825</aqetg>
+      <qps>35.81</qps>
+      <minqet>0.02358700</minqet>
+      <maxqet>0.02993900</maxqet>
+      <avgresults>0.00</avgresults>
+      <minresults>0</minresults>
+      <maxresults>0</maxresults>
+      <timeoutcount>0</timeoutcount>
+    </query>
+    <query nr="18">
+      <querystring><![CDATA[
+
+            
+                PREFIX : <http://www.semanticweb.org/ontologies/2012/4/fishdelish.owl#>
+				PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+				SELECT  ?order ?family ?genus ?species ?name ?occurrence ?gameFish  ?gameFishRef 
+                WHERE {
+                $speciesID a :Species .
+				$speciesID :genus ?genus .
+				$speciesID :species ?species .
+				$speciesID :gameFish ?gameFish .
+				$speciesID :gameFishRef ?gameFishRef .
+				$speciesID :isFoundInCountry ?c .
+				$speciesID :hasCommonName ?nameID .
+				$speciesID :belongsToFamily ?f .
+				$f a :Family .
+				$f :familyName  ?family .
+				$f :familyOrder ?order .
+				$nameID a :CommonName .
+                $nameID :speciesCommonName ?name .
+                $countryID :countryName "Fr South Tr"^^xsd:string .
+                $countryID :refersToCountry ?c .
+                $c :status ?occurrence .  
+                $c :gameFish "1"^^xsd:integer .           
+                } 
+            
+        
+
+       ]]>
+      </querystring>
+      <executecount>5</executecount>
+      <aqet>0.025881</aqet>
+      <aqetg>0.025870</aqetg>
+      <qps>38.64</qps>
+      <minqet>0.02489100</minqet>
+      <maxqet>0.02676200</maxqet>
+      <avgresults>0.00</avgresults>
+      <minresults>0</minresults>
+      <maxresults>0</maxresults>
+      <timeoutcount>0</timeoutcount>
+    </query>
+    <query nr="19">
+      <querystring><![CDATA[
+
+            
+                PREFIX : <http://www.semanticweb.org/ontologies/2012/4/fishdelish.owl#>
+				PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+				SELECT ?order ?family ?genus ?species ?name ?occurrence  
+                WHERE {
+                $speciesID a :Species .
+				$speciesID :genus ?genus .
+				$speciesID :species ?species .
+				$speciesID :isFoundInCountry ?c .
+				$speciesID :hasCommonName ?nameID .
+				$speciesID :belongsToFamily ?f .
+				$f a :Family .
+				$f :familyName  ?family .
+				$f :familyOrder ?order .
+				$nameID a :CommonName .
+                $nameID :speciesCommonName ?name .
+                $countryID :countryName "Barbados"^^xsd:string .
+                $countryID :refersToCountry ?c .
+                $c :status ?occurrence .    
+                $c :importance "minor commercial"^^xsd:string .          
+                } 
+            
+        
+
+       ]]>
+      </querystring>
+      <executecount>5</executecount>
+      <aqet>0.056277</aqet>
+      <aqetg>0.056224</aqetg>
+      <qps>17.77</qps>
+      <minqet>0.05324100</minqet>
+      <maxqet>0.06000300</maxqet>
+      <avgresults>365.00</avgresults>
+      <minresults>365</minresults>
+      <maxresults>365</maxresults>
+      <timeoutcount>0</timeoutcount>
+    </query>
+    <query nr="20">
+      <querystring><![CDATA[
+
+            
+                PREFIX : <http://www.semanticweb.org/ontologies/2012/4/fishdelish.owl#>
+				PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+				SELECT  ?genus ?species ?occurrence ?speciesAquaculture 
+                WHERE {
+                $x a :Species .
+				$x :genus ?genus .
+				$x :species ?species .
+				$x :usedForAquaculture ?speciesAquaculture .
+				$x :isFoundInCountry ?c .
+                $countryID :countryName "Liberia"^^xsd:string .
+                $countryID :refersToCountry ?c .
+                $c :status ?occurrence .   
+				$c :aquaculture "commercial"^^xsd:string .
+                } 
+            
+        
+
+       ]]>
+      </querystring>
+      <executecount>5</executecount>
+      <aqet>0.028991</aqet>
+      <aqetg>0.028781</aqetg>
+      <qps>34.49</qps>
+      <minqet>0.02418200</minqet>
+      <maxqet>0.03504400</maxqet>
+      <avgresults>1.00</avgresults>
+      <minresults>1</minresults>
+      <maxresults>1</maxresults>
+      <timeoutcount>0</timeoutcount>
+    </query>
+    <query nr="21">
+      <querystring><![CDATA[
+
+            
+                PREFIX : <http://www.semanticweb.org/ontologies/2012/4/fishdelish.owl#>
+				PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+				SELECT  ?genus ?species ?occurrence ?countryAquaculture 
+                WHERE {
+                $x a :Species .
+				$x :genus ?genus .
+				$x :species ?species .
+				$x :usedForAquaculture "commercial"^^xsd:string .
+				$x :isFoundInCountry ?c .
+                $countryID :countryName "US Virgin Is"^^xsd:string .
+                $countryID :refersToCountry ?c .
+                $c :status ?occurrence .   
+				$c :aquaculture ?countryAquaculture  .
+                } 
+            
+        
+
+       ]]>
+      </querystring>
+      <executecount>5</executecount>
+      <aqet>0.031442</aqet>
+      <aqetg>0.029519</aqetg>
+      <qps>31.80</qps>
+      <minqet>0.02476500</minqet>
+      <maxqet>0.05706200</maxqet>
+      <avgresults>20.00</avgresults>
+      <minresults>20</minresults>
+      <maxresults>20</maxresults>
+      <timeoutcount>0</timeoutcount>
+    </query>
+    <query nr="22">
+      <querystring><![CDATA[
+
+            
+                PREFIX : <http://www.semanticweb.org/ontologies/2012/4/fishdelish.owl#>
+				PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+				SELECT  ?genus ?species ?occurrence ?aquarium 
+                WHERE {
+                $x a :Species .
+				$x :genus ?genus .
+				$x :species ?species .
+				$x :aquarium ?aquarium .
+				$x :isFoundInCountry ?c .
+                $countryID :countryName "Juan Fern‡ndez"^^xsd:string .
+                $countryID :refersToCountry ?c .
+                $c :status ?occurrence .   
+				$c :liveExport "ornamental"^^xsd:string .
+                } 
+            
+        
+
+       ]]>
+      </querystring>
+      <executecount>5</executecount>
+      <aqet>0.026346</aqet>
+      <aqetg>0.026039</aqetg>
+      <qps>37.96</qps>
+      <minqet>0.02333200</minqet>
+      <maxqet>0.03475500</maxqet>
+      <avgresults>0.00</avgresults>
+      <minresults>0</minresults>
+      <maxresults>0</maxresults>
+      <timeoutcount>0</timeoutcount>
+    </query>
+  </queries>
+</bsbm>

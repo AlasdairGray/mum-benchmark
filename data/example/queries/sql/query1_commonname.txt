@@ -1,0 +1,6 @@
+
+            SELECT species.Species, comnames.NameType, species.Genus, countref.C_Code
+            FROM comnames, species, countref
+            WHERE comnames.SpecCode=species.SpecCode AND comnames.C_Code=countref.C_Code AND
+            comnames.ComName="Western rock blackfish"
+        

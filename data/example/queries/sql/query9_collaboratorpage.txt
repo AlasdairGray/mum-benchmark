@@ -1,0 +1,5 @@
+
+            SELECT collaborators.Prename, collaborators.Surname, collaborators.Email, collaborators.WebPage, collaborators.FAX, collaborators.Institute, collaborators.Street, collaborators.City, collaborators.Country, collaborators.Comments, collaborators.Keywords, collaborators.Year
+            FROM collaborators
+            WHERE collaborators.Personnel=138
+        

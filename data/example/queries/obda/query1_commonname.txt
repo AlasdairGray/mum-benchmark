@@ -1,0 +1,19 @@
+
+            
+				PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+				PREFIX : <http://www.semanticweb.org/ontologies/2012/4/fishdelish.owl#>
+				SELECT ?type ?country ?genus ?species
+				WHERE {  
+				$speciesID a :Species .
+				$speciesID :genus ?genus .
+				$speciesID :species ?species .
+				$speciesID :hasCommonName ?nameID .
+				$nameID a :CommonName .
+				$nameID :speciesCommonName "Western rock blackfish"^^xsd:string .
+				$nameID :nameLanguageType ?type .
+				$nameID :belongsToCountry ?countryID .
+				$countryID a :Country .
+				$countryID :countryName ?country .
+				}
+            
+        

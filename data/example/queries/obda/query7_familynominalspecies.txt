@@ -1,0 +1,15 @@
+
+             
+                PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+				PREFIX : <http://www.semanticweb.org/ontologies/2012/4/fishdelish.owl#>
+				SELECT ?Genus ?Species ?Author 
+				WHERE { 
+				$x a :Species .
+				$x :genus ?Genus .
+				$x :species ?Species .
+				$x :author ?Author .
+				$x :belongsToFamily ?f .
+				$f :familyName  "Diretmidae"^^xsd:string .
+				} 
+            
+        

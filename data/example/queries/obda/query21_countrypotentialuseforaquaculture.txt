@@ -1,0 +1,18 @@
+
+            
+                PREFIX : <http://www.semanticweb.org/ontologies/2012/4/fishdelish.owl#>
+				PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+				SELECT  ?genus ?species ?occurrence ?countryAquaculture 
+                WHERE {
+                $x a :Species .
+				$x :genus ?genus .
+				$x :species ?species .
+				$x :usedForAquaculture "commercial"^^xsd:string .
+				$x :isFoundInCountry ?c .
+                $countryID :countryName "Rodriguez"^^xsd:string .
+                $countryID :refersToCountry ?c .
+                $c :status ?occurrence .   
+				$c :aquaculture ?countryAquaculture  .
+                } 
+            
+        

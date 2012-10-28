@@ -1,0 +1,10 @@
+
+              SELECT families.FamilyOrder , families.Family, species.Genus,species.Species, comnames.ComName
+              FROM fbapp.families, fbapp.species, fbapp.comnames, fbapp.countref, fbapp.country
+              WHERE country.C_Code=countref.C_Code
+              AND species.FamCode = families.FamCode 
+              AND species.SpecCode=country.SpecCode
+              AND species.SpecCode=comnames.SpecCode
+              AND countref.PAESE="Kenya"
+              AND country.Status="introduced"
+        
