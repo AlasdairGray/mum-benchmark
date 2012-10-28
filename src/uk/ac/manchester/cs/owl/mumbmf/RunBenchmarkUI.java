@@ -75,9 +75,6 @@ public class RunBenchmarkUI {
 
         for (List<String> p : paramList) {
             p.addAll(globalParams);
-            for (String s : p) {
-                System.out.println(s);
-            }
         }
 
         try {
@@ -116,13 +113,22 @@ public class RunBenchmarkUI {
      * @param params
      */
     private static void runBenchmark(String[] params) {
+        for (String s : params) {
+            System.out.println(s);
+        }
+
         TestDriver driver = new TestDriver(params);
+
         driver.init();
         driver.run();
     }
 
 
     public static void runMultiQueryGeneration(String[] params) {
+
+        for (String s : params) {
+            System.out.println(s);
+        }
 
         String seedType = "";  // mandatory
         String queryOutputDir = "";
@@ -171,6 +177,7 @@ public class RunBenchmarkUI {
             i++;
         }
 
+
 //        if no connection parameters are given, exit
         if (sqlConn.dbServer.equals("") && sparqlConn.sparqlEndpoint.equals("") && obdaConn.obdaFile.equals("")) {
             UsageInfo.printUiUsage();
@@ -204,9 +211,9 @@ public class RunBenchmarkUI {
         String line = null;
         while ((line = bufferedReader.readLine()) != null) {
             sb.append(line);
+            sb.append(" ");
         }
         bufferedReader.close();
-
 
         return sb.toString().split("\\s+");
     }
