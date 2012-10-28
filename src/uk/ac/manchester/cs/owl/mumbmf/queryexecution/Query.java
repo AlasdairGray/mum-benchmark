@@ -29,7 +29,7 @@ public class Query {
     public Query(File queryFile) {
 
         BufferedReader queryReader = null;
-        System.out.println("  Reading query file " + queryFile);
+//        System.out.println("  Reading query file " + queryFile);
         try {
             queryReader = new BufferedReader(new InputStreamReader(new FileInputStream(queryFile)));
             StringBuilder sb = new StringBuilder();
@@ -58,7 +58,7 @@ public class Query {
                 e.printStackTrace();
             }
         }
-        System.out.println("  Done initialising " + queryFile.getName());
+//        System.out.println("  Done initialising " + queryFile.getName());
 
     }
 
