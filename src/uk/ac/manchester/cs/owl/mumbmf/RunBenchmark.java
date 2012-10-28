@@ -104,7 +104,7 @@ public class RunBenchmark {
         List<String> paramList = new ArrayList<String>();
         paramList.add("-type");
         paramList.add(type);
-        Collections.addAll(paramList, arglist.split(" "));
+        Collections.addAll(paramList, arglist.split("\\s+"));
         return paramList;
     }
 
@@ -113,22 +113,14 @@ public class RunBenchmark {
      * @param params
      */
     private static void runBenchmark(String[] params) {
-        for (String s : params) {
-            System.out.println(s);
-        }
 
         TestDriver driver = new TestDriver(params);
-
         driver.init();
         driver.run();
     }
 
 
     public static void runMultiQueryGeneration(String[] params) {
-
-        for (String s : params) {
-            System.out.println(s);
-        }
 
         String seedType = "";  // mandatory
         String queryOutputDir = "";
