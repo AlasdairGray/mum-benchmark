@@ -80,10 +80,11 @@ public class SparqlConnection implements ServerConnection {
         int resultCount = 0;
         //Write XML result into result
         try {
-            if (queryType == Query.SELECT_TYPE)
+            if (queryType == Query.SELECT_TYPE) {
                 resultCount = countResults(is);
-            else
+            } else {
                 resultCount = countBytes(is);
+            }
         } catch (SocketTimeoutException e) {
             double t = this.timeout / 1000.0;
             System.out.println("Query " + queryNr + ": " + t + " seconds timeout!");
@@ -102,7 +103,6 @@ public class SparqlConnection implements ServerConnection {
         queryMix.setCurrent(resultCount, timeInSeconds);
         qe.close();
     }
-
 
 
     private int countBytes(InputStream is) {
@@ -161,6 +161,7 @@ public class SparqlConnection implements ServerConnection {
         } catch (Exception e) {
             System.err.println("SAX Error");
             e.printStackTrace();
+            System.exit(1);
             return -1;
         }
         return count;
@@ -239,7 +240,6 @@ public class SparqlConnection implements ServerConnection {
     }
 
     /**
-     *
      * @param is
      * @return
      */
@@ -306,7 +306,6 @@ public class SparqlConnection implements ServerConnection {
     }
 
     /**
-     *
      * @param queryString
      * @return
      */

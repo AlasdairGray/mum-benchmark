@@ -278,7 +278,7 @@
         <paramquery>
             <![CDATA[
                 PREFIX fd: <http://fishdelish.cs.man.ac.uk/rdf/vocab/resource/>
-                SELECT ?prename ?surname  ?email ?photo ?webpage ?fax ?institute ?street ?city ?country ?comments ?keywords ?year
+                SELECT ?prename ?surname  ?email ?webpage ?fax ?institute ?street ?city ?country ?comments ?keywords ?year
                 WHERE {
                      ?x fd:collaborators_Personnel %code% .
                      OPTIONAL {?x fd:collaborators_Prename ?prename }.
