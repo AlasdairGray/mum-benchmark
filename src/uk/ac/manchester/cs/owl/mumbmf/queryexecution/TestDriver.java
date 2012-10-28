@@ -463,7 +463,7 @@ public class TestDriver {
             resultWriter.close();
             measurementFile.close();
 
-            System.out.println("\n* Benchmark completed. Result saved to " + timeStampedResultFile);
+            System.out.println("\n* Benchmark completed. Result saved to " + timeStampedResultFile + "\n");
         } catch (IOException e) {
             e.printStackTrace();
         }

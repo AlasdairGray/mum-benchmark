@@ -68,8 +68,8 @@ public class SqlQueryGenerator extends QueryGenerator {
                 for (int i = 0; i < paramNames.getLength(); i++) {
                     paramName = paramNames.item(i).getTextContent();
                     paramValue = queryResult.getString(paramName);
-                        System.out.println("\n  PARAM NAME: " + paramName);
-                    System.out.println("  PARAM VALUE: " + paramValue);
+//                    System.out.println("\n  PARAM NAME: " + paramName);
+//                    System.out.println("  PARAM VALUE: " + paramValue);
 
 //                    finally, add the parameter name + value to the map
                     paramMap.put(paramName, paramValue);

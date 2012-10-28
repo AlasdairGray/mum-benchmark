@@ -128,7 +128,7 @@ public class MultiQueryGenerator {
                 Node namedQuery = nodes.item(i);
                 String queryName = namedQuery.getAttributes().getNamedItem("id").getTextContent();
                 queryNames.add(queryName);
-                System.out.println("\n* Generating query: " + queryName);
+                System.out.println("* Generating query " + (i+1) + ": " + queryName);
 //
 //                // this returns all paramquery nodes
                 XPathExpression xGetParamNode = xpath.compile("//query[@id='" + queryName + "']/parameter");

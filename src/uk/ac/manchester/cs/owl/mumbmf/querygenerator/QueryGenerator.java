@@ -90,7 +90,7 @@ public abstract class QueryGenerator {
         String queryName = namedQuery.getAttributes().getNamedItem("id").getTextContent();
 
         currentQueryName = queryName;
-        System.out.println("\n* Generating query: " + currentQueryName);
+        System.out.println("* Generating query: " + currentQueryName);
 
 //                get the parameterised query
         Node queryStringNode = namedQuery.getChildNodes().item(1);  // TODO: get it by name
