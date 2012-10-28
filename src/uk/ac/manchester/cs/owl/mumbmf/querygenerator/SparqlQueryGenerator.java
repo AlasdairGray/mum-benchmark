@@ -58,8 +58,8 @@ public class SparqlQueryGenerator extends QueryGenerator {
             String paramName = paramNames.item(i).getTextContent();
             String paramValue = getParameterValue(paramName, record);
 
-            System.out.println("\n  PARAM NAME: " + paramName);
-            System.out.println("  PARAM VALUE: " + paramValue);
+//            System.out.println("\n  PARAM NAME: " + paramName);
+//            System.out.println("  PARAM VALUE: " + paramValue);
 
             paramMap.put(paramName.toLowerCase(), paramValue);
         }
