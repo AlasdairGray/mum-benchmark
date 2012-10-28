@@ -1,0 +1,10 @@
+
+	      SELECT families.FamilyOrder , families.Family, species.Genus,species.Species,  country.Status, comnames.ComName
+             FROM families, species, comnames, countref, country
+             WHERE country.C_Code=countref.C_Code
+             AND species.FamCode=families.FamCode    
+             AND comnames.SpecCode=species.SpecCode 
+             AND country.SpecCode=species.SpecCode  
+             AND country.Freshwater=1 
+             AND countref.PAESE="US Misc Pac"
+        

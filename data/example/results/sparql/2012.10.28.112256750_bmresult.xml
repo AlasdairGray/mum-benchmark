@@ -1,0 +1,792 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<bsbm lang="sparql" start="2012.10.28.112256750" end="2012.10.28.112349261">
+  <querymix>
+     <warmups>3</warmups>
+     <seed>808080</seed>
+     <querymixruns>5</querymixruns>
+     <minquerymixruntime>6.0271</minquerymixruntime>
+     <maxquerymixruntime>7.2100</maxquerymixruntime>
+     <totalruntime>31.444</totalruntime>
+     <qmph>572.44</qmph>
+     <cqet>6.28886</cqet>
+     <cqetg>6.27306</cqetg>
+  </querymix>
+  <queries>
+    <query nr="1">
+      <querystring><![CDATA[
+
+             
+               PREFIX fd: <http://fishdelish.cs.man.ac.uk/rdf/vocab/resource/>
+               SELECT ?type ?species ?genus ?country
+               WHERE {
+               ?nameID fd:comnames_ComName "Mamfe killi" .
+               ?nameID fd:comnames_NameType ?type .
+               ?nameID fd:comnames_SpecCode ?code .
+               ?nameID fd:comnames_C_Code ?ccode .
+               ?code fd:species_Species ?species .
+               ?code fd:species_Genus ?genus .
+               ?ccode fd:countref_PAESE ?country .
+		        }
+           
+        
+
+       ]]>
+      </querystring>
+      <executecount>5</executecount>
+      <aqet>0.033141</aqet>
+      <aqetg>0.033130</aqetg>
+      <qps>30.17</qps>
+      <minqet>0.03181700</minqet>
+      <maxqet>0.03443400</maxqet>
+      <avgresults>1.00</avgresults>
+      <minresults>1</minresults>
+      <maxresults>1</maxresults>
+      <timeoutcount>0</timeoutcount>
+    </query>
+    <query nr="2">
+      <querystring><![CDATA[
+
+           
+                PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+                PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+                PREFIX fish: <http://fishdelish.cs.man.ac.uk/rdf/vocab/resource/>
+                SELECT ?common ?code ?refno
+                ?author ?demerspelag ?anacat
+                ?family ?order ?class ?entered
+                ?pic ?picid ?description ?refauthor ?refyear
+                ?collaborator  ?comments
+                WHERE {
+                ?x fish:species_Genus "Stiphodon" .
+                ?x fish:species_SpecCode ?code.
+                ?x fish:species_Species "weberi" .
+		        ?x fish:species_Comments ?comments .
+                OPTIONAL {?x fish:species_Author ?author}.
+                OPTIONAL {?x fish:species_FBname ?common}.
+                OPTIONAL {?x fish:species_SpeciesRefNo ?refno}.
+                OPTIONAL {?ref fish:refrens_RefNo ?refno}.
+                OPTIONAL {?ref fish:refrens_Author ?refauthor}.
+                OPTIONAL {?ref fish:refrens_Year ?refyear}.
+                OPTIONAL {?x fish:species_Comments ?biology.}
+                OPTIONAL {
+                ?x fish:species_FamCode ?famcode.
+                ?famcode fish:families_Family ?family.
+                ?famcode fish:families_Order ?order.
+                ?famcode fish:families_Class ?class.
+                }
+                OPTIONAL {?morph fish:morphdat_Speccode ?x.
+                ?morph fish:morphdat_AddChars ?description.}
+                OPTIONAL {?x fish:species_DemersPelag ?demerspelag.}
+                OPTIONAL {?x fish:species_AnaCat ?anacat.}
+                OPTIONAL {?x fish:species_PicPreferredName ?pic.
+                ?pic_node fish:picturesmain_SpecCode ?x.
+                ?pic_node fish:picturesmain_PicName ?pic.
+                ?pic_node fish:picturesmain_autoctr ?picid.
+                ?pic_node fish:picturesmain_Entered ?entered.
+                ?pic_node fish:picturesmain_AuthName ?collaborator.
+                }
+                }
+            
+        
+
+       ]]>
+      </querystring>
+      <executecount>5</executecount>
+      <aqet>0.890761</aqet>
+      <aqetg>0.890069</aqetg>
+      <qps>1.12</qps>
+      <minqet>0.84898600</minqet>
+      <maxqet>0.93814200</maxqet>
+      <avgresults>1.00</avgresults>
+      <minresults>1</minresults>
+      <maxresults>1</maxresults>
+      <timeoutcount>0</timeoutcount>
+    </query>
+    <query nr="3">
+      <querystring><![CDATA[
+
+             
+                PREFIX fd: <http://fishdelish.cs.man.ac.uk/rdf/vocab/resource/>
+                SELECT ?species ?author ?family 
+                WHERE {
+                ?code fd:species_Species ?species .
+                ?code fd:species_Genus "Sparisoma" .
+                ?code fd:species_Author ?author .
+                ?code fd:species_FamCode ?fcode .
+                ?fcode fd:families_Family ?family .
+                }
+            
+        
+
+       ]]>
+      </querystring>
+      <executecount>5</executecount>
+      <aqet>0.033085</aqet>
+      <aqetg>0.032988</aqetg>
+      <qps>30.23</qps>
+      <minqet>0.03000200</minqet>
+      <maxqet>0.03713300</maxqet>
+      <avgresults>14.00</avgresults>
+      <minresults>14</minresults>
+      <maxresults>14</maxresults>
+      <timeoutcount>0</timeoutcount>
+    </query>
+    <query nr="4">
+      <querystring><![CDATA[
+
+           
+               PREFIX fd: <http://fishdelish.cs.man.ac.uk/rdf/vocab/resource/> 
+                SELECT ?genus ?author ?family
+                WHERE {  
+                ?code fd:species_Species "glaucus" .
+                ?code fd:species_Genus ?genus .
+                ?code fd:species_Author ?author .
+                ?code fd:species_FamCode ?fcode .
+                ?fcode fd:families_Family ?family .
+                }
+               
+        
+
+       ]]>
+      </querystring>
+      <executecount>5</executecount>
+      <aqet>0.030944</aqet>
+      <aqetg>0.030920</aqetg>
+      <qps>32.32</qps>
+      <minqet>0.02930500</minqet>
+      <maxqet>0.03246400</maxqet>
+      <avgresults>3.00</avgresults>
+      <minresults>3</minresults>
+      <maxresults>3</maxresults>
+      <timeoutcount>0</timeoutcount>
+    </query>
+    <query nr="5">
+      <querystring><![CDATA[
+
+            
+                PREFIX fd: <http://fishdelish.cs.man.ac.uk/rdf/vocab/resource/>
+                SELECT ?order ?class ?noOfGenera ?noOfSpecies ?marine ?brackish ?freshwater 
+                ?aquarium ?remark  ?division ?activityLevel ?author ?year  ?repguild  ?SpeciesCount
+                WHERE {
+                 ?familiesID fd:families_Family "Latidae" .
+                 ?familiesID fd:families_Order ?order .
+                 ?familiesID fd:families_Class ?class .   
+                 ?familiesID fd:families_SpeciesCount ?SpeciesCount .
+                 ?familiesID fd:families_Genera ?noOfGenera .
+                 ?familiesID fd:families_Species ?noOfSpecies .
+                 ?familiesID fd:families_Marine ?marine .
+                 ?familiesID fd:families_Brackish ?brackish .
+                 ?familiesID fd:families_Freshwater ?freshwater .
+                 ?familiesID fd:families_Aquarium ?aquarium .
+                 ?familiesID fd:families_Remark ?remark .
+                 ?familiesID fd:families_Remark ?remark .
+                 ?familiesID fd:families_Division ?division .
+                 ?familiesID fd:families_Activity ?activityLevel .
+                 ?familiesID fd:families_ReprGuild ?repguild .
+                 ?familiesID fd:families_FamiliesRefNo ?code .
+                 ?x fd:refrens_RefNo ?code .
+                 ?x fd:refrens_Author  ?author .
+                 ?x fd:refrens_Year ?year .
+                }
+            
+        
+
+       ]]>
+      </querystring>
+      <executecount>5</executecount>
+      <aqet>0.086648</aqet>
+      <aqetg>0.086629</aqetg>
+      <qps>11.54</qps>
+      <minqet>0.08343300</minqet>
+      <maxqet>0.08819700</maxqet>
+      <avgresults>0.00</avgresults>
+      <minresults>0</minresults>
+      <maxresults>0</maxresults>
+      <timeoutcount>0</timeoutcount>
+    </query>
+    <query nr="6">
+      <querystring><![CDATA[
+
+               
+                PREFIX fd: <http://fishdelish.cs.man.ac.uk/rdf/vocab/resource/>
+                SELECT ?species ?genus ?author 
+                WHERE { ?SpeciesID fd:species_Author ?author ;
+                fd:species_Species ?species;
+                fd:species_Genus ?genus ;
+                fd:species_FamCode ?code .
+                ?code  fd:families_Family "Giganturidae" .
+                }
+            
+        
+
+       ]]>
+      </querystring>
+      <executecount>5</executecount>
+      <aqet>0.029312</aqet>
+      <aqetg>0.029277</aqetg>
+      <qps>34.12</qps>
+      <minqet>0.02820200</minqet>
+      <maxqet>0.03214000</maxqet>
+      <avgresults>2.00</avgresults>
+      <minresults>2</minresults>
+      <maxresults>2</maxresults>
+      <timeoutcount>0</timeoutcount>
+    </query>
+    <query nr="7">
+      <querystring><![CDATA[
+
+         
+                PREFIX fd: <http://fishdelish.cs.man.ac.uk/rdf/vocab/resource/>
+                SELECT ?species ?author ?genus 
+                WHERE { ?SpeciesID fd:species_Author ?author ;
+                fd:species_Species ?species;
+                fd:species_Genus ?genus ;
+                fd:species_FamCode ?code .
+                ?code  fd:families_Family "Nematistiidae" . 
+                }
+            
+        
+
+       ]]>
+      </querystring>
+      <executecount>5</executecount>
+      <aqet>0.029551</aqet>
+      <aqetg>0.029480</aqetg>
+      <qps>33.84</qps>
+      <minqet>0.02710400</minqet>
+      <maxqet>0.03280900</maxqet>
+      <avgresults>1.00</avgresults>
+      <minresults>1</minresults>
+      <maxresults>1</maxresults>
+      <timeoutcount>0</timeoutcount>
+    </query>
+    <query nr="8">
+      <querystring><![CDATA[
+
+            
+                PREFIX fd: <http://fishdelish.cs.man.ac.uk/rdf/vocab/resource/>
+                SELECT ?genus ?species ?picture ?photographer
+                WHERE {?picID fd:picturesmain_SpecCode ?code ;
+                fd:picturesmain_PicName ?picture ; 
+                fd:picturesmain_AuthName ?photographer .
+                ?code fd:species_Species ?species;
+                fd:species_Genus ?genus ;
+                fd:species_FamCode ?fcode .
+                ?fcode fd:families_Family "Acipenseridae" .
+                }
+            
+        
+
+       ]]>
+      </querystring>
+      <executecount>5</executecount>
+      <aqet>0.086662</aqet>
+      <aqetg>0.086579</aqetg>
+      <qps>11.54</qps>
+      <minqet>0.08342200</minqet>
+      <maxqet>0.09427600</maxqet>
+      <avgresults>124.00</avgresults>
+      <minresults>124</minresults>
+      <maxresults>124</maxresults>
+      <timeoutcount>0</timeoutcount>
+    </query>
+    <query nr="9">
+      <querystring><![CDATA[
+
+            
+                PREFIX fd: <http://fishdelish.cs.man.ac.uk/rdf/vocab/resource/>
+                SELECT ?prename ?surname  ?email ?webpage ?fax ?institute ?street ?city ?country ?comments ?keywords ?year
+                WHERE {
+                     ?x fd:collaborators_Personnel 1864 .
+                     OPTIONAL {?x fd:collaborators_Prename ?prename }.
+                     OPTIONAL {?x fd:collaborators_Surname ?surname }.
+                     OPTIONAL {?x fd:collaborators_E-mail ?email }.
+                     OPTIONAL {?x fd:collaborators_StaffPhoto ?photo }.
+                     OPTIONAL {?x fd:collaborators_WebPage ?webpage }.
+                     OPTIONAL {?x fd:collaborators_FAX ?fax }.
+                     OPTIONAL {?x fd:collaborators_Institute ?institute }.
+                     OPTIONAL {?x fd:collaborators_Street ?street }.
+                     OPTIONAL {?x fd:collaborators_City ?city }.
+                     OPTIONAL {?x fd:collaborators_Country ?country }.
+                     OPTIONAL {?x fd:collaborators_Comments ?comments }.
+                     OPTIONAL {?x fd:collaborators_Keywords ?keywords }.
+                     OPTIONAL {?x fd:collaborators_Year ?year }.
+                }
+            
+        
+
+       ]]>
+      </querystring>
+      <executecount>5</executecount>
+      <aqet>0.066560</aqet>
+      <aqetg>0.066535</aqetg>
+      <qps>15.02</qps>
+      <minqet>0.06411000</minqet>
+      <maxqet>0.06961800</maxqet>
+      <avgresults>1.00</avgresults>
+      <minresults>1</minresults>
+      <maxresults>1</maxresults>
+      <timeoutcount>0</timeoutcount>
+    </query>
+    <query nr="10">
+      <querystring><![CDATA[
+
+             
+                PREFIX fd: <http://fishdelish.cs.man.ac.uk/rdf/vocab/resource/>
+                SELECT ?genus ?species ?photographer ?stage  
+                WHERE {
+                        ?pcode fd:picturesmain_PicName "Gumon_u0.jpg" .
+                        ?pcode fd:picturesmain_AuthName ?photographer .
+                        ?pcode fd:picturesmain_LifeStage ?stage .
+                        ?pcode fd:picturesmain_SpecCode ?scode .
+                        ?scode fd:species_Genus ?genus .
+                        ?scode fd:species_Species ?species .
+                }
+            
+        
+
+       ]]>
+      </querystring>
+      <executecount>5</executecount>
+      <aqet>0.032688</aqet>
+      <aqetg>0.032627</aqetg>
+      <qps>30.59</qps>
+      <minqet>0.03043300</minqet>
+      <maxqet>0.03645700</maxqet>
+      <avgresults>1.00</avgresults>
+      <minresults>1</minresults>
+      <maxresults>1</maxresults>
+      <timeoutcount>0</timeoutcount>
+    </query>
+    <query nr="11">
+      <querystring><![CDATA[
+
+            
+                PREFIX fd: <http://fishdelish.cs.man.ac.uk/rdf/vocab/resource/>
+				SELECT ?order ?family ?genus ?species ?occurrence 
+				WHERE { 
+					?c fd:country_SpecCode ?x.
+					?c fd:country_Status ?occurrence .
+					?c fd:country_C_Code ?cf .
+					?x fd:species_Genus ?genus .
+					?x fd:species_Species ?species .
+					?x fd:species_FamCode ?f .
+					?f fd:families_Family  ?family .
+					?f fd:families_Order ?order .
+					?cf fd:countref_PAESE "Djibouti" .  
+				} 
+            
+        
+
+       ]]>
+      </querystring>
+      <executecount>5</executecount>
+      <aqet>0.189905</aqet>
+      <aqetg>0.189897</aqetg>
+      <qps>5.27</qps>
+      <minqet>0.18821200</minqet>
+      <maxqet>0.19241200</maxqet>
+      <avgresults>394.00</avgresults>
+      <minresults>394</minresults>
+      <maxresults>394</maxresults>
+      <timeoutcount>0</timeoutcount>
+    </query>
+    <query nr="12">
+      <querystring><![CDATA[
+
+            
+                                    PREFIX fd: <http://fishdelish.cs.man.ac.uk/rdf/vocab/resource/>
+                                    SELECT  ?freshwater ?marine ?brackish ?occurrence ?factbook
+                                    WHERE {
+                                    ?c fd:country_SpecCode ?x.
+                                    ?c fd:country_Freshwater ?freshwater .
+                                    ?c fd:country_Brackish ?brackish .
+                                    ?c fd:country_Saltwater ?marine .
+                                    ?c fd:country_Status ?occurrence .
+                                    ?c fd:country_C_Code ?cf .
+                                    ?x fd:species_Genus "Crenicichla" .
+                                    ?x fd:species_Species "hadrostigma" .
+                                    ?x fd:species_FamCode ?f .
+                                    ?f fd:families_Family  ?family .
+                                    ?f fd:families_Order ?order .
+                                    ?cf fd:countref_PAESE "Gaza Strip" .
+                                    ?cf fd:countref_Factbook ?factbook .
+                                    }
+                        
+
+        
+
+       ]]>
+      </querystring>
+      <executecount>5</executecount>
+      <aqet>0.091568</aqet>
+      <aqetg>0.091541</aqetg>
+      <qps>10.92</qps>
+      <minqet>0.08782000</minqet>
+      <maxqet>0.09389400</maxqet>
+      <avgresults>0.00</avgresults>
+      <minresults>0</minresults>
+      <maxresults>0</maxresults>
+      <timeoutcount>0</timeoutcount>
+    </query>
+    <query nr="13">
+      <querystring><![CDATA[
+
+            
+                PREFIX fd: <http://fishdelish.cs.man.ac.uk/rdf/vocab/resource/>
+                SELECT ?order ?family ?genus ?species ?occurrence ?name 
+                WHERE {
+					?nameID fd:comnames_ComName ?name .
+					?nameID fd:comnames_C_Code ?ccode . 
+					?nameID fd:comnames_SpecCode ?x.
+					?x fd:species_Genus ?genus .
+					?x fd:species_Species ?species .
+					?x fd:species_FamCode ?f .
+					?f fd:families_Family  ?family .
+					?f fd:families_Order ?order .
+					?c fd:country_SpecCode ?x.
+					?c fd:country_Status ?occurrence .
+					?c fd:country_Freshwater 1 .
+					?c fd:country_C_Code ?cf .
+					?cf fd:countref_PAESE "Kenya".     
+                }  
+            
+        
+
+       ]]>
+      </querystring>
+      <executecount>5</executecount>
+      <aqet>3.376621</aqet>
+      <aqetg>3.373961</aqetg>
+      <qps>0.30</qps>
+      <minqet>3.27249700</minqet>
+      <maxqet>3.64678800</maxqet>
+      <avgresults>7486.00</avgresults>
+      <minresults>7486</minresults>
+      <maxresults>7486</maxresults>
+      <timeoutcount>0</timeoutcount>
+    </query>
+    <query nr="14">
+      <querystring><![CDATA[
+
+            
+                PREFIX fd: <http://fishdelish.cs.man.ac.uk/rdf/vocab/resource/>
+                SELECT ?order ?family ?genus ?species ?name 
+                WHERE {
+					?nameID fd:comnames_ComName ?name .
+					?nameID fd:comnames_C_Code ?ccode . 
+					?nameID fd:comnames_SpecCode ?x.
+					?x fd:species_Genus ?genus .
+					?x fd:species_Species ?species .
+					?x fd:species_FamCode ?f .
+					?f fd:families_Family  ?family .
+					?f fd:families_Order ?order .
+					?c fd:country_SpecCode ?x.
+					?c fd:country_Status "introduced" .
+					?c fd:country_C_Code ?cf .
+					?cf fd:countref_PAESE "Paraguay" .   
+                }  
+            
+        
+
+       ]]>
+      </querystring>
+      <executecount>5</executecount>
+      <aqet>0.163401</aqet>
+      <aqetg>0.163351</aqetg>
+      <qps>6.12</qps>
+      <minqet>0.15864900</minqet>
+      <maxqet>0.16886800</maxqet>
+      <avgresults>251.00</avgresults>
+      <minresults>251</minresults>
+      <maxresults>251</maxresults>
+      <timeoutcount>0</timeoutcount>
+    </query>
+    <query nr="15">
+      <querystring><![CDATA[
+
+            
+                PREFIX fd: <http://fishdelish.cs.man.ac.uk/rdf/vocab/resource/>
+                SELECT ?order ?family ?genus ?species ?name 
+                WHERE {
+					?nameID fd:comnames_ComName ?name .
+					?nameID fd:comnames_C_Code ?ccode . 
+					?nameID fd:comnames_SpecCode ?x.
+					?x fd:species_Genus ?genus .
+					?x fd:species_Species ?species .
+					?x fd:species_FamCode ?f .
+					?f fd:families_Family  ?family .
+					?f fd:families_Order ?order .
+					?c fd:country_SpecCode ?x.
+					?c fd:country_Status "endemic" .
+					?c fd:country_C_Code ?cf .
+					?cf fd:countref_PAESE "Denmark" .     
+                }  
+            
+        
+
+       ]]>
+      </querystring>
+      <executecount>5</executecount>
+      <aqet>0.076291</aqet>
+      <aqetg>0.076269</aqetg>
+      <qps>13.11</qps>
+      <minqet>0.07419300</minqet>
+      <maxqet>0.07851300</maxqet>
+      <avgresults>0.00</avgresults>
+      <minresults>0</minresults>
+      <maxresults>0</maxresults>
+      <timeoutcount>0</timeoutcount>
+    </query>
+    <query nr="16">
+      <querystring><![CDATA[
+
+            
+                PREFIX fd: <http://fishdelish.cs.man.ac.uk/rdf/vocab/resource/>
+                SELECT ?order ?family ?genus ?species ?occurrence ?name ?dangerous 
+                WHERE {
+					?nameID fd:comnames_ComName ?name .
+					?nameID fd:comnames_C_Code ?ccode . 
+					?nameID fd:comnames_SpecCode ?x.
+					?x fd:species_Genus ?genus .
+					?x fd:species_Species ?species .
+					?x fd:species_Dangerous ?dangerous .
+					?x fd:species_DemersPelag "reef-associated" .
+					?x fd:species_FamCode ?f .
+					?f fd:families_Family  ?family .
+					?f  fd:families_Order ?order .
+					?c fd:country_SpecCode ?x.
+					?c fd:country_Status ?occurrence .
+					?c fd:country_C_Code ?cf .
+					?cf fd:countref_PAESE "Finland" .   
+                }  
+            
+        
+
+       ]]>
+      </querystring>
+      <executecount>5</executecount>
+      <aqet>0.108265</aqet>
+      <aqetg>0.108240</aqetg>
+      <qps>9.24</qps>
+      <minqet>0.10515200</minqet>
+      <maxqet>0.11131900</maxqet>
+      <avgresults>0.00</avgresults>
+      <minresults>0</minresults>
+      <maxresults>0</maxresults>
+      <timeoutcount>0</timeoutcount>
+    </query>
+    <query nr="17">
+      <querystring><![CDATA[
+
+            
+                PREFIX fd: <http://fishdelish.cs.man.ac.uk/rdf/vocab/resource/>
+                SELECT ?order ?family ?genus ?species ?occurrence ?name ?dangerous 
+                WHERE {
+					?nameID fd:comnames_ComName ?name .
+					?nameID fd:comnames_C_Code ?ccode . 
+					?nameID fd:comnames_SpecCode ?x.
+					?x fd:species_Genus ?genus .
+					?x fd:species_Species ?species .
+					?x fd:species_Dangerous ?dangerous .
+					?x fd:species_DemersPelag "pelagic" .
+					?x fd:species_FamCode ?f .
+					?f fd:families_Family  ?family .
+					?f  fd:families_Order ?order .
+					?c fd:country_SpecCode ?x.
+					?c fd:country_Status ?occurrence .
+					?c fd:country_C_Code ?cf .
+					?cf fd:countref_PAESE "Lithuania" .  
+                }  
+            
+        
+
+       ]]>
+      </querystring>
+      <executecount>5</executecount>
+      <aqet>0.221796</aqet>
+      <aqetg>0.221780</aqetg>
+      <qps>4.51</qps>
+      <minqet>0.21867400</minqet>
+      <maxqet>0.22522300</maxqet>
+      <avgresults>246.00</avgresults>
+      <minresults>246</minresults>
+      <maxresults>246</maxresults>
+      <timeoutcount>0</timeoutcount>
+    </query>
+    <query nr="18">
+      <querystring><![CDATA[
+
+             
+                PREFIX fd: <http://fishdelish.cs.man.ac.uk/rdf/vocab/resource/>
+                SELECT ?order ?family ?genus ?species ?occurrence ?name ?gameref ?game 
+                WHERE {
+					?nameID fd:comnames_ComName ?name .
+					?nameID fd:comnames_C_Code ?ccode . 
+					?nameID fd:comnames_SpecCode ?x.
+					?x fd:species_Genus ?genus .
+					?x fd:species_Species ?species .
+					?x fd:species_GameFish ?game .
+                	?x fd:species_GameRef ?gameref .
+					?x fd:species_FamCode ?f .
+					?f fd:families_Family  ?family .
+					?f  fd:families_Order ?order .
+					?c fd:country_SpecCode ?x.
+					?c fd:country_Status ?occurrence .
+					?c fd:country_C_Code ?cf .
+					?c fd:country_Game 1 .
+					?cf fd:countref_PAESE "Liechtenstein" .  
+                }  
+            
+        
+
+       ]]>
+      </querystring>
+      <executecount>5</executecount>
+      <aqet>0.110236</aqet>
+      <aqetg>0.110231</aqetg>
+      <qps>9.07</qps>
+      <minqet>0.10867900</minqet>
+      <maxqet>0.11184600</maxqet>
+      <avgresults>0.00</avgresults>
+      <minresults>0</minresults>
+      <maxresults>0</maxresults>
+      <timeoutcount>0</timeoutcount>
+    </query>
+    <query nr="19">
+      <querystring><![CDATA[
+
+            
+                    PREFIX fd: <http://fishdelish.cs.man.ac.uk/rdf/vocab/resource/>
+					SELECT ?order ?family ?genus ?species ?occurrence ?name 
+					WHERE {
+					?nameID fd:comnames_ComName ?name .
+					?nameID fd:comnames_C_Code ?ccode . 
+					?nameID fd:comnames_SpecCode ?x.
+					?x fd:species_Genus ?genus .
+					?x fd:species_Species ?species .
+					?x fd:species_FamCode ?f .
+					?f fd:families_Family  ?family .
+					?f  fd:families_Order ?order .
+					?c fd:country_SpecCode ?x.
+					?c fd:country_Status ?occurrence .
+					?c fd:country_C_Code ?cf .
+					?c fd:country_Importance "minor commercial" .
+					?cf fd:countref_PAESE "Namibia" .  
+					}  
+            
+        
+
+       ]]>
+      </querystring>
+      <executecount>5</executecount>
+      <aqet>0.377637</aqet>
+      <aqetg>0.289513</aqetg>
+      <qps>2.65</qps>
+      <minqet>0.20576700</minqet>
+      <maxqet>1.04860500</maxqet>
+      <avgresults>299.00</avgresults>
+      <minresults>299</minresults>
+      <maxresults>299</maxresults>
+      <timeoutcount>0</timeoutcount>
+    </query>
+    <query nr="20">
+      <querystring><![CDATA[
+
+            
+                PREFIX fd: <http://fishdelish.cs.man.ac.uk/rdf/vocab/resource/>
+                SELECT ?genus ?species ?occurrence ?speciesAquaculture 
+                WHERE {
+					?nameID fd:comnames_ComName ?name .
+					?nameID fd:comnames_C_Code ?ccode . 
+					?nameID fd:comnames_SpecCode ?x.
+					?x fd:species_Genus ?genus .
+					?x fd:species_Species ?species .
+					?x fd:species_UsedforAquaculture ?speciesAquaculture .
+					?c fd:country_SpecCode ?x.
+					?c fd:country_Status ?occurrence .
+					?c fd:country_C_Code ?cf .
+					?c fd:country_Aquaculture "commercial" .
+					?cf fd:countref_PAESE "Azerbaijan" .  
+                } 
+            
+        
+
+       ]]>
+      </querystring>
+      <executecount>5</executecount>
+      <aqet>0.164771</aqet>
+      <aqetg>0.164722</aqetg>
+      <qps>6.07</qps>
+      <minqet>0.16049700</minqet>
+      <maxqet>0.17150200</maxqet>
+      <avgresults>249.00</avgresults>
+      <minresults>249</minresults>
+      <maxresults>249</maxresults>
+      <timeoutcount>0</timeoutcount>
+    </query>
+    <query nr="21">
+      <querystring><![CDATA[
+
+            
+				PREFIX fd: <http://fishdelish.cs.man.ac.uk/rdf/vocab/resource/>
+                SELECT ?genus ?species ?occurrence ?countryAquaculture  
+                WHERE {
+					?x fd:species_Genus ?genus .
+					?x fd:species_Species ?species .
+					?x fd:species_UsedforAquaculture "commercial" .
+					?c fd:country_SpecCode ?x.
+					?c fd:country_Status ?occurrence .
+					?c fd:country_C_Code ?cf .
+					?c fd:country_Aquaculture ?countryAquaculture .
+					?cf fd:countref_PAESE "Zambia" .  
+                }   
+            
+        
+
+       ]]>
+      </querystring>
+      <executecount>5</executecount>
+      <aqet>0.053461</aqet>
+      <aqetg>0.053325</aqetg>
+      <qps>18.71</qps>
+      <minqet>0.05027200</minqet>
+      <maxqet>0.06000800</maxqet>
+      <avgresults>13.00</avgresults>
+      <minresults>13</minresults>
+      <maxresults>13</maxresults>
+      <timeoutcount>0</timeoutcount>
+    </query>
+    <query nr="22">
+      <querystring><![CDATA[
+
+            
+			    PREFIX fd: <http://fishdelish.cs.man.ac.uk/rdf/vocab/resource/>
+                SELECT ?genus ?species ?occurrence ?aquarium 
+                WHERE {
+					?x fd:species_Genus ?genus .
+					?x fd:species_Species ?species .
+					?x fd:species_Aquarium ?aquarium .
+					?c fd:country_SpecCode ?x.
+					?c fd:country_Status ?occurrence .
+					?c fd:country_LiveExport "ornamental" .
+					?c fd:country_C_Code ?cf .
+					?cf fd:countref_PAESE "St Paul Is" .  
+                }  
+            
+        
+
+       ]]>
+      </querystring>
+      <executecount>5</executecount>
+      <aqet>0.035554</aqet>
+      <aqetg>0.035549</aqetg>
+      <qps>28.13</qps>
+      <minqet>0.03490800</minqet>
+      <maxqet>0.03636000</maxqet>
+      <avgresults>0.00</avgresults>
+      <minresults>0</minresults>
+      <maxresults>0</maxresults>
+      <timeoutcount>0</timeoutcount>
+    </query>
+  </queries>
+</bsbm>

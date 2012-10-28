@@ -1,0 +1,10 @@
+
+             SELECT families.FamilyOrder, families.Family, species.Genus, species.Species, country.Status, comnames.ComName
+             FROM fbapp.species, fbapp.country, fbapp.countref, fbapp.families, fbapp.comnames
+             WHERE country.C_Code=countref.C_Code
+			 AND species.SpecCode=comnames.SpecCode
+			 AND species.SpecCode=country.SpecCode
+			 AND species.FamCode = families.FamCode 
+			 AND countref.PAESE="Cocos Is"
+			 AND country.Importance="minor commercial"
+        

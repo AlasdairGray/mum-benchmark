@@ -1,0 +1,7 @@
+
+            SELECT  species.Genus, species.Species, country.Status, species.Aquarium
+            FROM fbapp.species, fbapp.country, fbapp.countref
+            WHERE species.SpecCode = country.SpecCode 
+            AND country.C_Code=countref.C_Code AND countref.PAESE="Cuba"
+            AND country.LiveExport='ornamental'
+        

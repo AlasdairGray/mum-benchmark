@@ -1,0 +1,5 @@
+
+            SELECT species.Genus, species.Species, picturesmain.PicName, picturesmain.AuthName
+            FROM fbapp.species, fbapp.picturesmain, fbapp.families
+            WHERE species.SpecCode = picturesmain.SpecCode AND (species.FamCode =families.FamCode AND families.Family="Aulorhynchidae")
+        

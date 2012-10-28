@@ -1,0 +1,20 @@
+
+            
+                PREFIX : <http://www.semanticweb.org/ontologies/2012/4/fishdelish.owl#>
+				PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+                SELECT ?freshwater ?marine ?brackish ?occurrence ?Factbook 
+                WHERE { 
+                $x a :Species .
+				$x :genus "Etrumeus"^^xsd:string .
+				$x :species "micropus"^^xsd:string .
+				$x :isFoundInCountry ?id .
+				$countryID :countryName "Rodriguez"^^xsd:string .
+				$countryID :factbook ?Factbook .
+                $countryID :refersToCountry ?id .
+                $id :status ?occurrence . 
+				$id :inFreshwater ?freshwater .
+				$id :inBrackish ?brackish .
+				$id :inSaltwater ?marine .
+                } 
+            
+        

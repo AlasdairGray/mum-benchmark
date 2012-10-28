@@ -1,0 +1,19 @@
+
+            
+                PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+				PREFIX : <http://www.semanticweb.org/ontologies/2012/4/fishdelish.owl#>
+				SELECT  ?Genus ?Species ?PictureName ?Photographer 
+				WHERE { 
+				$y a :Picture .
+				$y :pictureName ?PictureName .
+				$y :author ?Photographer .
+				$y :isPictureOf ?x .
+				$x a :Species .
+				$x :genus ?Genus .
+				$x :species ?Species .
+				$x :belongsToFamily ?f .
+				$f a :Family .
+				$f :familyName  "Aulorhynchidae"^^xsd:string .
+				}
+            
+        

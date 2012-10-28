@@ -1,0 +1,7 @@
+
+            SELECT  families.FamilyOrder, families.Class, families.Genera, families.Species, 
+			families.SpeciesCount,families.Marine, families.Brackish, families.Freshwater, 
+			families.Aquarium, families.Remark, families.Division, families.Activity, refrens.Author, refrens.Year, families.ReprGuild
+            FROM families, refrens
+            WHERE families.FamiliesRefNo=refrens.RefNo AND families.Family="Synanceiidae"
+        

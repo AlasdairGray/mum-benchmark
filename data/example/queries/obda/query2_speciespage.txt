@@ -1,0 +1,40 @@
+
+            
+                PREFIX : <http://www.semanticweb.org/ontologies/2012/4/fishdelish.owl#>
+				PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+				select ?SpecCode  ?Author ?FBname ?SpeciesRef ?author ?year ?comments ?family ?order ?class ?PictureName ?Photographer ?picID ?Entered ?demersPelag 
+				?AnaCat
+				?description 
+				where {
+				$p a :Picture .
+				$p :pictureName ?PictureName .
+				$p :author ?Photographer .
+				$p :pictureID ?picID .
+				$p :entered ?Entered .
+				$p :isPictureOf ?id .
+				$id a :Species .
+				$id :speciesID ?SpecCode .
+				$id :species "springeri"^^xsd:string .
+				$id :genus "Eptatretus"^^xsd:string .
+				$id :author ?Author .
+				$id :FBname ?FBname .
+				$id :comments ?comments .
+				$id :speciesReferenceNo ?SpeciesRef .
+				$id :belongsToFamily ?f .
+				$id :hasSpeciesReference ?y .
+				$y a :Reference .
+				$y :author ?author .
+				$y :year ?year .	
+				$f a :Family .
+				$f :familyName  ?family .
+				$f :familyOrder ?order .
+				$f :class ?class .
+				$id :demersPelag ?demersPelag .
+				$id :anaCat ?AnaCat .
+				$id :hasMorphology ?m .
+				$id :pictureName ?picPreferredName .
+				$m a :Morphology .
+				$m :addChars ?description .
+				}
+            
+        

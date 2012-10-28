@@ -1,0 +1,24 @@
+
+            
+                PREFIX : <http://www.semanticweb.org/ontologies/2012/4/fishdelish.owl#>
+				PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+				SELECT ?order ?family ?genus ?species ?name ?occurrence  
+                WHERE {
+                $speciesID a :Species .
+				$speciesID :genus ?genus .
+				$speciesID :species ?species .
+				$speciesID :isFoundInCountry ?c .
+				$speciesID :hasCommonName ?nameID .
+				$speciesID :belongsToFamily ?f .
+				$f a :Family .
+				$f :familyName  ?family .
+				$f :familyOrder ?order .
+				$nameID a :CommonName .
+                $nameID :speciesCommonName ?name .
+                $countryID :countryName "Cocos Is"^^xsd:string .
+                $countryID :refersToCountry ?c .
+                $c :status ?occurrence .    
+                $c :importance "minor commercial"^^xsd:string .          
+                } 
+            
+        
