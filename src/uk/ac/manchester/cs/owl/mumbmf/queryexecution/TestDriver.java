@@ -73,7 +73,7 @@ public class TestDriver {
     protected boolean rampup = false;
 
     public TestDriver(String[] args) {
-        System.out.print("Reading Test Driver data... ");
+        System.out.print("\n* Reading Test Driver data... ");
 
         processProgramParameters(args);
 
@@ -208,7 +208,7 @@ public class TestDriver {
 //            initialise an array for the correct number of queries
             Query[] queries = new Query[maxQueryNr];
 
-            System.out.println("\n* Initialising queries...\n");
+            System.out.println("* Initialising queries...");
 
             for (int i = 0; i < queryRun.length; i++) {
                 if (queryRun[i] != null) {
@@ -220,7 +220,7 @@ public class TestDriver {
                 }
             }
             allQueries.add(queries);
-            System.out.println("\n* Done initialising all queries.\n");
+            System.out.println("* Done initialising all queries. Starting query execution...\n");
 
         }
         return allQueries;
@@ -317,7 +317,7 @@ public class TestDriver {
      * @return
      */
     private Integer[] getQueryMixInfo(File file) {
-        System.out.println("Reading query mix file: " + file.getAbsolutePath());
+        System.out.println("* Reading query mix file: " + file.getAbsolutePath());
         ArrayList<Integer> qm = new ArrayList<Integer>();
 
         try {
@@ -418,7 +418,7 @@ public class TestDriver {
                 if (ignoreQueries[nextQuery.getNr() - 1])
                     queryMix.setCurrent(0, -1.0);
                 else {
-                    System.out.println("  Executing query " + nextQuery.getNr());
+//                    System.out.println("  Executing query " + nextQuery.getNr());
                     server.executeQuery(nextQuery, nextQuery.getQueryType());
                 }
             }
@@ -463,7 +463,7 @@ public class TestDriver {
             resultWriter.close();
             measurementFile.close();
 
-            System.out.println("\n\n* Benchmark completed. Result saved to " + timeStampedResultFile);
+            System.out.println("\n* Benchmark completed. Result saved to " + timeStampedResultFile);
         } catch (IOException e) {
             e.printStackTrace();
         }

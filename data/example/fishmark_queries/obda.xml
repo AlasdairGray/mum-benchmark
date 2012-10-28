@@ -316,7 +316,7 @@
             <![CDATA[
                 PREFIX : <http://www.semanticweb.org/ontologies/2012/4/fishdelish.owl#>
 				PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
-				SELECT ?prename ?surname  ?email ?photo ?webpage ?fax ?institute ?street ?city ?country ?comments ?keywords ?year 
+				SELECT ?prename ?surname  ?email ?webpage ?fax ?institute ?street ?city ?country ?comments ?keywords ?year
 				WHERE {
 				$x a :Collaborator .
                 $x :prename ?prename .
