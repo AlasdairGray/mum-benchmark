@@ -150,7 +150,7 @@ public class MultiQueryGenerator {
 
 //                    the query to obtain the parameters
                     String paramQueryString = paramQueryNodes.item(0).getTextContent();
-                    System.out.println(paramQueryString);
+//                    System.out.println(paramQueryString);
                     addRandomParamValuesToParamMap(paramMap, paramNames, paramQueryString);
                 }
 ////                then add the map for the query to the list of all maps
@@ -212,7 +212,7 @@ public class MultiQueryGenerator {
     protected void saveQuery(String completeQuery, int queryCount) {
         String queryFileName = "query" + (queryCount + 1) + "_" + queryNames.get(queryCount) + ".txt";
         String fileName = outputDir + "/" + currentQueryType + "/" + queryFileName;
-        System.out.println("\nSaving query to: " + fileName);
+//        System.out.println("\nSaving query to: " + fileName);
         Writer out;
         try {
             out = new OutputStreamWriter(new FileOutputStream(fileName));
