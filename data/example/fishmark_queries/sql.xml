@@ -20,7 +20,7 @@
     <query id="speciespage">
         <paramquery>
             SELECT species.SpecCode, species.Author, species.FBname, refrens.Author,
-            refrens.Year, species.Comments, families.Family, families.FamilyOrder,
+            refrens.Year, species.Comments, families.Family, families.Order,
             families.Class, morphdat.AddChars, species.DemersPelag, species.SpeciesRefNo,
             species.AnaCat, species.PicPreferredName, picturesmain.autoctr, picturesmain.PicName, picturesmain.Entered,
             picturesmain.AuthName
@@ -68,7 +68,7 @@
 
     <query id="familyinformation">
         <paramquery>
-            SELECT families.FamilyOrder, families.Class, families.Genera, families.Species,
+            SELECT families.Order, families.Class, families.Genera, families.Species,
             families.SpeciesCount,families.Marine, families.Brackish, families.Freshwater,
             families.Aquarium, families.Remark, families.Division, families.Activity, refrens.Author, refrens.Year,
             families.ReprGuild
@@ -128,7 +128,7 @@
 
     <query id="collaboratorpage">
         <paramquery>
-            SELECT collaborators.Prename, collaborators.Surname, collaborators.Email, collaborators.WebPage,
+            SELECT collaborators.Prename, collaborators.Surname, "collaborators.E-mail", collaborators.WebPage,
             collaborators.FAX, collaborators.Institute, collaborators.Street, collaborators.City, collaborators.Country,
             collaborators.Comments, collaborators.Keywords, collaborators.Year
             FROM collaborators
@@ -158,7 +158,7 @@
 
     <query id="countryallfish">
         <paramquery>
-            SELECT families.FamilyOrder, families.Family, species.Genus, species.Species, country.Status
+            SELECT families.Order, families.Family, species.Genus, species.Species, country.Status
             FROM fbapp.species, fbapp.country, fbapp.countref, fbapp.families
             WHERE species.SpecCode = country.SpecCode AND species.FamCode = families.FamCode
             AND country.C_Code=countref.C_Code AND countref.PAESE="%country%"
@@ -196,7 +196,7 @@
 
     <query id="countryfreshwater">
         <paramquery>
-            SELECT families.FamilyOrder , families.Family, species.Genus,species.Species, country.Status,
+            SELECT families.Order , families.Family, species.Genus,species.Species, country.Status,
             comnames.ComName
             FROM families, species, comnames, countref, country
             WHERE country.C_Code=countref.C_Code
@@ -216,7 +216,7 @@
 
     <query id="countryintroduced">
         <paramquery>
-            SELECT families.FamilyOrder , families.Family, species.Genus,species.Species, comnames.ComName
+            SELECT families.Order , families.Family, species.Genus,species.Species, comnames.ComName
             FROM fbapp.families, fbapp.species, fbapp.comnames, fbapp.countref, fbapp.country
             WHERE country.C_Code=countref.C_Code
             AND species.FamCode = families.FamCode
@@ -235,7 +235,7 @@
 
     <query id="countryendemic">
         <paramquery>
-            SELECT families.FamilyOrder , families.Family, species.Genus,species.Species, comnames.ComName
+            SELECT families.Order , families.Family, species.Genus,species.Species, comnames.ComName
             FROM fbapp.families, fbapp.species, fbapp.comnames, fbapp.countref, fbapp.country
             WHERE country.C_Code=countref.C_Code
             AND country.SpecCode=species.SpecCode
@@ -254,7 +254,7 @@
 
     <query id="countryreefassociated">
         <paramquery>
-            SELECT families.FamilyOrder , families.Family, species.Genus,species.Species, country.Status,
+            SELECT families.Order , families.Family, species.Genus,species.Species, country.Status,
             comnames.ComName, species.Dangerous
             FROM fbapp.families, fbapp.species, fbapp.comnames, fbapp.countref, fbapp.country
             WHERE countref.C_Code=country.C_Code
@@ -274,7 +274,7 @@
 
     <query id="countrypelagic">
         <paramquery>
-            SELECT families.FamilyOrder , families.Family, species.Genus,species.Species, country.Status,
+            SELECT families.Order , families.Family, species.Genus,species.Species, country.Status,
             comnames.ComName, species.Dangerous
             FROM fbapp.families, fbapp.species, fbapp.comnames, fbapp.countref, fbapp.country
             WHERE countref.C_Code=country.C_Code
@@ -294,7 +294,7 @@
 
     <query id="countrygamefish">
         <paramquery>
-            SELECT families.Family, families.FamilyOrder, species.Genus,species.Species,
+            SELECT families.Family, families.Order, species.Genus,species.Species,
             country.Status, comnames.ComName,
             species.GameFish, species.GameRef
             FROM fbapp.families, fbapp.species, fbapp.comnames, fbapp.countref, fbapp.country
@@ -313,7 +313,7 @@
 
     <query id="countrycommercial">
         <paramquery>
-            SELECT families.FamilyOrder, families.Family, species.Genus, species.Species, country.Status,
+            SELECT families.Order, families.Family, species.Genus, species.Species, country.Status,
             comnames.ComName
             FROM fbapp.species, fbapp.country, fbapp.countref, fbapp.families, fbapp.comnames
             WHERE country.C_Code=countref.C_Code
