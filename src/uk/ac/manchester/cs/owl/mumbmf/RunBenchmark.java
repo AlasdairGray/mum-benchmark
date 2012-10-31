@@ -100,7 +100,7 @@ public class RunBenchmark {
      * @return
      */
     private static List<String> getParams(String type, String args) {
-        String arglist = args.substring(1, args.length() - 1);
+        String arglist = args.substring(0, args.length());
         List<String> paramList = new ArrayList<String>();
         paramList.add("-type");
         paramList.add(type);

@@ -127,7 +127,7 @@ public class UsageInfo {
         System.out.println("\t-t <Timeout in ms> (Default: no timeout) If for a specific query the complete result is not read after the specified timeout, the client disconnects and reports a timeout to the Test Driver. This is also the maximum runtime a query can contribute to the metrics.");
 
         System.out.println("\n(3) The following are command line arguments to generate and run the benchmark multiple times:");
-        System.out.println("\t-gargs <filename> Plain text file which contains the arguments to generate queries.");
+        System.out.println("\t-genargs <filename> Plain text file which contains the arguments to generate queries.");
         System.out.println("\t-sparql <\"filename \"> List of SPARQL benchmark parameters enclosed in quotes.");
         System.out.println("\t-obda <\"filename \"> List of OBDA benchmark parameters enclosed in quotes.");
         System.out.println("\t-sql <\"filename \"> List of SQL benchmark parameters enclosed in quotes.");
