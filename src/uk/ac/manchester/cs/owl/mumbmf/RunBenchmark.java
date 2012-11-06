@@ -183,6 +183,7 @@ public class RunBenchmark {
         queryTemplates.put("sparql", sparqlTemplate);
 
         QueryGenerator qg = null;
+
         if (seedType.equals("obda")) {
             qg = new ObdaQueryGenerator(obdaConn.owlFile, obdaConn.obdaFile, queryOutputDir);
         } else if (seedType.equals("sql")) {
