@@ -111,6 +111,14 @@ public class MultiQueryGenerator {
         List<Map<String, String>> allParamValueMaps = new ArrayList<Map<String, String>>();
         File queryFile = new File(seedTemplateFile);
 
+
+        if (!queryFile.exists()) {
+            System.err.println("Seed template file does not exist: " + seedTemplateFile);
+            System.exit(-1);
+        } else {
+            System.out.println("Using seed template file: " + seedTemplateFile);
+        }
+
         try {
             DocumentBuilderFactory docBuilderFactory = DocumentBuilderFactory.newInstance();
             DocumentBuilder docBuilder = docBuilderFactory.newDocumentBuilder();
@@ -128,7 +136,7 @@ public class MultiQueryGenerator {
                 Node namedQuery = nodes.item(i);
                 String queryName = namedQuery.getAttributes().getNamedItem("id").getTextContent();
                 queryNames.add(queryName);
-                System.out.println("* Generating query " + (i+1) + ": " + queryName);
+                System.out.println("* Generating query " + (i + 1) + ": " + queryName);
 //
 //                // this returns all paramquery nodes
                 XPathExpression xGetParamNode = xpath.compile("//query[@id='" + queryName + "']/parameter");
