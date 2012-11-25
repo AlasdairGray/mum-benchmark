@@ -43,7 +43,7 @@
             <map from="${lib}\" to="./lib/"/>
             <path>
                 <fileset dir="lib">
-                    <include name="*.jar"/>
+                    <exclude name="**/*.java"/>
                 </fileset>
             </path>
         </pathconvert>
