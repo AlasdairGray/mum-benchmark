@@ -24,7 +24,6 @@ public class SparqlQuery {
                     urlString = sparqlEndpoint + delim + "query=" + URLEncoder.encode(query, "UTF-8");
                 } else {
                     urlString = sparqlEndpoint + "query?queryLn=SPARQL" + "&query=" + URLEncoder.encode(query, "UTF-8");
-                    System.out.println(urlString);
                 }
                 delim = '&';
                 if (defaultGraph != null)
