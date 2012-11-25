@@ -31,22 +31,23 @@ import java.util.List;
 
 public class StardogConnection implements ServerConnection {
 
-    private StardogConnectionParameters connection;
+    private StardogConnectionParameters connparams;
     private static Logger logger = Logger.getLogger(SparqlConnection.class);
     private int timeout;
     private Connection aConn = null;
 
     /**
+     * @param params
      * @param timeout query timeout
      */
     public StardogConnection(StardogConnectionParameters params, int timeout) {
         this.timeout = timeout;
-        this.connection = params;
+        this.connparams = params;
         try {
             this.aConn = ConnectionConfiguration
-                        .to(connection.dbName)            // the name of the db to connect to
-                        .credentials(connection.login, connection.password)              // credentials to use while connecting
-                        .url(connection.dbUrl)
+                        .to(connparams.dbName)            // the name of the db to connect to
+                        .credentials(connparams.login, connparams.password)              // credentials to use while connecting
+                        .url(connparams.dbUrl)
                         .connect();
         } catch (StardogException e) {
             e.printStackTrace();
@@ -68,7 +69,6 @@ public class StardogConnection implements ServerConnection {
     private void executeQuery(String queryString, byte queryType, int queryNr, QueryMix queryMix) {
         double timeInSeconds;
 
-        Connection aConn = null;
         com.clarkparsia.stardog.api.Query qe = null;
         TupleQueryResult aResult = null;
 //        System.out.println("Executing query " + queryNr);
