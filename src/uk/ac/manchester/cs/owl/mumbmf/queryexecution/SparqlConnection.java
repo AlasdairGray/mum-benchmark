@@ -72,6 +72,7 @@ public class SparqlConnection implements ServerConnection {
 
         InputStream is = qe.exec();
 
+
         long stop = System.nanoTime();
         Long interval = stop - start;
         timeInSeconds = interval.doubleValue() / 1000000000;
