@@ -821,6 +821,7 @@ public class TestDriver {
         int i = 0;
         while (i < args.length) {
             try {
+                System.out.println(args[i]);
                 if (args[i].equals("-runs")) {
                     nrRuns = Integer.parseInt(args[i++ + 1]);
                 } else if (args[i].equals("-w")) {
