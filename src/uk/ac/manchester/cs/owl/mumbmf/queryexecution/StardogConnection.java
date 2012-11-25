@@ -101,6 +101,13 @@ public class StardogConnection implements ServerConnection {
         timeInSeconds = diff / 1000;
 
         queryMix.setCurrent(resultCount, timeInSeconds);
+        try {
+            if (aConn != null) {
+                aConn.close();
+            }
+        } catch (StardogException e) {
+            e.printStackTrace();
+        }
     }
 
 
