@@ -85,9 +85,6 @@ public class RunBenchmark {
             for (int j = 0; j < querySets; j++) {
                 runMultiQueryGeneration(genargs);
                 for (List<String> p : paramList) {
-                    for (String s : p) {
-                        System.out.println(s);
-                    }
                     runBenchmark(p.toArray(new String[p.size()]));
                 }
 
