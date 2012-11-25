@@ -83,7 +83,6 @@ public class StardogConnection implements ServerConnection {
             start = System.nanoTime();
             aResult = qe.executeSelect();
             stop = System.nanoTime();
-            System.out.println("done.");
 
 
         } catch (StardogException e) {
@@ -95,7 +94,6 @@ public class StardogConnection implements ServerConnection {
         int resultCount = 0;
         try {
             resultCount = countResults(aResult);
-            System.out.println("done counting results.");
 
         } catch (SocketTimeoutException e) {
             double t = this.timeout / 1000.0;
