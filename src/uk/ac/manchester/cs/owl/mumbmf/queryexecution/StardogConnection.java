@@ -71,7 +71,6 @@ public class StardogConnection implements ServerConnection {
 
         com.clarkparsia.stardog.api.Query qe = null;
         TupleQueryResult aResult = null;
-//        System.out.println("Executing query " + queryNr);
 
         long start = 0, stop = 0;
         try {
@@ -84,6 +83,8 @@ public class StardogConnection implements ServerConnection {
             start = System.nanoTime();
             aResult = qe.executeSelect();
             stop = System.nanoTime();
+            System.out.println("done.");
+
 
         } catch (StardogException e) {
             e.printStackTrace();
@@ -94,6 +95,7 @@ public class StardogConnection implements ServerConnection {
         int resultCount = 0;
         try {
             resultCount = countResults(aResult);
+            System.out.println("done counting results.");
 
         } catch (SocketTimeoutException e) {
             double t = this.timeout / 1000.0;
@@ -119,7 +121,8 @@ public class StardogConnection implements ServerConnection {
         int count = 0;
         try {
             while (aResult.hasNext()) {
-                aResult.next();
+                String next = aResult.next().toString();
+                System.out.println(next);
                 count++;
             }
         } catch (QueryEvaluationException e) {
