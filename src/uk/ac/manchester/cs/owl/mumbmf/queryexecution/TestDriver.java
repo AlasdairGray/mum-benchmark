@@ -880,7 +880,7 @@ public class TestDriver {
                     stardogLogin = args[i++ + 1];
                 } else if (args[i].equals("-stardogpw")) {
                     stardogPassword = args[i++ + 1];
-                } else {
+                }  else {
                     if (!args[i].equals("-help"))
                         System.err.println("Unknown parameter: " + args[i]);
                     UsageInfo.printUiUsage();

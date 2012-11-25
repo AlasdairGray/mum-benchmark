@@ -20,7 +20,11 @@ public class SparqlQuery {
             if (queryType == Query.UPDATE_TYPE)
                 urlString = sparqlEndpoint;
             else {
-                urlString = sparqlEndpoint + delim + "query=" + URLEncoder.encode(query, "UTF-8");
+                if (!addQueryLnParameter(sparqlEndpoint)) {
+                    urlString = sparqlEndpoint + delim + "query=" + URLEncoder.encode(query, "UTF-8");
+                } else {
+                    urlString = sparqlEndpoint + delim + "queryLn=SPARQL" + "&query=" + URLEncoder.encode(query, "UTF-8");
+                }
                 delim = '&';
                 if (defaultGraph != null)
                     urlString += delim + "default-graph-uri=" + defaultGraph;
@@ -45,6 +49,13 @@ public class SparqlQuery {
             e.printStackTrace();
             System.exit(-1);
         }
+    }
+
+    private boolean addQueryLnParameter(String sparqlEndpoint) {
+        if (sparqlEndpoint.contains("openrdf")) {
+            return true;
+        }
+        return false;
     }
 
     private void configureConnection(String query, byte queryType, int timeout, String defaultGraph)
