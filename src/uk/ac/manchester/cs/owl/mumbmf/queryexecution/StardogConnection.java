@@ -71,9 +71,9 @@ public class StardogConnection implements ServerConnection {
                     .url(connection.dbUrl)
                     .connect();
             qe = aConn.query(queryString);
-            start = System.currentTimeMillis();
+            start = System.nanoTime();
             aResult = qe.executeSelect();
-            stop = System.currentTimeMillis();
+            stop = System.nanoTime();
 
         } catch (StardogException e) {
             e.printStackTrace();
@@ -98,7 +98,7 @@ public class StardogConnection implements ServerConnection {
             return;
         }
         double diff = (double) stop - (double) start;
-        timeInSeconds = diff / 1000;
+        timeInSeconds = diff / 1000000000;
 
         queryMix.setCurrent(resultCount, timeInSeconds);
         try {

@@ -67,8 +67,14 @@ public class SparqlConnection implements ServerConnection {
         else
             qe = new SparqlQuery(sparqlEndpoint, queryString, queryType, defaultGraph, timeout);
         int queryMixRun = queryMix.getRun() + 1;
+        long start = System.nanoTime();
 
         InputStream is = qe.exec();
+
+        long stop = System.nanoTime();
+        Long interval = stop - start;
+        timeInSeconds = interval.doubleValue() / 1000000000;
+
         if (is == null) {
             double t = this.timeout / 1000.0;
             System.out.println("Query " + queryNr + ": " + t + " seconds timeout!");
@@ -93,7 +99,7 @@ public class SparqlConnection implements ServerConnection {
             qe.close();
             return;
         }
-        timeInSeconds = qe.getExecutionTimeInSeconds();
+//        timeInSeconds = qe.getExecutionTimeInSeconds();
 
         if (logger.isEnabledFor(Level.ALL) && queryMixRun > 0)
             logResultInfo(queryNr, queryMixRun, timeInSeconds,

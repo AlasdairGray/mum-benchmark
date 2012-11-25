@@ -72,12 +72,12 @@ public class SqlConnection implements ServerConnection {
         try {
             long start = System.nanoTime();
             ResultSet results = statement.executeQuery(queryString);
+            Long stop = System.nanoTime();
+            Long interval = stop - start;
+
             int resultCount = 0;
             while (results.next())
                 resultCount++;
-
-            Long stop = System.nanoTime();
-            Long interval = stop - start;
 
             timeInSeconds = interval.doubleValue() / 1000000000;
 
@@ -101,7 +101,6 @@ public class SqlConnection implements ServerConnection {
     }
 
     /**
-     *
      * @param queryNr
      * @param queryMixRun
      * @param timeInSeconds
