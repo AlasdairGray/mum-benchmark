@@ -23,14 +23,14 @@ public class SparqlQuery {
                 if (!addQueryLnParameter(sparqlEndpoint)) {
                     urlString = sparqlEndpoint + delim + "query=" + URLEncoder.encode(query, "UTF-8");
                 } else {
-                    urlString = sparqlEndpoint + delim + "queryLn=SPARQL" + "&query=" + URLEncoder.encode(query, "UTF-8");
+                    urlString = sparqlEndpoint + delim + "query?queryLn=SPARQL" + "&query=" + URLEncoder.encode(query, "UTF-8");
+                    System.out.println(urlString);
                 }
                 delim = '&';
                 if (defaultGraph != null)
                     urlString += delim + "default-graph-uri=" + defaultGraph;
             }
 
-            System.out.println(urlString);
             URL url = new URL(urlString);
             conn = (HttpURLConnection) url.openConnection();
 
