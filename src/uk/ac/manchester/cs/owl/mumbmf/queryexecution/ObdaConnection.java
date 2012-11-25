@@ -145,10 +145,9 @@ public class ObdaConnection implements ServerConnection {
             queryMix.setCurrent(resultCount, timeInSeconds);
             results.close();
 
-            close();
-
         } catch (OWLException e) {
             System.err.println("\n\nError for Query " + queryNr + ":\n\n" + queryString);
+            e.printStackTrace();
             System.exit(-1);
         }
     }
