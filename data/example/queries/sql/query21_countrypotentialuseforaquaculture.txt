@@ -1,6 +1,0 @@
-
-            SELECT  species.Genus, species.Species, country.Aquaculture, country.Status
-            FROM fbapp.species, fbapp.country, fbapp.countref
-            WHERE species.SpecCode = country.SpecCode 
-            AND country.C_Code=countref.C_Code AND countref.PAESE="Rodriguez"  AND species.UsedforAquaculture='commercial'
-        

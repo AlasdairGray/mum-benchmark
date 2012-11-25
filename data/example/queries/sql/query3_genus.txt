@@ -1,5 +1,0 @@
-
-            SELECT  species.Species, species.Author, families.Family
-            FROM species, families
-            WHERE species.FamCode=families.FamCode AND species.Genus="Trichomycterus"
-        

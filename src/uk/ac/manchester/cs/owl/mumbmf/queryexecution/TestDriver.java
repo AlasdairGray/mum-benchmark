@@ -38,11 +38,9 @@ public class TestDriver {
     protected String defaultGraph = TestDriverDefaultValues.defaultGraph;
 
     protected String xmlResultFileExtension = TestDriverDefaultValues.resultFileExtension;
-    protected static Logger logger = Logger.getLogger(TestDriver.class);
     protected String updateFile = null;
     protected boolean[] ignoreQueries;// Queries to ignore
-    protected boolean doSQL = false;
-    protected boolean doOBDA = false;
+
     protected String type = "";
     protected boolean multithreading = false;
     protected int nrThreads;
@@ -59,6 +57,10 @@ public class TestDriver {
     protected String bmEnd;
 
     protected String queryType;
+
+
+    protected String stardogDb, stardogUrl, stardogLogin, stardogPassword;
+
 
     //    querymixes per measuring period
     protected int qmsPerPeriod = TestDriverDefaultValues.qmsPerPeriod;// Querymixes
@@ -91,6 +93,10 @@ public class TestDriver {
             } else if (type.equals("sparql")) {
                 queryType = "sparql";
                 server = new SparqlConnection(sparqlEndpoint, sparqlUpdateEndpoint, defaultGraph, timeout);
+            } else if (type.equals("stardog")) {
+                queryType = "stardog";
+                StardogConnectionParameters params = new StardogConnectionParameters(stardogLogin, stardogPassword, stardogDb, stardogUrl);
+                server = new StardogConnection(params, timeout);
             }
         } else if (multithreading) {
             // TODO: add multithreading feature
@@ -418,7 +424,7 @@ public class TestDriver {
                 if (ignoreQueries[nextQuery.getNr() - 1])
                     queryMix.setCurrent(0, -1.0);
                 else {
-//                    System.out.println("  Executing query " + nextQuery.getNr());
+                    System.out.println("  Executing query " + nextQuery.getNr());
                     server.executeQuery(nextQuery, nextQuery.getQueryType());
                 }
             }
@@ -454,7 +460,7 @@ public class TestDriver {
 
         try {
             bmEnd = Util.getTimeStamp();
-            File resultOut = new File(resultOutputDir + "/" + queryType);
+            File resultOut = new File(resultOutputDir);
             resultOut.mkdirs();
             String timeStampedResultFile = resultOut.getAbsolutePath() + "/" + bmStart + "_" + xmlResultFileExtension;
             FileWriter resultWriter = new FileWriter(timeStampedResultFile);
@@ -865,6 +871,14 @@ public class TestDriver {
                     sparqlUpdateQueryParameter = args[i++ + 1];
                 } else if (args[i].equals("-sparqlendpoint")) {
                     sparqlEndpoint = args[i++ + 1];
+                } else if (args[i].equals("-stardogdb")) {
+                    stardogDb = args[i++ + 1];
+                } else if (args[i].equals("-stardogurl")) {
+                    stardogUrl = args[i++ + 1];
+                } else if (args[i].equals("-stardoglogin")) {
+                    stardogLogin = args[i++ + 1];
+                } else if (args[i].equals("-stardogpw")) {
+                    stardogPassword = args[i++ + 1];
                 } else {
                     if (!args[i].equals("-help"))
                         System.err.println("Unknown parameter: " + args[i]);

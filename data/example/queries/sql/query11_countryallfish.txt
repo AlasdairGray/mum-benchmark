@@ -1,6 +1,0 @@
-
-            SELECT  families.FamilyOrder, families.Family, species.Genus, species.Species, country.Status
-            FROM fbapp.species, fbapp.country, fbapp.countref, fbapp.families
-            WHERE species.SpecCode = country.SpecCode AND  species.FamCode = families.FamCode 
-            AND country.C_Code=countref.C_Code AND countref.PAESE="Cape Verde"
-        

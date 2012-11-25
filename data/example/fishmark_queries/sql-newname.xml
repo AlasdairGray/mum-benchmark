@@ -1,0 +1,383 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<queries>
+
+    <query id="commonname">
+        <paramquery>
+            SELECT species.Species, comnames.NameType, species.Genus, countref.C_Code
+            FROM comnames, species, countref
+            WHERE comnames.SpecCode=species.SpecCode AND comnames.C_Code=countref.C_Code AND
+            comnames.ComName="%ComName%"
+        </paramquery>
+        <parameter>
+            <paramname>ComName</paramname>
+            <paramvaluesquery>
+                SELECT comnames.ComName FROM comnames WHERE comnames.Language='English'
+            </paramvaluesquery>
+        </parameter>
+    </query>
+
+    <query id="speciespage">
+        <paramquery>
+            SELECT species.SpecCode, species.Author, species.FBname, refrens.Author,
+            refrens.Year, species.Comments, families.Family, families.FamilyOrder,
+            families.Class, morphdat.AddChars, species.DemersPelag, species.SpeciesRefNo,
+            species.AnaCat, species.PicPreferredName, picturesmain.autoctr, picturesmain.PicName, picturesmain.Entered,
+            picturesmain.AuthName
+            FROM species, refrens, morphdat, families, picturesmain
+            WHERE species.SpeciesRefNo=refrens.RefNo AND species.SpecCode=morphdat.SpecCode AND
+            species.FamCode=families.FamCode AND
+            species.SpecCode =picturesmain.SpecCode AND (species.Genus="%Genus%" AND species.Species="%Species%")
+        </paramquery>
+        <parameter>
+            <paramname>Genus</paramname>
+            <paramname>Species</paramname>
+            <paramvaluesquery>
+                SELECT species.Genus, species.Species FROM species
+            </paramvaluesquery>
+        </parameter>
+    </query>
+
+    <query id="genus">
+        <paramquery>
+            SELECT species.Species, species.Author, families.Family
+            FROM species, families
+            WHERE species.FamCode=families.FamCode AND species.Genus="%Genus%"
+        </paramquery>
+        <parameter>
+            <paramname>Genus</paramname>
+            <paramvaluesquery>
+                SELECT species.Genus FROM species
+            </paramvaluesquery>
+        </parameter>
+    </query>
+
+    <query id="species">
+        <paramquery>
+            SELECT species.Author, species.Genus, families.Family
+            FROM species, families
+            WHERE species.FamCode=families.FamCode AND species.Species="%Species%"
+        </paramquery>
+        <parameter>
+            <paramname>Species</paramname>
+            <paramvaluesquery>
+                SELECT species.Species FROM species
+            </paramvaluesquery>
+        </parameter>
+    </query>
+
+    <query id="familyinformation">
+        <paramquery>
+            SELECT families.FamilyOrder, families.Class, families.Genera, families.Species,
+            families.SpeciesCount,families.Marine, families.Brackish, families.Freshwater,
+            families.Aquarium, families.Remark, families.Division, families.Activity, refrens.Author, refrens.Year,
+            families.ReprGuild
+            FROM families, refrens
+            WHERE families.FamiliesRefNo=refrens.RefNo AND families.Family="%Family%"
+        </paramquery>
+        <parameter>
+            <paramname>Family</paramname>
+            <paramvaluesquery>
+                SELECT families.Family FROM families
+            </paramvaluesquery>
+        </parameter>
+    </query>
+
+    <query id="familyallfish">
+        <paramquery>
+            SELECT species.Author, species.Species, species.Genus
+            FROM species, families
+            WHERE species.FamCode=families.FamCode AND families.Family="%Family%"
+        </paramquery>
+        <parameter>
+            <paramname>Family</paramname>
+            <paramvaluesquery>
+                SELECT families.Family FROM families
+            </paramvaluesquery>
+        </parameter>
+    </query>
+
+    <query id="familynominalspecies">
+        <paramquery>
+            SELECT species.Author, species.Species, species.Genus
+            FROM species, families
+            WHERE species.FamCode=families.FamCode AND families.Family="%Family%"
+        </paramquery>
+        <parameter>
+            <paramname>Family</paramname>
+            <paramvaluesquery>
+                SELECT families.Family FROM families
+            </paramvaluesquery>
+        </parameter>
+    </query>
+
+    <query id="familylistofpictures">
+        <paramquery>
+            SELECT species.Genus, species.Species, picturesmain.PicName, picturesmain.AuthName
+            FROM fishbase_complete.species, fishbase_complete.picturesmain, fishbase_complete.families
+            WHERE species.SpecCode = picturesmain.SpecCode AND (species.FamCode =families.FamCode AND
+            families.Family="%Family%")
+        </paramquery>
+        <parameter>
+            <paramname>Family</paramname>
+            <paramvaluesquery>
+                SELECT families.Family FROM families
+            </paramvaluesquery>
+        </parameter>
+    </query>
+
+    <query id="collaboratorpage">
+        <paramquery>
+            SELECT collaborators.Prename, collaborators.Surname, "collaborators.E-mail", collaborators.WebPage,
+            collaborators.FAX, collaborators.Institute, collaborators.Street, collaborators.City, collaborators.Country,
+            collaborators.Comments, collaborators.Keywords, collaborators.Year
+            FROM collaborators
+            WHERE collaborators.Personnel=%Code%
+        </paramquery>
+        <parameter>
+            <paramname>Code</paramname>
+            <paramvaluesquery>
+                SELECT collaborators.Personnel AS Code FROM collaborators
+            </paramvaluesquery>
+        </parameter>
+    </query>
+
+    <query id="picturepage">
+        <paramquery>
+            SELECT species.Genus, species.Species, picturesmain.AuthName, picturesmain.LifeStage
+            FROM fishbase_complete.species, fishbase_complete.picturesmain
+            WHERE species.SpecCode = picturesmain.SpecCode AND picturesmain.PicName="%picture%"
+        </paramquery>
+        <parameter>
+            <paramname>picture</paramname>
+            <paramvaluesquery>
+                SELECT picturesmain.PicName AS picture FROM picturesmain
+            </paramvaluesquery>
+        </parameter>
+    </query>
+
+    <query id="countryallfish">
+        <paramquery>
+            SELECT families.FamilyOrder, families.Family, species.Genus, species.Species, country.Status
+            FROM fishbase_complete.species, fishbase_complete.country, fishbase_complete.countref, fishbase_complete.families
+            WHERE species.SpecCode = country.SpecCode AND species.FamCode = families.FamCode
+            AND country.C_Code=countref.C_Code AND countref.PAESE="%country%"
+        </paramquery>
+        <parameter>
+            <paramname>country</paramname>
+            <paramvaluesquery>
+                SELECT countref.PAESE as country FROM countref
+            </paramvaluesquery>
+        </parameter>
+    </query>
+
+
+    <query id="countryspeciesinformation">
+        <paramquery>
+            SELECT country.Status, country.Freshwater, country.Saltwater, country.Brackish, countref.Factbook
+            FROM country, countref, species
+            WHERE country.C_Code=countref.C_Code AND country.SpecCode=species.SpecCode AND species.Genus="%Genus%" AND
+            species.Species="%Species%" AND countref.PAESE="%country%"
+        </paramquery>
+        <parameter>
+            <paramname>country</paramname>
+            <paramvaluesquery>
+                SELECT countref.PAESE AS country FROM countref
+            </paramvaluesquery>
+        </parameter>
+        <parameter>
+            <paramname>Genus</paramname>
+            <paramname>Species</paramname>
+            <paramvaluesquery>
+                SELECT species.Genus AS genus, species.Species AS species FROM species
+            </paramvaluesquery>
+        </parameter>
+    </query>
+
+    <query id="countryfreshwater">
+        <paramquery>
+            SELECT families.FamilyOrder , families.Family, species.Genus,species.Species, country.Status,
+            comnames.ComName
+            FROM families, species, comnames, countref, country
+            WHERE country.C_Code=countref.C_Code
+            AND species.FamCode=families.FamCode
+            AND comnames.SpecCode=species.SpecCode
+            AND country.SpecCode=species.SpecCode
+            AND country.Freshwater=1
+            AND countref.PAESE="%country%"
+        </paramquery>
+        <parameter>
+            <paramname>country</paramname>
+            <paramvaluesquery>
+                SELECT countref.PAESE AS country FROM countref
+            </paramvaluesquery>
+        </parameter>
+    </query>
+
+    <query id="countryintroduced">
+        <paramquery>
+            SELECT families.FamilyOrder , families.Family, species.Genus,species.Species, comnames.ComName
+            FROM fishbase_complete.families, fishbase_complete.species, fishbase_complete.comnames, fishbase_complete.countref, fishbase_complete.country
+            WHERE country.C_Code=countref.C_Code
+            AND species.FamCode = families.FamCode
+            AND species.SpecCode=country.SpecCode
+            AND species.SpecCode=comnames.SpecCode
+            AND countref.PAESE="%country%"
+            AND country.Status="introduced"
+        </paramquery>
+        <parameter>
+            <paramname>country</paramname>
+            <paramvaluesquery>
+                SELECT countref.PAESE AS country FROM countref
+            </paramvaluesquery>
+        </parameter>
+    </query>
+
+    <query id="countryendemic">
+        <paramquery>
+            SELECT families.FamilyOrder , families.Family, species.Genus,species.Species, comnames.ComName
+            FROM fishbase_complete.families, fishbase_complete.species, fishbase_complete.comnames, fishbase_complete.countref, fishbase_complete.country
+            WHERE country.C_Code=countref.C_Code
+            AND country.SpecCode=species.SpecCode
+            AND comnames.SpecCode=species.SpecCode
+            AND species.FamCode = families.FamCode
+            AND countref.PAESE="%country%"
+            AND country.Status="endemic"
+        </paramquery>
+        <parameter>
+            <paramname>country</paramname>
+            <paramvaluesquery>
+                SELECT countref.PAESE AS country FROM countref
+            </paramvaluesquery>
+        </parameter>
+    </query>
+
+    <query id="countryreefassociated">
+        <paramquery>
+            SELECT families.FamilyOrder , families.Family, species.Genus,species.Species, country.Status,
+            comnames.ComName, species.Dangerous
+            FROM fishbase_complete.families, fishbase_complete.species, fishbase_complete.comnames, fishbase_complete.countref, fishbase_complete.country
+            WHERE countref.C_Code=country.C_Code
+            AND country.SpecCode=species.SpecCode
+            AND comnames.SpecCode=species.SpecCode
+            AND species.FamCode = families.FamCode
+            AND countref.PAESE="%country%"
+            AND species.DemersPelag="reef-associated"
+        </paramquery>
+        <parameter>
+            <paramname>country</paramname>
+            <paramvaluesquery>
+                SELECT countref.PAESE AS country FROM countref
+            </paramvaluesquery>
+        </parameter>
+    </query>
+
+    <query id="countrypelagic">
+        <paramquery>
+            SELECT families.FamilyOrder , families.Family, species.Genus,species.Species, country.Status,
+            comnames.ComName, species.Dangerous
+            FROM fishbase_complete.families, fishbase_complete.species, fishbase_complete.comnames, fishbase_complete.countref, fishbase_complete.country
+            WHERE countref.C_Code=country.C_Code
+            AND comnames.SpecCode=species.SpecCode
+            AND country.SpecCode=species.SpecCode
+            AND species.FamCode = families.FamCode
+            AND countref.PAESE="%country%"
+            AND species.DemersPelag="pelagic"
+        </paramquery>
+        <parameter>
+            <paramname>country</paramname>
+            <paramvaluesquery>
+                SELECT countref.PAESE AS country FROM countref
+            </paramvaluesquery>
+        </parameter>
+    </query>
+
+    <query id="countrygamefish">
+        <paramquery>
+            SELECT families.Family, families.FamilyOrder, species.Genus,species.Species,
+            country.Status, comnames.ComName,
+            species.GameFish, species.GameRef
+            FROM fishbase_complete.families, fishbase_complete.species, fishbase_complete.comnames, fishbase_complete.countref, fishbase_complete.country
+            WHERE country.C_Code=countref.C_Code
+            AND species.FamCode = families.FamCode AND countref.PAESE="%country%"
+            AND country.SpecCode=species.SpecCode AND comnames.SpecCode=species.SpecCode
+            AND country.Game=1
+        </paramquery>
+        <parameter>
+            <paramname>country</paramname>
+            <paramvaluesquery>
+                SELECT countref.PAESE AS country FROM countref
+            </paramvaluesquery>
+        </parameter>
+    </query>
+
+    <query id="countrycommercial">
+        <paramquery>
+            SELECT families.FamilyOrder, families.Family, species.Genus, species.Species, country.Status,
+            comnames.ComName
+            FROM fishbase_complete.species, fishbase_complete.country, fishbase_complete.countref, fishbase_complete.families, fishbase_complete.comnames
+            WHERE country.C_Code=countref.C_Code
+            AND species.SpecCode=comnames.SpecCode
+            AND species.SpecCode=country.SpecCode
+            AND species.FamCode = families.FamCode
+            AND countref.PAESE="%country%"
+            AND country.Importance="minor commercial"
+        </paramquery>
+        <parameter>
+            <paramname>country</paramname>
+            <paramvaluesquery>
+                SELECT countref.PAESE AS country FROM countref
+            </paramvaluesquery>
+        </parameter>
+    </query>
+
+    <query id="countryusedforaquaculture">
+        <paramquery>
+            SELECT species.Genus, species.Species, country.Status, species.UsedforAquaculture
+            FROM fishbase_complete.species, fishbase_complete.country, fishbase_complete.countref
+            WHERE country.C_Code=countref.C_Code
+            AND species.SpecCode = country.SpecCode
+            AND countref.PAESE="%country%"
+            AND country.Aquaculture='commercial'
+        </paramquery>
+        <parameter>
+            <paramname>country</paramname>
+            <paramvaluesquery>
+                SELECT countref.PAESE AS country FROM countref
+            </paramvaluesquery>
+        </parameter>
+    </query>
+
+    <query id="countrypotentialuseforaquaculture">
+        <paramquery>
+            SELECT species.Genus, species.Species, country.Aquaculture, country.Status
+            FROM fishbase_complete.species, fishbase_complete.country, fishbase_complete.countref
+            WHERE species.SpecCode = country.SpecCode
+            AND country.C_Code=countref.C_Code AND countref.PAESE="%country%" AND
+            species.UsedforAquaculture='commercial'
+        </paramquery>
+        <parameter>
+            <paramname>country</paramname>
+            <paramvaluesquery>
+                SELECT countref.PAESE AS country FROM countref
+            </paramvaluesquery>
+        </parameter>
+    </query>
+
+    <query id="countryuseforaquariumtrade">
+        <paramquery>
+            SELECT species.Genus, species.Species, country.Status, species.Aquarium
+            FROM fishbase_complete.species, fishbase_complete.country, fishbase_complete.countref
+            WHERE species.SpecCode = country.SpecCode
+            AND country.C_Code=countref.C_Code AND countref.PAESE="%country%"
+            AND country.LiveExport='ornamental'
+        </paramquery>
+        <parameter>
+            <paramname>country</paramname>
+            <paramvaluesquery>
+                SELECT countref.PAESE AS country FROM countref
+            </paramvaluesquery>
+        </parameter>
+    </query>
+
+</queries>
