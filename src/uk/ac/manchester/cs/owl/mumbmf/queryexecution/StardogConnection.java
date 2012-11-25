@@ -120,7 +120,7 @@ public class StardogConnection implements ServerConnection {
         try {
             while (aResult.hasNext()) {
                 String next = aResult.next().toString();
-                System.out.println(next);
+//                System.out.println(next);
                 count++;
             }
         } catch (QueryEvaluationException e) {
