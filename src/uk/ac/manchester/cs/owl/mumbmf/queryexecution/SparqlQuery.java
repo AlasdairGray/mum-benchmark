@@ -26,6 +26,7 @@ public class SparqlQuery {
                     urlString += delim + "default-graph-uri=" + defaultGraph;
             }
 
+            System.out.println(urlString);
             URL url = new URL(urlString);
             conn = (HttpURLConnection) url.openConnection();
 
