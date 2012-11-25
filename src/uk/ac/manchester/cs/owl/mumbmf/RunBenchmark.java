@@ -59,6 +59,8 @@ public class RunBenchmark {
                 paramList.add(getParams("obda", params[i++ + 1]));
             } else if (params[i].equals("-sql")) {
                 paramList.add(getParams("sql", params[i++ + 1]));
+            } else if (params[i].equals("-stardog")) {
+                paramList.add(getParams("stardog", params[i++ + 1]));
             } else if (params[i].equals("-sparql")) {
                 paramList.add(getParams("sparql", params[i++ + 1]));
             } else if (params[i].equals("-genargs")) {
@@ -83,6 +85,9 @@ public class RunBenchmark {
             for (int j = 0; j < querySets; j++) {
                 runMultiQueryGeneration(genargs);
                 for (List<String> p : paramList) {
+                    for (String s : p) {
+                        System.out.println(s);
+                    }
                     runBenchmark(p.toArray(new String[p.size()]));
                 }
 
@@ -100,7 +105,7 @@ public class RunBenchmark {
      * @return
      */
     private static List<String> getParams(String type, String args) {
-        String arglist = args.substring(0, args.length());
+        String arglist = args.substring(1, args.length() - 1);
         List<String> paramList = new ArrayList<String>();
         paramList.add("-type");
         paramList.add(type);
@@ -126,6 +131,7 @@ public class RunBenchmark {
         String queryOutputDir = "";
         String obdaTemplate = "";
         String sparqlTemplate = "";
+        String stardogTemplate = "";
         String sqlTemplate = "";
         String qmFile = "";
         String ignoreFile = "";
@@ -134,6 +140,7 @@ public class RunBenchmark {
         SqlConnectionParameters sqlConn = new SqlConnectionParameters();
         SparqlConnectionParameters sparqlConn = new SparqlConnectionParameters();
         ObdaConnectionParameters obdaConn = new ObdaConnectionParameters();
+        StardogConnectionParameters stardogConn = new StardogConnectionParameters();
 
         int i = 0;
         while (i < params.length) {
@@ -165,13 +172,22 @@ public class RunBenchmark {
                 qmFile = params[i++ + 1];
             } else if (params[i].equals("-igfile")) {
                 ignoreFile = params[i++ + 1];
+            } else if (params[i].equals("-stardogdb")) {
+                stardogConn.dbName = params[i++ + 1];
+            } else if (params[i].equals("-stardogurl")) {
+                stardogConn.dbUrl = params[i++ + 1];
+            } else if (params[i].equals("-stardoglogin")) {
+                stardogConn.login = params[i++ + 1];
+            } else if (params[i].equals("-stardogpw")) {
+                stardogConn.password = params[i++ + 1];
             }
             i++;
         }
 
 
 //        if no connection parameters are given, exit
-        if (sqlConn.dbServer.equals("") && sparqlConn.sparqlEndpoint.equals("") && obdaConn.obdaFile.equals("")) {
+        if (sqlConn.dbServer.equals("") && sparqlConn.sparqlEndpoint.equals("")
+                && obdaConn.obdaFile.equals("") && stardogConn.dbUrl.equals("")) {
             UsageInfo.printUiUsage();
             System.exit(1);
         }
@@ -181,6 +197,7 @@ public class RunBenchmark {
         queryTemplates.put("obda", obdaTemplate);
         queryTemplates.put("sql", sqlTemplate);
         queryTemplates.put("sparql", sparqlTemplate);
+        queryTemplates.put("stardog", stardogTemplate);
 
         QueryGenerator qg = null;
 

@@ -1,5 +1,0 @@
-
-            SELECT species.Author, species.Species, species.Genus
-            FROM species, families
-            WHERE species.FamCode=families.FamCode AND families.Family="Triacanthodidae"
-        

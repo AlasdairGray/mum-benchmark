@@ -1,6 +1,0 @@
-
-            SELECT country.Status, country.Freshwater, country.Saltwater, country.Brackish, countref.Factbook
-            FROM country, countref, species
-            WHERE country.C_Code=countref.C_Code AND country.SpecCode=species.SpecCode AND species.Genus="Etrumeus" AND
-            species.Species="micropus" AND countref.PAESE="Rodriguez"
-        

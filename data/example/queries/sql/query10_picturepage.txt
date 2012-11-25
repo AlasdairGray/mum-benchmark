@@ -1,5 +1,0 @@
-
-            SELECT species.Genus, species.Species, picturesmain.AuthName, picturesmain.LifeStage
-            FROM fbapp.species, fbapp.picturesmain
-            WHERE species.SpecCode = picturesmain.SpecCode AND picturesmain.PicName="Opsol_u1.jpg"
-        

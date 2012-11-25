@@ -35,11 +35,14 @@ public class ObdaConnection implements ServerConnection {
 
     private OWLStatement statement;
     private OWLConnection conn;
+    private OWLResultSet rs;
+
 
     private int timeout;
 
     private OWLOntology ontology;
-    private OWLResultSet rs;
+
+
     private QuestOWL reasoner;
 
     //initialize the data factory:

@@ -1,8 +1,0 @@
-
-             SELECT  species.Genus, species.Species, country.Status, species.UsedforAquaculture
-             FROM fbapp.species, fbapp.country, fbapp.countref
-             WHERE country.C_Code=countref.C_Code
-             AND species.SpecCode = country.SpecCode 
-             AND countref.PAESE="Venezuela"
-             AND country.Aquaculture='commercial'    
-        

@@ -1,5 +1,0 @@
-
-            SELECT   species.Author, species.Genus, families.Family
-            FROM species, families
-            WHERE species.FamCode=families.FamCode AND species.Species="multidens"
-        
