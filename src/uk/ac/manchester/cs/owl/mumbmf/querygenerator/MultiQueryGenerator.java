@@ -243,17 +243,18 @@ public class MultiQueryGenerator {
         File queryOut = new File(outputDir + "/" + currentQueryType);
         if (!queryOut.exists()) {
             queryOut.mkdirs();
+        }
 
 //            copy the ignore file and querymix file
-            File qFile = new File(qmFile);
-            File qFileCopy = new File(queryOut + "/" + qFile.getName());
-            Util.copyFile(qFile, qFileCopy);
+        File qFile = new File(qmFile);
+        File qFileCopy = new File(queryOut + "/" + qFile.getName());
+        Util.copyFile(qFile, qFileCopy);
 
-            File iFile = new File(ignoreFile);
-            if (iFile.exists()) {
-                File iFileCopy = new File(queryOut + "/" + iFile.getName());
-                Util.copyFile(iFile, iFileCopy);
-            }
+        File iFile = new File(ignoreFile);
+        if (iFile.exists()) {
+            File iFileCopy = new File(queryOut + "/" + iFile.getName());
+            Util.copyFile(iFile, iFileCopy);
+
         }
 
     }

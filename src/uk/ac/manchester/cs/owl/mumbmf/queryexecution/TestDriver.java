@@ -424,7 +424,7 @@ public class TestDriver {
                 if (ignoreQueries[nextQuery.getNr() - 1])
                     queryMix.setCurrent(0, -1.0);
                 else {
-                    System.out.println("  Executing query " + nextQuery.getNr());
+                    System.out.println("Executing query " + nextQuery.getNr());
                     server.executeQuery(nextQuery, nextQuery.getQueryType());
                 }
             }
