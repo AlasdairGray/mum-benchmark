@@ -43,15 +43,15 @@ public class StardogConnection implements ServerConnection {
     public StardogConnection(StardogConnectionParameters params, int timeout) {
         this.timeout = timeout;
         this.connparams = params;
-        try {
-            this.aConn = ConnectionConfiguration
-                        .to(connparams.dbName)            // the name of the db to connect to
-                        .credentials(connparams.login, connparams.password)              // credentials to use while connecting
-                        .url(connparams.dbUrl)
-                        .connect();
-        } catch (StardogException e) {
-            e.printStackTrace();
-        }
+//        try {
+//            this.aConn = ConnectionConfiguration
+//                        .to(connparams.dbName)            // the name of the db to connect to
+//                        .credentials(connparams.login, connparams.password)              // credentials to use while connecting
+//                        .url(connparams.dbUrl)
+//                        .connect();
+//        } catch (StardogException e) {
+//            e.printStackTrace();
+//        }
     }
 
 
@@ -74,11 +74,11 @@ public class StardogConnection implements ServerConnection {
 
         long start = 0, stop = 0;
         try {
-//            aConn = ConnectionConfiguration
-//                    .to(connection.dbName)            // the name of the db to connect to
-//                    .credentials(connection.login, connection.password)              // credentials to use while connecting
-//                    .url(connection.dbUrl)
-//                    .connect();
+            this.aConn = ConnectionConfiguration
+                    .to(connparams.dbName)            // the name of the db to connect to
+                    .credentials(connparams.login, connparams.password)              // credentials to use while connecting
+                    .url(connparams.dbUrl)
+                    .connect();
             qe = aConn.query(queryString);
             start = System.nanoTime();
             aResult = qe.executeSelect();
