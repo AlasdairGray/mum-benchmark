@@ -34,6 +34,7 @@ public class StardogConnection implements ServerConnection {
     private StardogConnectionParameters connection;
     private static Logger logger = Logger.getLogger(SparqlConnection.class);
     private int timeout;
+    private Connection aConn = null;
 
     /**
      * @param timeout query timeout
@@ -41,6 +42,15 @@ public class StardogConnection implements ServerConnection {
     public StardogConnection(StardogConnectionParameters params, int timeout) {
         this.timeout = timeout;
         this.connection = params;
+        try {
+            this.aConn = ConnectionConfiguration
+                        .to(connection.dbName)            // the name of the db to connect to
+                        .credentials(connection.login, connection.password)              // credentials to use while connecting
+                        .url(connection.dbUrl)
+                        .connect();
+        } catch (StardogException e) {
+            e.printStackTrace();
+        }
     }
 
 
@@ -65,11 +75,11 @@ public class StardogConnection implements ServerConnection {
 
         long start = 0, stop = 0;
         try {
-            aConn = ConnectionConfiguration
-                    .to(connection.dbName)            // the name of the db to connect to
-                    .credentials(connection.login, connection.password)              // credentials to use while connecting
-                    .url(connection.dbUrl)
-                    .connect();
+//            aConn = ConnectionConfiguration
+//                    .to(connection.dbName)            // the name of the db to connect to
+//                    .credentials(connection.login, connection.password)              // credentials to use while connecting
+//                    .url(connection.dbUrl)
+//                    .connect();
             qe = aConn.query(queryString);
             start = System.nanoTime();
             aResult = qe.executeSelect();
@@ -101,13 +111,7 @@ public class StardogConnection implements ServerConnection {
         timeInSeconds = diff / 1000000000;
 
         queryMix.setCurrent(resultCount, timeInSeconds);
-        try {
-            if (aConn != null) {
-                aConn.close();
-            }
-        } catch (StardogException e) {
-            e.printStackTrace();
-        }
+
     }
 
 

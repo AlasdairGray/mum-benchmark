@@ -67,6 +67,7 @@ public class SparqlConnection implements ServerConnection {
         else
             qe = new SparqlQuery(sparqlEndpoint, queryString, queryType, defaultGraph, timeout);
         int queryMixRun = queryMix.getRun() + 1;
+
         long start = System.nanoTime();
 
         InputStream is = qe.exec();
