@@ -52,9 +52,9 @@ public class SparqlQuery {
     }
 
     private boolean addQueryLnParameter(String sparqlEndpoint) {
-        if (sparqlEndpoint.contains("openrdf")) {
-            return true;
-        }
+//        if (sparqlEndpoint.contains("openrdf")) {
+//            return true;
+//        }
         return false;
     }
 
