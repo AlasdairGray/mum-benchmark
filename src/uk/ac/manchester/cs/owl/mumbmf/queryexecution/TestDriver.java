@@ -870,7 +870,7 @@ public class TestDriver {
                     usecaseFile = new File(args[i++ + 1]);
                 } else if (args[i].equals("-uqp")) {
                     sparqlUpdateQueryParameter = args[i++ + 1];
-                } else if (args[i].equals("-sparqlendpoint")) {
+                } else if (args[i].contains("sparqlendpoint")) {
                     sparqlEndpoint = args[i++ + 1];
                 } else if (args[i].equals("-stardogdb")) {
                     stardogDb = args[i++ + 1];
