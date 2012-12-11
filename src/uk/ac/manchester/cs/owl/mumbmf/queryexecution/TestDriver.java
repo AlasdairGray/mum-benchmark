@@ -75,7 +75,7 @@ public class TestDriver {
     protected boolean rampup = false;
 
     public TestDriver(String[] args) {
-        System.out.print("\n* Reading Test Driver data... ");
+        System.out.println("\n* Reading Test Driver data...");
 
         processProgramParameters(args);
 
